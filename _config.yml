@@ -1,11 +1,11 @@
 # Site settings
-title: Freelancer
-email: your-email@domain.com
-url: https://github.com/jeromelachaud/freelancer-theme
-description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
+title: HIKARI
+email: hikari@ita.br
+url: https://hikari-edu.github.io
+description: "Hunting Integrado: Kompetição e Aprendizado em Resposta a Incidentes"
 keywords: "your keywords, separated by commas"
-skills: "Web Developer - Graphic Artist - User Experience Designer"
-meta_author: LastName FirstName
+skills: "Plataforma para competição e treinamento em Threat Hunting e Resposta a Incidentes"
+meta_author: Lourenço Alves Pereira Júnior
 
 # Google webmaster tools
 google_verify:
@@ -32,9 +32,9 @@ color:
 
 # Footer settings
 footer:
-  copyright: Dr. Henry Jekyll
-  location: Location
-  social: Around the Web
+  copyright: ITA 
+  location: São José dos Campos, SP
+  social: \@hikari 
   credits: Credits
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
