@@ -3,7 +3,7 @@ title: HIKARI
 email: hikari@ita.br
 url: https://hikari-edu.github.io
 description: "Hunting Integrado: Kompetição e Aprendizado em Resposta a Incidentes"
-keywords: "cibersegurança, threat hunting, resposta a incidentes, treinamento"
+keywords: "your keywords, separated by commas"
 skills: "Plataforma para competição e treinamento em Threat Hunting e Resposta a Incidentes"
 meta_author: Lourenço Alves Pereira Júnior
 
@@ -35,25 +35,28 @@ footer:
   copyright: ITA 
   location: São José dos Campos, SP
   social: \@hikari 
-  credits: Desenvolvido pela equipe do GT-Hikari do Instituto Tecnológico de Aeronáutica (ITA), como parte do programa Hackers do Bem da RNP.
+  credits: Credits
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
+  - title: twitter
+    url: http://twitter.com/jekyllrb
+  - title: facebook
+    url:
+  - title: stack-overflow
+    url: http://stackoverflow.com/questions/tagged/jekyll
+  - title: bitbucket
+    url: http://bitbucket.org/jekyll
   - title: github
-    url: https://github.com/hikari-edu
-  - title: linkedin
-    url: https://www.linkedin.com/in/lourenco-pereira/
-  - title: globe
-    url: http://comp.ita.br/~ljr
+    url: http://github.com/jekyll
 
 # Postal address (add as many lines as necessary)
 address:
-  - line: Praça Marechal Eduardo Gomes, 50
-  - line: Vila das Acácias, 12228-900
-  - line: São José dos Campos/SP - Brasil
+  - line: 3481 Melrose Place
+  - line: Beverly Hills, CA 90210
 
 # Credits content
-credits: 'Desenvolvido pela equipe do GT-Hikari do Instituto Tecnológico de Aeronáutica (ITA), como parte do programa Hackers do Bem da RNP.'
+credits: 'Freelancer is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.'
 
 # Build settings
 markdown: kramdown

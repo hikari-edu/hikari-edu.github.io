@@ -43,15 +43,15 @@ GEM
       logger
     faraday-net_http (3.1.0)
       net-http
-    ffi (1.17.0-aarch64-linux-gnu)
+    ffi (1.17.0-aarch64-linux)
     ffi (1.17.0-aarch64-linux-musl)
-    ffi (1.17.0-arm-linux-gnu)
+    ffi (1.17.0-arm-linux)
     ffi (1.17.0-arm-linux-musl)
     ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86-linux-gnu)
+    ffi (1.17.0-x86-linux)
     ffi (1.17.0-x86-linux-musl)
     ffi (1.17.0-x86_64-darwin)
-    ffi (1.17.0-x86_64-linux-gnu)
+    ffi (1.17.0-x86_64-linux)
     ffi (1.17.0-x86_64-linux-musl)
     forwardable-extended (2.6.0)
     gemoji (4.1.0)
@@ -163,23 +163,23 @@ GEM
       strscan
     rouge (4.3.0)
     safe_yaml (1.0.5)
-    sass-embedded (1.77.5-aarch64-linux-gnu)
+    sass-embedded (1.77.5-aarch64-linux)
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.77.5-aarch64-linux-musl)
       google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.77.5-arm-linux-gnueabihf)
+    sass-embedded (1.77.5-arm-linux)
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.77.5-arm-linux-musleabihf)
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.77.5-arm64-darwin)
       google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.77.5-x86-linux-gnu)
+    sass-embedded (1.77.5-x86-linux)
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.77.5-x86-linux-musl)
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.77.5-x86_64-darwin)
       google-protobuf (>= 3.25, < 5.0)
-    sass-embedded (1.77.5-x86_64-linux-gnu)
+    sass-embedded (1.77.5-x86_64-linux)
       google-protobuf (>= 3.25, < 5.0)
     sass-embedded (1.77.5-x86_64-linux-musl)
       google-protobuf (>= 3.25, < 5.0)
@@ -200,20 +200,20 @@ GEM
 
 PLATFORMS
   aarch64-linux
-  aarch64-linux-gnu
+  aarch64-linux
   aarch64-linux-musl
   arm-linux
-  arm-linux-gnu
-  arm-linux-gnueabihf
+  arm-linux
+  arm-linux
   arm-linux-musl
   arm-linux-musleabihf
   arm64-darwin
   x86-linux
-  x86-linux-gnu
+  x86-linux
   x86-linux-musl
   x86_64-darwin
   x86_64-linux
-  x86_64-linux-gnu
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES

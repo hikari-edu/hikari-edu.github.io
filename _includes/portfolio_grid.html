@@ -1,25 +1,46 @@
-<!-- Portfolio Grid Section -->
-<section id="portfolio">
-  <div class="container portfolio-flex-grid">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2>Portfolio</h2>
-        <hr class="star-primary">
+<!-- Recursos Section -->
+<section id="recursos" class="bg-light-gray">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-lg-12">
+        <h2 class="section-heading text-uppercase">Recursos</h2>
+        <hr class="samurai-divider">
+        <p class="text-muted">Explore os principais recursos oferecidos pelo HIKARI, projetados para capacitar profissionais de segurança cibernética.</p>
       </div>
     </div>
-    <div class="portfolio-flex-row">
-      {% for post in site.posts %}
-      <div class="portfolio-flex-item portfolio-item">
-        <a href="#portfolioModal-{{ post.modal-id }}" class="portfolio-link" data-toggle="modal">
-          <div class="caption">
-            <div class="caption-content">
-              <i class="fa fa-search-plus fa-3x"></i>
-            </div>
-          </div>
-          <img src="img/portfolio/{{ post.img }}" class="img-responsive" alt="{{ post.alt }}">
+    <div class="row text-center">
+      <!-- Análise de Logs -->
+      <div class="col-md-3 col-sm-6">
+        <a href="#portfolioModal-logs" class="portfolio-link" data-toggle="modal">
+          <img src="img/portfolio/log-collection.png" alt="Análise de Logs" class="img-responsive img-centered">
         </a>
+        <h4 class="service-heading">Análise de Logs</h4>
+        <p class="text-muted">Estude e investigue logs em tempo real.</p>
       </div>
-      {% endfor %}
+      <!-- Competição Baseada em Flags -->
+      <div class="col-md-3 col-sm-6">
+        <a href="#portfolioModal-flags" class="portfolio-link" data-toggle="modal">
+          <img src="img/portfolio/flags.png" alt="Competição Baseada em Flags" class="img-responsive img-centered">
+        </a>
+        <h4 class="service-heading">Competição Baseada em Flags</h4>
+        <p class="text-muted">Encontre flags escondidas em logs para avançar no desafio.</p>
+      </div>
+      <!-- Ambiente de Simulação Realista -->
+      <div class="col-md-3 col-sm-6">
+        <a href="#portfolioModal-simulation" class="portfolio-link" data-toggle="modal">
+          <img src="img/portfolio/simulation-environment.png" alt="Ambiente de Simulação Realista" class="img-responsive img-centered">
+        </a>
+        <h4 class="service-heading">Ambiente de Simulação Realista</h4>
+        <p class="text-muted">Vivencie um ambiente SOC autêntico e imersivo.</p>
+      </div>
+      <!-- Desafios Dinâmicos -->
+      <div class="col-md-3 col-sm-6">
+        <a href="#portfolioModal-dynamic" class="portfolio-link" data-toggle="modal">
+          <img src="img/portfolio/dynamic-challenges.png" alt="Desafios Dinâmicos" class="img-responsive img-centered">
+        </a>
+        <h4 class="service-heading">Desafios Dinâmicos</h4>
+        <p class="text-muted">Enfrente desafios que evoluem conforme seu progresso.</p>
+      </div>
     </div>
   </div>
 </section>
