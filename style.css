@@ -1,3 +1,171 @@
----
-layout: style
----
+/* ===== HIKARI – base moss/green palette ===== */
+:root{
+  --bg:#0b1020;
+  --bg-alt:#111734;
+  --fg:#e9edf7;
+  --muted:#a9b1c6;
+
+  /* Paleta verde-musgo + neon */
+  --moss-1:#2e4731;
+  --moss-2:#3d7a3c;
+  --moss-3:#6fb26d;
+  --neon:#00ff9a;
+
+  --card:#161d39;
+  --card-brd:#24305e;
+
+  /* halo sutil para imagens */
+  --ring: rgba(0,255,154,.18);
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;padding:0;background:var(--bg);color:var(--fg);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.5
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+/* Layout helpers */
+.container{width:min(1100px,92%);margin:0 auto}
+.section{padding:72px 0}
+.section.alt{background:var(--bg-alt)}
+.section-title{font-size:32px;margin:0 0 12px}
+.section-lead{color:var(--muted);margin:0 0 24px}
+.mt-2{margin-top:20px}
+.small{font-size:14px}
+.muted{color:var(--muted)}
+.link{color:var(--moss-3);text-decoration:none}
+.link:hover{text-decoration:underline}
+
+.grid{display:grid;gap:18px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:1fr 1fr}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:10;background:rgba(11,16,32,.75);backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid var(--card-brd)}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-logo{width:32px;height:32px;border-radius:8px}
+.brand-name{font-weight:800;letter-spacing:.5px}
+.top-links{display:flex;gap:10px}
+.icon-link{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;border:1px solid var(--card-brd);background:rgba(22,29,57,.6);text-decoration:none}
+.icon-link:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.icon-link svg{width:20px;height:20px;fill:var(--fg);opacity:.9}
+
+/* Hero */
+.hero{
+  padding:84px 0 48px;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(61,122,60,.35), transparent 60%),
+    radial-gradient(1200px 600px at 90% -10%, rgba(111,178,109,.25), transparent 60%),
+    linear-gradient(180deg, #0b1020 0%, #0b1020 100%);
+}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+.logo{width:96px;height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+.hero-title{font-size:54px;line-height:1.05;margin:6px 0 8px;letter-spacing:.4px}
+.hero-sub{font-size:18px;color:var(--fg);opacity:.95}
+.hero-ctas{display:flex;gap:12px;margin:18px 0 10px}
+.hero-meta{color:var(--muted);font-size:14px}
+
+/* Illustration — acabamento elegante e consistente */
+.ill{
+  display:block;
+  border-radius:16px;
+  border:1px solid var(--card-brd);
+  /* SOMBRA MAIS LIMPA (sem “anéis”/halo nas quinas) */
+  box-shadow: 0 14px 34px rgba(0,0,0,.28);
+  overflow:hidden;             /* garante quinas perfeitas */
+}
+
+/* Tamanhos iguais para sword e shield */
+.ill-fixed{
+  width:min(520px, 100%);
+  aspect-ratio: 3 / 4;         /* padroniza proporção vertical */
+  object-fit: cover;           /* preenche mantendo foco */
+}
+
+/* Neon discreto (só um brilho próximo ao objeto) */
+.sword-neon,
+.shield-neon{
+  filter:
+    drop-shadow(0 0 4px rgba(0,255,154,.45))
+    drop-shadow(0 0 10px rgba(0,255,154,.25));
+}
+
+/* (Se usada em algum lugar) mantém a mesma sombra das demais */
+.same-shadow{ box-shadow: 0 14px 34px rgba(0,0,0,.28); }
+
+/* Buttons */
+.btn{display:inline-block;padding:12px 18px;border-radius:999px;text-decoration:none;font-weight:700;border:1px solid transparent;transition:transform .12s ease, box-shadow .12s ease}
+.btn-primary{background:linear-gradient(90deg,var(--moss-2),var(--moss-3));color:#07140c}
+.btn-ghost{border-color:var(--card-brd);color:var(--fg);background:rgba(22,29,57,.6)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.25)}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--card-brd);border-radius:16px;padding:18px}
+.card h3{margin:4px 0 8px;font-size:18px}
+.card p{margin:0;color:var(--muted)}
+
+/* Figure / checklist */
+.figure{background:transparent;border:0;border-radius:16px;padding:0}
+.figure figcaption{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:10px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+  padding:6px 10px;
+  border-radius:8px;
+  background:rgba(0,0,0,.28);          /* faixa translúcida para legibilidade */
+  backdrop-filter: blur(2px) saturate(120%);
+  border:1px solid rgba(255,255,255,.06);
+}
+.checklist{list-style:none;padding-left:0;margin:0 0 14px}
+.checklist li{margin:10px 0;padding-left:26px;position:relative}
+.checklist li::before{content:"✔";position:absolute;left:0;top:0;color:var(--moss-3);}
+
+/* KPIs & Steps */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:12px 0 6px}
+.kpi{background:var(--card);border:1px solid var(--card-brd);border-radius:16px;padding:16px;text-align:center}
+.kpi-value{font-size:28px;font-weight:800}
+.kpi-label{color:var(--muted);margin-top:4px}
+
+.steps{counter-reset:step;list-style:none;padding-left:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.steps li{background:var(--card);border:1px solid var(--card-brd);border-radius:16px;padding:14px;position:relative;color:var(--muted)}
+.steps li strong{color:var(--fg)}
+.steps li::before{
+  counter-increment:step;content:counter(step);
+  position:absolute;top:-12px;left:-12px;width:32px;height:32px;border-radius:999px;
+  background:linear-gradient(90deg,var(--moss-2),var(--moss-3));color:#07140c;
+  display:grid;place-items:center;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,.25)
+}
+
+/* Publication */
+.pub{display:grid;grid-template-columns:1.5fr .5fr;gap:20px;align-items:center}
+.pub-actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap}
+
+/* Participações */
+.part-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 6px}
+.chip{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(22,29,57,.6);border:1px solid var(--card-brd);font-size:13px}
+
+/* Footer */
+.footer{padding:40px 0 0;border-top:1px solid var(--card-brd);background:#1a233f}
+.footer-grid{display:grid;grid-template-columns:1.2fr .9fr 1fr;gap:24px;align-items:start}
+.footer-col h4{margin:0 0 10px;font-size:18px}
+.footer-col p{margin:0;color:var(--muted)}
+.socials{display:flex;gap:10px;margin:8px 0 6px}
+.social{width:44px;height:44px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--card-brd);background:rgba(22,29,57,.6);text-decoration:none}
+.social svg{width:22px;height:22px;fill:#e9edf7;opacity:.95}
+.copy{margin-top:18px;padding:10px 0;text-align:center;color:var(--muted);background:#16203a;border-top:1px solid var(--card-brd)}
+
+/* Responsive */
+@media (max-width: 980px){
+  .hero-grid,.grid-2,.pub,.part-grid{grid-template-columns:1fr}
+  .grid-3,.kpis,.steps{grid-template-columns:1fr}
+  .hero{padding-top:64px}
+  .footer-grid{grid-template-columns:1fr}
+}

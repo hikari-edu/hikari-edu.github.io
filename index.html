@@ -1,3 +1,199 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HIKARI — Desafios Reais, Ameaças Ocultas</title>
+  <meta name="description" content="Plataforma Blue Team: CTF progressivo, ingestão de eventos reais via Kafka e investigação prática no Kibana." />
+  <link rel="icon" href="img/logo.png">
+  <link rel="stylesheet" href="style.css?v=12">
+</head>
+<body>
+
+  <!-- HEADER NAV -->
+  <nav class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="brand">
+        <img src="img/logo.png" alt="HIKARI Logo" class="brand-logo" />
+        <span class="brand-name">HIKARI</span>
+      </a>
+      <div class="top-links">
+        <a href="#arquitetura" class="icon-link" title="Arquitetura" aria-label="Arquitetura">
+          <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
+        </a>
+        <a href="#como-funciona" class="icon-link" title="Como funciona" aria-label="Como funciona">
+          <svg viewBox="0 0 24 24"><path d="M7 4h10v2H7V4zm0 7h10v2H7v-2zm0 7h10v2H7v-2z"/></svg>
+        </a>
+        <a href="#publicacao" class="icon-link" title="Publicação" aria-label="Publicação">
+          <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5"/></svg>
+        </a>
+        <a href="#resultados" class="icon-link" title="Resultados" aria-label="Resultados (Paper)">
+          <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
+        </a>
+        <a href="#parcerias" class="icon-link" title="Participações" aria-label="Participações Institucionais">
+          <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 9v-1a6 6 0 0 1 12 0v1"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <img src="img/logo.png" alt="HIKARI Logo" class="logo">
+        <h1 class="hero-title">HIKARI</h1>
+        <p class="hero-sub"><strong>Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado.</strong></p>
+        <p class="hero-sub">
+          Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>eventos reais injetados ao vivo</em> e
+          <em>investigações práticas no Kibana</em>.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#porque">Explorar a Plataforma</a>
+          <a class="btn btn-ghost" href="#publicacao">Ler o Paper (SBSeg 2025)</a>
+        </div>
+        <p class="hero-meta">
+          Resultados acadêmicos reportados no paper (três execuções) • métricas claras e reprodutíveis
+        </p>
+      </div>
+      <div class="hero-ill">
+        <img src="img/sword.png" alt="Espada HIKARI" class="ill sword-neon ill-fixed">
+      </div>
+    </div>
+  </header>
+
+  <!-- POR QUE -->
+  <section id="porque" class="section">
+    <div class="container">
+      <h2 class="section-title">Por que o HIKARI?</h2>
+      <p class="section-lead">
+        <strong>Três pilares, um resultado:</strong> ingestão de logs reais, progressão gamificada por fases e investigação no Kibana — como em um SOC de verdade.
+      </p>
+      <div class="grid grid-3">
+        <div class="card"><h3>Eventos reais, não sintéticos</h3><p>Logs anonimizados injetados por <strong>Kafka</strong> e processados em <strong>Logstash/Elasticsearch</strong>.</p></div>
+        <div class="card"><h3>Progressão que pressiona</h3><p><strong>CTFd + plugin</strong> libera evidências por fase — como no dia a dia do SOC.</p></div>
+        <div class="card"><h3>Ferramentas de mercado</h3><p>Investigue no <strong>Kibana</strong>, com KQL e dashboards, do jeito que a indústria usa.</p></div>
+      </div>
+      <div class="grid grid-3 mt-2">
+        <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: detecção, correlação e resposta — ponta a ponta.</p></div>
+        <div class="card"><h3>IaC e escala</h3><p>Ambiente dockerizado, <strong>instância por equipe</strong> e provisionamento automático.</p></div>
+        <div class="card"><h3>Anonimização</h3><p>Preserva valor analítico sem expor dados sensíveis.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARQUITETURA -->
+  <section id="arquitetura" class="section alt">
+    <div class="container grid grid-2">
+      <div>
+        <h2 class="section-title">Arquitetura</h2>
+        <ul class="checklist">
+          <li><strong>CTFd + Plugin</strong>: gerencia desafios, flags e progressão.</li>
+          <li><strong>Kafka → Logstash → Elasticsearch</strong>: pipeline de ingestão e indexação.</li>
+          <li><strong>Kibana</strong>: interface de investigação e KQL.</li>
+          <li><strong>Contêineres</strong>: isolamento e paralelismo por equipe.</li>
+          <li><strong>Anonimização</strong>: preserva valor analítico sem expor dados sensíveis.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#como-funciona">Como funciona</a>
+          <a class="btn btn-ghost" href="#publicacao">Publicação</a>
+        </div>
+      </div>
+      <div class="figure">
+        <img src="img/shield.png" alt="Escudo/Arquitetura HIKARI" class="ill shield-neon ill-fixed">
+        <figcaption>Fluxo: liberação de desafio → injeção de logs → análise no Kibana.</figcaption>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="section">
+    <div class="container">
+      <h2 class="section-title">Como funciona (4 etapas)</h2>
+      <ol class="steps">
+        <li><strong>Cadastro & Setup</strong> — provisionamento automático por equipe.</li>
+        <li><strong>Desafios CTF</strong> — CTFd libera fases conforme flags.</li>
+        <li><strong>Injeção de Logs</strong> — Kafka → Logstash → Elasticsearch.</li>
+        <li><strong>Investigação</strong> — análise e correlação no Kibana.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- PUBLICAÇÃO -->
+  <section id="publicacao" class="section alt">
+    <div class="container pub">
+      <div class="pub-meta">
+        <h2 class="section-title">Publicação</h2>
+        <h3>HIKARI — Desafios Reais, Ameaças Ocultas</h3>
+        <p>SBSeg 2025 • Instituto Tecnológico de Aeronáutica (ITA)</p>
+      </div>
+      <div class="pub-actions">
+        <a class="btn btn-primary" href="assets/papers/sbseg2025_hikari.pdf" target="_blank" rel="noopener">Ler o paper (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section id="resultados" class="section">
+    <div class="container">
+      <h2 class="section-title">Resultados com Usuários (Paper)</h2>
+      <p class="section-lead">Três execuções educacionais reportadas no artigo (46 respostas). Evidências quantitativas e qualitativas.</p>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-value">&gt; 4,2/5</div><div class="kpi-label">Eficácia no aprendizado</div></div>
+        <div class="kpi"><div class="kpi-value">85%–90%</div><div class="kpi-label">Realismo e utilidade</div></div>
+        <div class="kpi"><div class="kpi-value">40+</div><div class="kpi-label">Participantes</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTICIPAÇÕES -->
+  <section id="parcerias" class="section alt">
+    <div class="container">
+      <h2 class="section-title">Participações Institucionais</h2>
+      <p class="section-lead">
+        O HIKARI foi selecionado como plataforma oficial do <strong>CTF no RESEG2025</strong>,
+        evento da <strong>Anatel</strong> e da <strong>União Internacional de Telecomunicações (ITU)</strong>, reunindo operadoras,
+        academia e governo para fortalecer a resiliência em cibersegurança no setor de telecomunicações.
+      </p>
+      <div class="pub-actions">
+        <a class="btn btn-primary" href="https://www.gov.br/anatel/pt-br/assuntos/noticias/anatel-abre-1a-edicao-do-redes-seguras-destacando-cooperacao-e-resiliencia-em-ciberseguranca" target="_blank" rel="noopener">Saiba mais</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>Localização</h4>
+        <p>Praça Marechal Eduardo Gomes, 50<br>
+        Vila das Acácias, 12228-900<br>
+        São José dos Campos/SP – Brasil<br>
+        <a href="https://www.ita.br" target="_blank" rel="noopener" class="link">www.ita.br</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato & Redes</h4>
+        <div class="socials">
+          <a href="mailto:ljr@ita.br" class="social" aria-label="E-mail">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="https://github.com/c2dc/hikari" target="_blank" rel="noopener" class="social" aria-label="GitHub">
+            <svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61-.55-1.37-1.35-1.73-1.35-1.73-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.25 1.86 1.25 1.08 1.86 2.83 1.32 3.52 1.01.11-.79.42-1.32.76-1.62-2.67-.3-5.48-1.34-5.48-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.64.25 2.86.12 3.16.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.65-5.49 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58A12 12 0 0 0 12 .5z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/lourenco-pereira/" target="_blank" rel="noopener" class="social" aria-label="LinkedIn Prof. Lourenço">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8 8.5h3.8v2h.05c.53-1 1.84-2 3.8-2 4.06 0 4.8 2.67 4.8 6.14V23h-4v-6.6c0-1.58-.02-3.62-2.2-3.62-2.2 0-2.54 1.72-2.54 3.5V23H8V8.5z"/></svg>
+          </a>
+          <a href="https://ljr.github.io/" target="_blank" rel="noopener" class="social" aria-label="Website Prof. Lourenço">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2zm0 18c-3.31 0-6-3.58-6-8s2.69-8 6-8 6 3.58 6 8-2.69 8-6 8zm0-14c-2.21 0-4 2.69-4 6s1.79 6 4 6 4-2.69 4-6-1.79-6-4-6z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Créditos</h4>
+        <p>Desenvolvido pela equipe do GT-Hikari do Instituto Tecnológico de Aeronáutica (ITA).</p>
+      </div>
+    </div>
+    <div class="copy">Copyright © ITA 2025</div>
+  </footer>
+</body>
+</html>
