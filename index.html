@@ -14,9 +14,12 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- Preload das ilustrações -->
   <link rel="preload" as="image" href="img/sword.png" imagesrcset="img/sword.png 1x">
   <link rel="preload" as="image" href="img/shield.png" imagesrcset="img/shield.png 1x">
-  <link rel="stylesheet" href="style.css?v=15"/>
+
+  <!-- Seu CSS principal -->
+  <link rel="stylesheet" href="style.css?v=16"/>
 
   <style>
     /* =========================
@@ -86,6 +89,7 @@
     .topbar-inner{ display:flex; align-items:center; justify-content:space-between; padding:10px 0; }
     .brand{ display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px; }
     .brand-logo{ width:28px; height:28px; border-radius:8px; }
+    .brand-name{ font-size:1.05rem; }
     .top-links{ display:flex; align-items:center; gap:.25rem; }
     .icon-link{
       display:inline-grid; place-items:center; width:40px; height:40px;
@@ -95,6 +99,7 @@
     .icon-link svg{ width:22px; height:22px; fill:currentColor; opacity:.9; }
     .icon-link:hover{ border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.04); transform: translateY(-1px); }
     @media (max-width: 860px){
+      .brand-name{ display:none; } /* compacta no iPhone como na versão antiga */
       .top-links{ gap:.1rem; }
       .icon-link{ width:36px; height:36px; }
       .icon-link svg{ width:20px; height:20px; }
@@ -111,8 +116,8 @@
     .hero-meta{ opacity:.8; font-size:.95rem; margin-top:10px; }
 
     /* =========================
-       Moldura Neon (sword/shield)
-       - cantos arredondados + brilho no Safari/iPhone
+       Moldura Neon (Desktop/Android)
+       + fallback seguro no iPhone
     ==========================*/
     .neon-frame{
       position:relative; width: var(--ill-width); aspect-ratio: var(--ill-ratio);
@@ -124,6 +129,7 @@
     .neon-frame img{
       width:100%; height:100%; object-fit:cover; display:block; border-radius: inherit;
     }
+    /* Borda neon elegante */
     .neon-frame::before{
       content:""; position:absolute; inset:0; border-radius: inherit; pointer-events:none;
       background: linear-gradient(135deg, rgba(34,197,94,.9), rgba(0,229,255,.95) 55%, rgba(34,197,94,.9) 100%);
@@ -138,6 +144,32 @@
       background: radial-gradient(260px 220px at 88% 12%, rgba(0,229,255,.18), transparent 65%),
                   radial-gradient(420px 280px at 12% 86%, rgba(34,197,94,.18), transparent 70%);
       filter: blur(6px);
+    }
+
+    /* ---- Fallback “como antes” no iPhone / telas pequenas ----
+       - Remove a borda ::before (que pode serrilhar no iOS)
+       - Aplica glow com drop-shadow direto na imagem
+    */
+    @media (max-width: 980px){
+      .neon-frame::before{ display:none; }
+      .neon-frame img{
+        filter:
+          drop-shadow(0 0 10px #39ff14)
+          drop-shadow(0 0 22px #39ff14)
+          drop-shadow(0 0 10px #00e5ff)
+          drop-shadow(0 0 22px #00e5ff);
+      }
+    }
+    /* Sinalização extra para Safari/iOS (a maioria dos iPhones bate aqui) */
+    @supports (-webkit-touch-callout: none) {
+      .neon-frame::before{ display:none; }
+      .neon-frame img{
+        filter:
+          drop-shadow(0 0 10px #39ff14)
+          drop-shadow(0 0 22px #39ff14)
+          drop-shadow(0 0 10px #00e5ff)
+          drop-shadow(0 0 22px #00e5ff);
+      }
     }
 
     /* =========================
@@ -267,9 +299,9 @@
         <p class="hero-meta">Resultados acadêmicos reportados (3 execuções) • métricas claras e reprodutíveis</p>
       </div>
 
-      <!-- Ilustração com moldura neon -->
-      <figure class="neon-frame">
-        <img src="img/sword.png" alt="Espada HIKARI com brilho neon verde">
+      <!-- Ilustração com moldura neon (com fallback iPhone automático) -->
+      <figure class="neon-frame" aria-label="Arte HIKARI">
+        <img src="img/sword.png" alt="Espada HIKARI com brilho neon">
       </figure>
     </div>
   </header>
@@ -312,8 +344,8 @@
         </div>
       </div>
 
-      <figure class="neon-frame">
-        <img src="img/shield.png" alt="Escudo HIKARI com borda neon ciano/verde">
+      <figure class="neon-frame" aria-label="Arquitetura HIKARI">
+        <img src="img/shield.png" alt="Escudo HIKARI com brilho neon">
       </figure>
     </div>
   </section>
