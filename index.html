@@ -8,6 +8,90 @@
   <link rel="icon" href="img/logo.png">
   <link rel="stylesheet" href="style.css?v=12">
 
+  <!-- Padronização visual das ilustrações (hero/arquitetura) + bloco horizontal (flow) -->
+  <style>
+    :root{
+      /* 80% do tamanho anterior (hero/arquitetura) */
+      --ill-width: clamp(256px, 28.8vw, 448px);
+      --ill-ratio: 3 / 4;
+      --ill-radius: 24px;
+      --ill-shadow: 0 24px 60px rgba(0,0,0,.35), 0 6px 20px rgba(0,0,0,.25);
+
+      /* bloco horizontal (flow) — responsivo e sem corte */
+      --wide-max: 1040px;     /* limite desktop */
+      --wide-vw: 78vw;        /* limite relativo à viewport */
+      --wide-radius: 20px;
+      --wide-gap: 12px;       /* respiro legenda */
+      --wide-bg: rgba(255,255,255,0.02); /* fundo sutil só para as bordas arredondadas */
+    }
+
+    /* contêineres de imagem — idênticos para hero e arquitetura */
+    .hero-ill,
+    .figure{
+      width: var(--ill-width);
+      aspect-ratio: var(--ill-ratio);
+      border-radius: var(--ill-radius);
+      box-shadow: var(--ill-shadow);
+      background: transparent;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* imagem ocupa 100% do container (sem moldura) */
+    .hero-ill > img,
+    .figure > img,
+    img.ill,
+    img.sword-neon,
+    img.shield-neon,
+    img.ill-fixed{
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block;
+      border-radius: var(--ill-radius);
+      background: transparent;
+    }
+
+    /* Bloco "Dinâmica do Jogo" (imagem horizontal + legenda) — sem cortes */
+    .wide-figure{
+      width: min(var(--wide-vw), var(--wide-max));
+      /* sem aspect-ratio: usamos a proporção nativa da imagem */
+      margin: 36px auto 8px;
+      border-radius: var(--wide-radius);
+      overflow: hidden;
+      box-shadow: var(--ill-shadow);
+      background: var(--wide-bg);
+    }
+    .wide-figure > img{
+      display: block;
+      width: 100%;
+      height: auto;           /* preserva a proporção real da imagem */
+      object-fit: contain;    /* garante que nada será cortado */
+      border-radius: var(--wide-radius);
+    }
+    .figcap{
+      width: min(var(--wide-vw), var(--wide-max));
+      margin: var(--wide-gap) auto 0;
+      text-align: center;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.98rem;
+      line-height: 1.35;
+    }
+
+    /* oculta possíveis legendas internas do bloco Arquitetura (imagem é ilustrativa) */
+    .figure + figcaption, .figure figcaption{ display:none !important; }
+
+    /* responsivo */
+    @media (max-width: 900px){
+      :root{ --ill-width: 70.4vw; }
+      .figcap{ font-size: .9rem; opacity: .85; }
+    }
+  </style>
+
   <!-- Metadados de citação (ajustados) -->
   <link rel="canonical" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637">
   <meta name="citation_title" content="HIKARI — Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado">
@@ -43,7 +127,7 @@
         <a href="#resultados" class="icon-link" title="Resultados (Paper)">
           <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
         </a>
-        <a href="#parcerias" class="icon-link" title="Participações Institucionais">
+        <a href="#parcerias" class="icon-link" title="Participações Institucionais" aria-label="Participações Institucionais">
           <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 9v-1a6 6 0 0 1 12 0v1"/></svg>
         </a>
       </div>
@@ -70,7 +154,7 @@
         </p>
       </div>
       <div class="hero-ill">
-        <img src="img/sword.png" alt="Espada HIKARI" class="ill sword-neon ill-fixed">
+        <img src="img/sword.png" alt="Espada HIKARI" class="ill sword-neon ill-fixed" loading="lazy" decoding="async">
       </div>
     </div>
   </header>
@@ -113,8 +197,7 @@
         </div>
       </div>
       <div class="figure">
-        <img src="img/shield.png" alt="Escudo/Arquitetura HIKARI" class="ill shield-neon ill-fixed">
-        <figcaption>Fluxo: liberação de desafio → injeção de logs → análise no Kibana.</figcaption>
+        <img src="img/shield.png" alt="Escudo/Arquitetura HIKARI" class="ill shield-neon ill-fixed" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -132,6 +215,18 @@
     </div>
   </section>
 
+  <!-- DINÂMICA DO JOGO (imagem horizontal + legenda) -->
+  <section class="section">
+    <div class="container">
+      <div class="wide-figure">
+        <img src="img/flow.png" alt="Dinâmica do HIKARI: seleção do desafio, hints e envio de flags" loading="lazy" decoding="async">
+      </div>
+      <p class="figcap">
+        Dinâmica do HIKARI: o participante escolhe o desafio, investiga no Kibana, pode liberar dicas (com custo de pontos) e submete a flag no CTFd.
+      </p>
+    </div>
+  </section>
+
   <!-- PUBLICAÇÃO -->
   <section id="publicacao" class="section alt">
     <div class="container pub">
@@ -141,7 +236,6 @@
         <p>SBSeg 2025 • Instituto Tecnológico de Aeronáutica (ITA)</p>
       </div>
       <div class="pub-actions">
-        <!-- Página oficial no SOL/SBC (único link visível) -->
         <a class="btn btn-primary"
            href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637"
            target="_blank" rel="noopener noreferrer"
