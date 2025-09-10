@@ -6,32 +6,31 @@
   <title>HIKARI — Desafios Reais, Ameaças Ocultas</title>
   <meta name="description" content="Plataforma Blue Team: CTF progressivo, ingestão de eventos reais via Kafka e investigação prática no Kibana." />
   <link rel="icon" href="img/logo.png">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
 
   <!-- Padronização visual das ilustrações (hero/arquitetura) + bloco horizontal (flow) -->
   <style>
     :root{
-      /* 80% do tamanho anterior (hero/arquitetura) */
+      /* Hero / Arquitetura (80% do tamanho anterior) */
       --ill-width: clamp(256px, 28.8vw, 448px);
       --ill-ratio: 3 / 4;
       --ill-radius: 24px;
       --ill-shadow: 0 24px 60px rgba(0,0,0,.35), 0 6px 20px rgba(0,0,0,.25);
 
-      /* bloco horizontal (flow) — responsivo e sem corte */
-      --wide-max: 1040px;     /* limite desktop */
-      --wide-vw: 78vw;        /* limite relativo à viewport */
+      /* Bloco horizontal (Dinâmica do jogo) — responsivo e sem corte */
+      --wide-max: 1040px;
+      --wide-vw: 78vw;
       --wide-radius: 20px;
-      --wide-gap: 12px;       /* respiro legenda */
-      --wide-bg: rgba(255,255,255,0.02); /* fundo sutil só para as bordas arredondadas */
+      --wide-gap: 12px;
+      --wide-bg: rgba(255,255,255,0.02);
     }
 
-    /* contêineres de imagem — idênticos para hero e arquitetura */
+    /* Contêineres das ilustrações */
     .hero-ill,
     .figure{
       width: var(--ill-width);
       aspect-ratio: var(--ill-ratio);
       border-radius: var(--ill-radius);
-      box-shadow: var(--ill-shadow);
       background: transparent;
       overflow: hidden;
       display: flex;
@@ -39,27 +38,36 @@
       justify-content: center;
       margin-left: auto;
       margin-right: auto;
+      box-shadow: var(--ill-shadow);
     }
 
-    /* imagem ocupa 100% do container (sem moldura) */
+    /* Imagens internas ocupam 100% (sem moldura) */
     .hero-ill > img,
     .figure > img,
-    img.ill,
-    img.sword-neon,
-    img.shield-neon,
-    img.ill-fixed{
+    img.ill{
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important;
-      display: block;
       border-radius: var(--ill-radius);
+      display: block;
       background: transparent;
     }
 
-    /* Bloco "Dinâmica do Jogo" (imagem horizontal + legenda) — sem cortes */
+    /* Neon suave nas artes (espada/escudo) */
+    .sword-neon{
+      filter: drop-shadow(0 0 10px #39ff14) drop-shadow(0 0 22px #39ff14);
+    }
+    .shield-neon{
+      filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 22px #00e5ff);
+    }
+
+    /* Esconde legenda interna do bloco Arquitetura (imagem é ilustrativa) */
+    .figure + figcaption,
+    .figure figcaption{ display:none !important; }
+
+    /* Bloco “Dinâmica do Jogo” — sem cortes (usa proporção nativa) */
     .wide-figure{
       width: min(var(--wide-vw), var(--wide-max));
-      /* sem aspect-ratio: usamos a proporção nativa da imagem */
       margin: 36px auto 8px;
       border-radius: var(--wide-radius);
       overflow: hidden;
@@ -69,8 +77,8 @@
     .wide-figure > img{
       display: block;
       width: 100%;
-      height: auto;           /* preserva a proporção real da imagem */
-      object-fit: contain;    /* garante que nada será cortado */
+      height: auto;           /* preserva proporção real */
+      object-fit: contain;    /* garante que nada seja cortado */
       border-radius: var(--wide-radius);
     }
     .figcap{
@@ -82,17 +90,14 @@
       line-height: 1.35;
     }
 
-    /* oculta possíveis legendas internas do bloco Arquitetura (imagem é ilustrativa) */
-    .figure + figcaption, .figure figcaption{ display:none !important; }
-
-    /* responsivo */
+    /* Responsivo (aperta um pouco no mobile) */
     @media (max-width: 900px){
-      :root{ --ill-width: 70.4vw; }
+      :root{ --ill-width: 70vw; }
       .figcap{ font-size: .9rem; opacity: .85; }
     }
   </style>
 
-  <!-- Metadados de citação (ajustados) -->
+  <!-- Metadados de citação -->
   <link rel="canonical" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637">
   <meta name="citation_title" content="HIKARI — Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado">
   <meta name="citation_author" content="Sidnei Barbieri">
@@ -154,7 +159,7 @@
         </p>
       </div>
       <div class="hero-ill">
-        <img src="img/sword.png" alt="Espada HIKARI" class="ill sword-neon ill-fixed" loading="lazy" decoding="async">
+        <img src="img/sword.png" alt="Espada HIKARI" class="ill sword-neon" loading="lazy" decoding="async">
       </div>
     </div>
   </header>
@@ -197,7 +202,7 @@
         </div>
       </div>
       <div class="figure">
-        <img src="img/shield.png" alt="Escudo/Arquitetura HIKARI" class="ill shield-neon ill-fixed" loading="lazy" decoding="async">
+        <img src="img/shield.png" alt="Escudo/Arquitetura HIKARI" class="ill shield-neon" loading="lazy" decoding="async">
       </div>
     </div>
   </section>
