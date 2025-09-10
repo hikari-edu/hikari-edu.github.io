@@ -2,124 +2,212 @@
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="color-scheme" content="dark light">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>HIKARI — Desafios Reais, Ameaças Ocultas</title>
-  <meta name="description" content="Plataforma Blue Team: CTF progressivo, ingestão de eventos reais via Kafka e investigação prática no Kibana." />
+  <meta name="description" content="Treine seu Blue Team com CTF progressivo, ingestão de eventos reais via Kafka e investigações práticas no Kibana." />
   <link rel="icon" href="img/logo.png">
-  <link rel="stylesheet" href="style.css?v=13">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="HIKARI — Desafios Reais, Ameaças Ocultas" />
+  <meta property="og:description" content="CTF progressivo + logs reais + investigação no Kibana. Plataforma de threat hunting gamificado." />
+  <meta property="og:image" content="img/og.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preload" as="image" href="img/sword.png" imagesrcset="img/sword.png 1x">
+  <link rel="preload" as="image" href="img/shield.png" imagesrcset="img/shield.png 1x">
+  <link rel="stylesheet" href="style.css?v=15"/>
 
   <style>
-    /* ---------- Reset/Qualidade ---------- */
-    *,*::before,*::after{ box-sizing:border-box; }
-    html{-webkit-text-size-adjust:100%;}
-    img{ max-width:100%; height:auto; display:block; image-rendering:auto; -webkit-user-select:none; user-select:none; }
+    /* =========================
+       Base & Theme
+    ==========================*/
     :root{
-      /* Retratos (espada/escudo) — container mais contido e elegante */
-      --ill-width: clamp(260px, 34vw, 520px);
-      --ill-radius: 24px;
-      --ill-shadow: 0 24px 60px rgba(0,0,0,.35), 0 6px 20px rgba(0,0,0,.25);
+      --bg: #0b1222;
+      --panel: rgba(255,255,255,.03);
+      --panel-bd: rgba(255,255,255,.06);
+      --text: #e8eefc;
+      --muted: rgba(232,238,252,.75);
+      --brand: #22c55e;          /* verde HIKARI */
+      --brand-2: #00e5ff;        /* ciano glow */
+      --radius-xl: 20px;
+      --radius-ill: 24px;
+      --shadow-1: 0 10px 30px rgba(0,0,0,.30), 0 2px 10px rgba(0,0,0,.25);
+      --shadow-2: 0 24px 60px rgba(0,0,0,.40), 0 6px 20px rgba(0,0,0,.30);
+      --maxw: 1160px;
 
-      /* Glow */
-      --glow-1: rgba(0, 229, 255, .35);
-      --glow-2: rgba(57, 255, 20, .28);
+      /* Ilustrações (card alto 3:4) */
+      --ill-width: clamp(260px, 28.8vw, 460px);
+      --ill-ratio: 3/4;
 
-      /* Bloco horizontal (Dinâmica) — sem corte */
+      /* Bloco wide (dinâmica) */
       --wide-max: 1040px;
-      --wide-vw: 92vw;
+      --wide-vw: 78vw;
       --wide-radius: 20px;
-      --wide-gap: 12px;
-      --wide-bg: rgba(255,255,255,0.02);
+    }
+    @media (max-width: 980px){
+      :root{ --ill-width: 70vw; }
     }
 
-    /* ---------- Retratos (Hero / Arquitetura) ---------- */
-    .hero-ill,
-    .figure{
-      width: var(--ill-width);
-      /* Sem aspect-ratio fixo — respeita a proporção nativa do PNG */
-      border-radius: var(--ill-radius);
-      background: transparent;
-      overflow: hidden;
-      margin: 0 auto;
-      position: relative; /* para o glow ::after */
-      box-shadow: var(--ill-shadow);
+    html,body{
+      height:100%;
+      background:
+        radial-gradient(1200px 600px at 15% 10%, #13223b 0%, #0b1222 55%) no-repeat,
+        var(--bg);
+    }
+    body{
+      margin:0; color:var(--text);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      font: 400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      text-rendering: optimizeLegibility;
+    }
+    .container{ width: min(92vw, var(--maxw)); margin-inline:auto; }
+
+    h1,h2,h3{ letter-spacing:.2px; margin:0 0 .4rem; }
+    h1{ font-size: clamp(36px, 5vw, 58px); line-height:1.05; }
+    h2{ font-size: clamp(24px, 3.2vw, 34px); }
+    h3{ font-size: 1.1rem; }
+
+    p{ margin:.35rem 0 0; color:var(--muted); }
+    a{ color:var(--text); text-decoration:none; }
+    .btn{
+      display:inline-flex; align-items:center; gap:.55rem; padding:.7rem 1rem; border-radius:999px;
+      border:1px solid var(--panel-bd); background:var(--panel); color:var(--text); backdrop-filter: saturate(120%) blur(2px);
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); border-color: rgba(255,255,255,.12); }
+    .btn-primary{ background: linear-gradient(180deg, #27d466, #18a54b); border-color: transparent; color:#04120a; font-weight:700; }
+    .btn-primary:hover{ box-shadow: 0 0 0 3px rgba(34,197,94,.25), 0 12px 30px rgba(34,197,94,.35); }
+
+    /* =========================
+       Topbar com ícones
+    ==========================*/
+    .topbar{ position:sticky; top:0; z-index:50; background: linear-gradient(180deg, rgba(2,8,23,.85), rgba(2,8,23,.55)); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,.05); }
+    .topbar-inner{ display:flex; align-items:center; justify-content:space-between; padding:10px 0; }
+    .brand{ display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px; }
+    .brand-logo{ width:28px; height:28px; border-radius:8px; }
+    .top-links{ display:flex; align-items:center; gap:.25rem; }
+    .icon-link{
+      display:inline-grid; place-items:center; width:40px; height:40px;
+      border-radius:12px; border:1px solid transparent; color:var(--text);
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+    .icon-link svg{ width:22px; height:22px; fill:currentColor; opacity:.9; }
+    .icon-link:hover{ border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.04); transform: translateY(-1px); }
+    @media (max-width: 860px){
+      .top-links{ gap:.1rem; }
+      .icon-link{ width:36px; height:36px; }
+      .icon-link svg{ width:20px; height:20px; }
     }
 
-    /* Imagem interna: largura total, altura automática (sem corte) */
-    .hero-ill > img,
-    .figure > img,
-    img.ill{
-      width: 100%;
-      height: auto;
-      object-fit: contain; /* não recorta; ótimo para PNG com transparência */
-      border-radius: var(--ill-radius);
-      background: transparent;
+    /* =========================
+       Hero
+    ==========================*/
+    .hero{ padding: min(6vh, 36px) 0 40px; }
+    .hero-grid{ display:grid; grid-template-columns: 1.2fr .95fr; gap:min(6vw, 56px); align-items:center; }
+    @media (max-width: 980px){ .hero-grid{ grid-template-columns: 1fr; } }
+    .hero-sub{ font-size: clamp(16px, 1.9vw, 18px); }
+    .hero-ctas{ display:flex; gap:.6rem; margin-top:16px; flex-wrap:wrap; }
+    .hero-meta{ opacity:.8; font-size:.95rem; margin-top:10px; }
+
+    /* =========================
+       Moldura Neon (sword/shield)
+       - cantos arredondados + brilho no Safari/iPhone
+    ==========================*/
+    .neon-frame{
+      position:relative; width: var(--ill-width); aspect-ratio: var(--ill-ratio);
+      border-radius: var(--radius-ill); overflow:hidden; isolation:isolate;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
+      box-shadow: var(--shadow-2);
+      will-change: transform; -webkit-backface-visibility: hidden; transform: translateZ(0);
+    }
+    .neon-frame img{
+      width:100%; height:100%; object-fit:cover; display:block; border-radius: inherit;
+    }
+    .neon-frame::before{
+      content:""; position:absolute; inset:0; border-radius: inherit; pointer-events:none;
+      background: linear-gradient(135deg, rgba(34,197,94,.9), rgba(0,229,255,.95) 55%, rgba(34,197,94,.9) 100%);
+      padding:2px; filter: blur(8px) saturate(150%);
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity:.95;
+    }
+    .neon-frame::after{
+      content:""; position:absolute; inset:-30px; border-radius: inherit; z-index:-1;
+      background: radial-gradient(260px 220px at 88% 12%, rgba(0,229,255,.18), transparent 65%),
+                  radial-gradient(420px 280px at 12% 86%, rgba(34,197,94,.18), transparent 70%);
+      filter: blur(6px);
     }
 
-    /* Glow elegante e sutil no contorno (sem exagero) */
-    .hero-ill::after,
-    .figure::after{
-      content:"";
-      position:absolute; inset:0;
-      border-radius: inherit;
-      pointer-events:none;
-      /* Anel externo suave */
-      box-shadow:
-        0 0 22px 4px var(--glow-1),
-        0 0 42px 12px var(--glow-2);
-      opacity:.55;
-      mix-blend-mode: screen;
+    /* =========================
+       Seções & Cards
+    ==========================*/
+    .section{ padding: 56px 0; }
+    .section.alt{ background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)); }
+    .grid{ display:grid; gap:min(5vw, 40px); }
+    .grid-2{ grid-template-columns: 1.05fr .95fr; align-items:center; }
+    .grid-3{ grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 980px){ .grid-2, .grid-3{ grid-template-columns: 1fr; } }
+    .card{ background:var(--panel); border:1px solid var(--panel-bd); border-radius: var(--radius-xl); padding:16px 14px; box-shadow: var(--shadow-1); }
+    .checklist{ padding-left:0; list-style:none; }
+    .checklist li{ margin:10px 0; }
+    .checklist strong{ color:#fff; }
+    .cta-row{ display:flex; gap:.6rem; margin-top:14px; flex-wrap:wrap; }
+
+    /* =========================
+       COMO FUNCIONA (4 etapas)
+    ==========================*/
+    .steps-grid{
+      list-style:none; padding:0; margin: 24px 0 0;
+      display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;
     }
-    /* Acende um pouco mais quando há hover (desktop) */
-    @media (hover:hover){
-      .hero-ill:hover::after,
-      .figure:hover::after{ opacity:.75; }
+    .step{ padding:16px 14px; border-radius:16px; background:var(--panel); border:1px solid var(--panel-bd); box-shadow: var(--shadow-1); }
+    .step h3{ margin:8px 0 6px; font-size:1.06rem; }
+    .step p{ margin:0; }
+    .badge{
+      display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%;
+      background: #21c55d; color:#04120a; font-weight:800;
+      box-shadow: 0 0 14px rgba(33,197,93,.52), inset 0 0 12px rgba(255,255,255,.35);
     }
+    @media (max-width:1000px){ .steps-grid{ grid-template-columns: repeat(2,1fr); } }
+    @media (max-width:560px){ .steps-grid{ grid-template-columns: 1fr; } }
 
-    /* Acentos de cor por arte (opcional, leve) */
-    .sword-neon{ filter: drop-shadow(0 0 10px #39ff14) drop-shadow(0 0 18px rgba(57,255,20,.55)); }
-    .shield-neon{ filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 18px rgba(0,229,255,.55)); }
-
-    /* Esconde possíveis legendas internas do bloco Arquitetura */
-    .figure + figcaption, .figure figcaption{ display:none !important; }
-
-    /* ---------- Dinâmica do Jogo (horizontal) ---------- */
+    /* =========================
+       DINÂMICA (imagem wide)
+    ==========================*/
     .wide-figure{
       width: min(var(--wide-vw), var(--wide-max));
-      margin: 36px auto 8px;
-      border-radius: var(--wide-radius);
-      overflow: hidden;
-      background: var(--wide-bg);
-      box-shadow: var(--ill-shadow);
+      margin: 22px auto 10px; border-radius: var(--wide-radius); overflow:hidden; box-shadow: var(--shadow-2);
+      background: rgba(255,255,255,.02);
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
-    .wide-figure > picture,
-    .wide-figure > img{ width:100%; height:auto; display:block; }
-    .wide-figure img{
-      object-fit: contain; /* nada é cortado */
-      border-radius: var(--wide-radius);
-    }
-    .figcap{
-      width: min(var(--wide-vw), var(--wide-max));
-      margin: var(--wide-gap) auto 0;
-      text-align: center;
-      color: rgba(255,255,255,0.75);
-      font-size: 0.98rem;
-      line-height: 1.35;
-    }
+    .wide-figure img{ display:block; width:100%; height:auto; object-fit:contain; border-radius: inherit; }
+    .figcap{ width:min(var(--wide-vw), var(--wide-max)); margin:10px auto 0; text-align:center; color:var(--muted); }
 
-    /* ---------- Responsivo iPhone / telas pequenas ---------- */
-    @media (max-width: 900px){
-      :root{ --ill-width: clamp(240px, 88vw, 520px); }
-      .figcap{ font-size:.92rem; opacity:.9; }
-      /* Limita a altura dos retratos para não “estourar” a dobra */
-      .hero-ill, .figure{ max-height: 62vh; }
+    /* =========================
+       Footer com ícones
+    ==========================*/
+    .footer{ border-top:1px solid rgba(255,255,255,.06); margin-top:30px; }
+    .footer-grid{ display:grid; gap:24px; grid-template-columns: repeat(3,1fr); padding:28px 0; }
+    @media (max-width:900px){ .footer-grid{ grid-template-columns: 1fr; } }
+    .copy{ text-align:center; color:rgba(255,255,255,.6); padding:14px 0 28px; font-size:.95rem; }
+    .socials{ display:flex; gap:.6rem; flex-wrap:wrap; }
+    .social{
+      display:inline-grid; place-items:center; width:44px; height:44px; border-radius:14px;
+      border:1px solid var(--panel-bd); background:var(--panel); box-shadow: var(--shadow-1);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
     }
+    .social:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.05); }
+    .social svg{ width:22px; height:22px; fill: currentColor; opacity:.92; }
 
-    /* Pequenos refinamentos tipográficos do tema existente */
-    .hero-sub strong, .section-title { letter-spacing:.2px; }
+    /* Motion safe */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation:none!important; transition:none!important; }
+    }
   </style>
 
-  <!-- Metadados de citação -->
+  <!-- Metadados de citação (SBSeg) -->
   <link rel="canonical" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637">
   <meta name="citation_title" content="HIKARI — Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado">
   <meta name="citation_author" content="Sidnei Barbieri">
@@ -134,24 +222,27 @@
 </head>
 <body>
 
-  <!-- HEADER NAV -->
-  <nav class="topbar">
+  <!-- NAV com ícones -->
+  <nav class="topbar" aria-label="Navegação principal">
     <div class="container topbar-inner">
       <a href="#" class="brand">
-        <img src="img/logo.png" alt="HIKARI Logo" class="brand-logo" />
+        <img src="img/logo.png" alt="HIKARI" class="brand-logo" />
         <span class="brand-name">HIKARI</span>
       </a>
-      <div class="top-links">
+      <div class="top-links" role="navigation">
         <a href="#arquitetura" class="icon-link" title="Arquitetura" aria-label="Arquitetura">
           <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
         </a>
         <a href="#como-funciona" class="icon-link" title="Como funciona" aria-label="Como funciona">
           <svg viewBox="0 0 24 24"><path d="M7 4h10v2H7V4zm0 7h10v2H7v-2zm0 7h10v2H7v-2z"/></svg>
         </a>
+        <a href="#dinamica" class="icon-link" title="Dinâmica do jogo" aria-label="Dinâmica do jogo">
+          <svg viewBox="0 0 24 24"><path d="M12 2l4 8h8l-6 6 2 8-8-5-8 5 2-8-6-6h8z"/></svg>
+        </a>
         <a href="#publicacao" class="icon-link" title="Publicação" aria-label="Publicação">
           <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5"/></svg>
         </a>
-        <a href="#resultados" class="icon-link" title="Resultados (Paper)">
+        <a href="#resultados" class="icon-link" title="Resultados (Paper)" aria-label="Resultados">
           <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
         </a>
         <a href="#parcerias" class="icon-link" title="Participações Institucionais" aria-label="Participações Institucionais">
@@ -165,40 +256,37 @@
   <header class="hero">
     <div class="container hero-grid">
       <div class="hero-copy">
-        <img src="img/logo.png" alt="HIKARI Logo" class="logo">
-        <h1 class="hero-title">HIKARI</h1>
-        <p class="hero-sub"><strong>Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado.</strong></p>
-        <p class="hero-sub">
-          Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>eventos reais injetados ao vivo</em> e
-          <em>investigações práticas no Kibana</em>.
-        </p>
+        <img src="img/logo.png" alt="" width="44" height="44" class="logo" style="opacity:.9; border-radius:10px;">
+        <h1>HIKARI</h1>
+        <p class="hero-sub"><strong>Desafios Reais, Ameaças Ocultas:</strong> plataforma de threat hunting gamificado.</p>
+        <p class="hero-sub">Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>eventos reais injetados ao vivo</em> e <em>investigações no Kibana</em>.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#porque">Explorar a Plataforma</a>
-          <a class="btn btn-ghost" href="#publicacao">Ler o Paper (SBSeg 2025)</a>
+          <a class="btn" href="#publicacao">Ler o Paper (SBSeg 2025)</a>
         </div>
-        <p class="hero-meta">
-          Resultados acadêmicos reportados no paper (três execuções) • métricas claras e reprodutíveis
-        </p>
+        <p class="hero-meta">Resultados acadêmicos reportados (3 execuções) • métricas claras e reprodutíveis</p>
       </div>
-      <div class="hero-ill">
-        <img src="img/sword.png" alt="Espada HIKARI" class="ill sword-neon" loading="lazy" decoding="async">
-      </div>
+
+      <!-- Ilustração com moldura neon -->
+      <figure class="neon-frame">
+        <img src="img/sword.png" alt="Espada HIKARI com brilho neon verde">
+      </figure>
     </div>
   </header>
 
   <!-- POR QUE -->
   <section id="porque" class="section">
     <div class="container">
-      <h2 class="section-title">Por que o HIKARI?</h2>
-      <p class="section-lead">
-        <strong>Três pilares, um resultado:</strong> ingestão de logs reais, progressão gamificada por fases e investigação no Kibana — como em um SOC de verdade.
-      </p>
-      <div class="grid grid-3">
+      <h2>Por que o HIKARI?</h2>
+      <p><strong>Três pilares, um resultado:</strong> ingestão de logs reais, progressão gamificada por fases e investigação no Kibana — como em um SOC de verdade.</p>
+
+      <div class="grid grid-3" style="margin-top:16px">
         <div class="card"><h3>Eventos reais, não sintéticos</h3><p>Logs anonimizados injetados por <strong>Kafka</strong> e processados em <strong>Logstash/Elasticsearch</strong>.</p></div>
         <div class="card"><h3>Progressão que pressiona</h3><p><strong>CTFd + plugin</strong> libera evidências por fase — como no dia a dia do SOC.</p></div>
-        <div class="card"><h3>Ferramentas de mercado</h3><p>Investigue no <strong>Kibana</strong>, com KQL e dashboards, do jeito que a indústria usa.</p></div>
+        <div class="card"><h3>Ferramentas de mercado</h3><p>Investigue no <strong>Kibana</strong>, com KQL e dashboards.</p></div>
       </div>
-      <div class="grid grid-3 mt-2">
+
+      <div class="grid grid-3" style="margin-top:14px">
         <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: detecção, correlação e resposta — ponta a ponta.</p></div>
         <div class="card"><h3>IaC e escala</h3><p>Ambiente dockerizado, <strong>instância por equipe</strong> e provisionamento automático.</p></div>
         <div class="card"><h3>Anonimização</h3><p>Preserva valor analítico sem expor dados sensíveis.</p></div>
@@ -210,7 +298,7 @@
   <section id="arquitetura" class="section alt">
     <div class="container grid grid-2">
       <div>
-        <h2 class="section-title">Arquitetura</h2>
+        <h2>Arquitetura</h2>
         <ul class="checklist">
           <li><strong>CTFd + Plugin</strong>: gerencia desafios, flags e progressão.</li>
           <li><strong>Kafka → Logstash → Elasticsearch</strong>: pipeline de ingestão e indexação.</li>
@@ -220,102 +308,95 @@
         </ul>
         <div class="cta-row">
           <a class="btn btn-primary" href="#como-funciona">Como funciona</a>
-          <a class="btn btn-ghost" href="#publicacao">Publicação</a>
+          <a class="btn" href="#publicacao">Publicação</a>
         </div>
       </div>
-      <div class="figure">
-        <img src="img/shield.png" alt="Escudo/Arquitetura HIKARI" class="ill shield-neon" loading="lazy" decoding="async">
-      </div>
+
+      <figure class="neon-frame">
+        <img src="img/shield.png" alt="Escudo HIKARI com borda neon ciano/verde">
+      </figure>
     </div>
   </section>
 
   <!-- COMO FUNCIONA -->
   <section id="como-funciona" class="section">
     <div class="container">
-      <h2 class="section-title">Como funciona (4 etapas)</h2>
-    <ol class="steps">
-        <li><strong>Cadastro & Setup</strong> — provisionamento automático por equipe.</li>
-        <li><strong>Desafios CTF</strong> — CTFd libera fases conforme flags.</li>
-        <li><strong>Injeção de Logs</strong> — Kafka → Logstash → Elasticsearch.</li>
-        <li><strong>Investigação</strong> — análise e correlação no Kibana.</li>
+      <h2>Como funciona (4 etapas)</h2>
+      <ol class="steps-grid" aria-label="Etapas do funcionamento">
+        <li class="step"><span class="badge">1</span><h3>Cadastro & Setup</h3><p>Provisionamento automático por equipe.</p></li>
+        <li class="step"><span class="badge">2</span><h3>Desafios CTF</h3><p>Fases liberadas conforme flags.</p></li>
+        <li class="step"><span class="badge">3</span><h3>Injeção de Logs</h3><p>Kafka → Logstash → Elasticsearch.</p></li>
+        <li class="step"><span class="badge">4</span><h3>Investigação</h3><p>Análise e correlação no Kibana.</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- DINÂMICA DO JOGO (imagem horizontal + legenda) -->
-  <section class="section">
+  <!-- DINÂMICA DO JOGO -->
+  <section id="dinamica" class="section alt">
     <div class="container">
+      <h2>Dinâmica do jogo</h2>
       <div class="wide-figure">
-        <picture>
-          <!-- Se tiver webp futuramente, basta descomentar a linha abaixo -->
-          <!-- <source srcset="img/flow.webp" type="image/webp"> -->
-          <img src="img/flow.png" width="1024" height="auto"
-               alt="Dinâmica do HIKARI: seleção do desafio, investigação no Kibana, hints com custo de pontos e submissão de flags no CTFd"
-               loading="lazy" decoding="async">
-        </picture>
+        <img src="img/flow.png" alt="Fluxo: escolher desafio, liberar dicas e enviar flag no CTFd">
       </div>
-      <p class="figcap">
-        Dinâmica do HIKARI: escolha o desafio, investigue no Kibana, libere dicas (com custo) e submeta a flag no CTFd.
-      </p>
+      <p class="figcap">O participante escolhe o desafio, investiga no Kibana, pode liberar dicas (com custo de pontos) e submete a flag no CTFd.</p>
+      <ul class="checklist" style="max-width:900px; margin:10px auto 0;">
+        <li>Dicas debitam pontos, mas aceleram.</li>
+        <li>Flags válidas liberam a próxima fase.</li>
+        <li>Eventos reais, ambiente isolado por equipe.</li>
+      </ul>
     </div>
   </section>
 
   <!-- PUBLICAÇÃO -->
-  <section id="publicacao" class="section alt">
-    <div class="container pub">
-      <div class="pub-meta">
-        <h2 class="section-title">Publicação</h2>
+  <section id="publicacao" class="section">
+    <div class="container grid grid-2" style="align-items:center;">
+      <div>
+        <h2>Publicação</h2>
         <h3>HIKARI — Desafios Reais, Ameaças Ocultas</h3>
         <p>SBSeg 2025 • Instituto Tecnológico de Aeronáutica (ITA)</p>
+        <div class="cta-row">
+          <a class="btn btn-primary"
+             href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637"
+             target="_blank" rel="noopener">Ler no portal oficial (SOL/SBC)</a>
+        </div>
       </div>
-      <div class="pub-actions">
-        <a class="btn btn-primary"
-           href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637"
-           target="_blank" rel="noopener noreferrer"
-           aria-label="Abrir a página oficial do artigo no SOL/SBC">
-          Ler no portal oficial (SOL/SBC)
-        </a>
+      <div class="card">
+        <h3>Métricas reportadas</h3>
+        <p>Três execuções educacionais (46 respostas). Evidências quantitativas e qualitativas.</p>
       </div>
     </div>
   </section>
 
   <!-- RESULTADOS -->
-  <section id="resultados" class="section">
+  <section id="resultados" class="section alt">
     <div class="container">
-      <h2 class="section-title">Resultados com Usuários (Paper)</h2>
-      <p class="section-lead">Três execuções educacionais reportadas no artigo (46 respostas). Evidências quantitativas e qualitativas.</p>
-      <div class="kpis">
-        <div class="kpi"><div class="kpi-value">&gt; 4,2/5</div><div class="kpi-label">Eficácia no aprendizado</div></div>
-        <div class="kpi"><div class="kpi-value">85%–90%</div><div class="kpi-label">Realismo e utilidade</div></div>
-        <div class="kpi"><div class="kpi-value">40+</div><div class="kpi-label">Participantes</div></div>
+      <h2>Resultados com Usuários (Paper)</h2>
+      <div class="grid grid-3" style="margin-top:12px">
+        <div class="card"><div style="font-weight:800; font-size:1.6rem">&gt; 4,2/5</div><div class="muted">Eficácia no aprendizado</div></div>
+        <div class="card"><div style="font-weight:800; font-size:1.6rem">85%–90%</div><div class="muted">Realismo e utilidade</div></div>
+        <div class="card"><div style="font-weight:800; font-size:1.6rem">40+</div><div class="muted">Participantes</div></div>
       </div>
     </div>
   </section>
 
   <!-- PARTICIPAÇÕES -->
-  <section id="parcerias" class="section alt">
+  <section id="parcerias" class="section">
     <div class="container">
-      <h2 class="section-title">Participações Institucionais</h2>
-      <p class="section-lead">
-        O HIKARI foi selecionado como plataforma oficial do <strong>CTF no RESEG2025</strong>,
-        evento da <strong>Anatel</strong> e da <strong>União Internacional de Telecomunicações (ITU)</strong>, reunindo operadoras,
-        academia e governo para fortalecer a resiliência em cibersegurança no setor de telecomunicações.
-      </p>
-      <div class="pub-actions">
+      <h2>Participações Institucionais</h2>
+      <p>Plataforma oficial do <strong>CTF no RESEG2025</strong>, evento da <strong>Anatel</strong> e da <strong>União Internacional de Telecomunicações (ITU)</strong>.</p>
+      <div class="cta-row">
         <a class="btn btn-primary" href="https://www.gov.br/anatel/pt-br/assuntos/noticias/anatel-abre-1a-edicao-do-redes-seguras-destacando-cooperacao-e-resiliencia-em-ciberseguranca" target="_blank" rel="noopener">Saiba mais</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER com ícones -->
   <footer class="footer">
     <div class="container footer-grid">
       <div class="footer-col">
         <h4>Localização</h4>
-        <p>Praça Marechal Eduardo Gomes, 50<br>
-        Vila das Acácias, 12228-900<br>
-        São José dos Campos/SP – Brasil<br>
-        <a href="https://www.ita.br" target="_blank" rel="noopener" class="link">www.ita.br</a></p>
+        <p>Praça Marechal Eduardo Gomes, 50<br>Vila das Acácias, 12228-900<br>São José dos Campos/SP – Brasil<br>
+          <a href="https://www.ita.br" class="link" target="_blank" rel="noopener">www.ita.br</a></p>
       </div>
       <div class="footer-col">
         <h4>Contato & Redes</h4>
@@ -341,5 +422,6 @@
     </div>
     <div class="copy">Copyright © ITA 2025</div>
   </footer>
+
 </body>
 </html>
