@@ -3,82 +3,99 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light">
   <title>HIKARI — Desafios Reais, Ameaças Ocultas</title>
   <meta name="description" content="Plataforma Blue Team: CTF progressivo, ingestão de eventos reais via Kafka e investigação prática no Kibana." />
   <link rel="icon" href="img/logo.png">
   <link rel="stylesheet" href="style.css?v=13">
 
-  <!-- Padronização visual das ilustrações (hero/arquitetura) + bloco horizontal (flow) -->
   <style>
+    /* ---------- Reset/Qualidade ---------- */
+    *,*::before,*::after{ box-sizing:border-box; }
+    html{-webkit-text-size-adjust:100%;}
+    img{ max-width:100%; height:auto; display:block; image-rendering:auto; -webkit-user-select:none; user-select:none; }
     :root{
-      /* Hero / Arquitetura (80% do tamanho anterior) */
-      --ill-width: clamp(256px, 28.8vw, 448px);
-      --ill-ratio: 3 / 4;
+      /* Retratos (espada/escudo) — container mais contido e elegante */
+      --ill-width: clamp(260px, 34vw, 520px);
       --ill-radius: 24px;
       --ill-shadow: 0 24px 60px rgba(0,0,0,.35), 0 6px 20px rgba(0,0,0,.25);
 
-      /* Bloco horizontal (Dinâmica do jogo) — responsivo e sem corte */
+      /* Glow */
+      --glow-1: rgba(0, 229, 255, .35);
+      --glow-2: rgba(57, 255, 20, .28);
+
+      /* Bloco horizontal (Dinâmica) — sem corte */
       --wide-max: 1040px;
-      --wide-vw: 78vw;
+      --wide-vw: 92vw;
       --wide-radius: 20px;
       --wide-gap: 12px;
       --wide-bg: rgba(255,255,255,0.02);
     }
 
-    /* Contêineres das ilustrações */
+    /* ---------- Retratos (Hero / Arquitetura) ---------- */
     .hero-ill,
     .figure{
       width: var(--ill-width);
-      aspect-ratio: var(--ill-ratio);
+      /* Sem aspect-ratio fixo — respeita a proporção nativa do PNG */
       border-radius: var(--ill-radius);
       background: transparent;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      position: relative; /* para o glow ::after */
       box-shadow: var(--ill-shadow);
     }
 
-    /* Imagens internas ocupam 100% (sem moldura) */
+    /* Imagem interna: largura total, altura automática (sem corte) */
     .hero-ill > img,
     .figure > img,
     img.ill{
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
+      width: 100%;
+      height: auto;
+      object-fit: contain; /* não recorta; ótimo para PNG com transparência */
       border-radius: var(--ill-radius);
-      display: block;
       background: transparent;
     }
 
-    /* Neon suave nas artes (espada/escudo) */
-    .sword-neon{
-      filter: drop-shadow(0 0 10px #39ff14) drop-shadow(0 0 22px #39ff14);
+    /* Glow elegante e sutil no contorno (sem exagero) */
+    .hero-ill::after,
+    .figure::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius: inherit;
+      pointer-events:none;
+      /* Anel externo suave */
+      box-shadow:
+        0 0 22px 4px var(--glow-1),
+        0 0 42px 12px var(--glow-2);
+      opacity:.55;
+      mix-blend-mode: screen;
     }
-    .shield-neon{
-      filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 22px #00e5ff);
+    /* Acende um pouco mais quando há hover (desktop) */
+    @media (hover:hover){
+      .hero-ill:hover::after,
+      .figure:hover::after{ opacity:.75; }
     }
 
-    /* Esconde legenda interna do bloco Arquitetura (imagem é ilustrativa) */
-    .figure + figcaption,
-    .figure figcaption{ display:none !important; }
+    /* Acentos de cor por arte (opcional, leve) */
+    .sword-neon{ filter: drop-shadow(0 0 10px #39ff14) drop-shadow(0 0 18px rgba(57,255,20,.55)); }
+    .shield-neon{ filter: drop-shadow(0 0 10px #00e5ff) drop-shadow(0 0 18px rgba(0,229,255,.55)); }
 
-    /* Bloco “Dinâmica do Jogo” — sem cortes (usa proporção nativa) */
+    /* Esconde possíveis legendas internas do bloco Arquitetura */
+    .figure + figcaption, .figure figcaption{ display:none !important; }
+
+    /* ---------- Dinâmica do Jogo (horizontal) ---------- */
     .wide-figure{
       width: min(var(--wide-vw), var(--wide-max));
       margin: 36px auto 8px;
       border-radius: var(--wide-radius);
       overflow: hidden;
-      box-shadow: var(--ill-shadow);
       background: var(--wide-bg);
+      box-shadow: var(--ill-shadow);
     }
-    .wide-figure > img{
-      display: block;
-      width: 100%;
-      height: auto;           /* preserva proporção real */
-      object-fit: contain;    /* garante que nada seja cortado */
+    .wide-figure > picture,
+    .wide-figure > img{ width:100%; height:auto; display:block; }
+    .wide-figure img{
+      object-fit: contain; /* nada é cortado */
       border-radius: var(--wide-radius);
     }
     .figcap{
@@ -90,11 +107,16 @@
       line-height: 1.35;
     }
 
-    /* Responsivo (aperta um pouco no mobile) */
+    /* ---------- Responsivo iPhone / telas pequenas ---------- */
     @media (max-width: 900px){
-      :root{ --ill-width: 70vw; }
-      .figcap{ font-size: .9rem; opacity: .85; }
+      :root{ --ill-width: clamp(240px, 88vw, 520px); }
+      .figcap{ font-size:.92rem; opacity:.9; }
+      /* Limita a altura dos retratos para não “estourar” a dobra */
+      .hero-ill, .figure{ max-height: 62vh; }
     }
+
+    /* Pequenos refinamentos tipográficos do tema existente */
+    .hero-sub strong, .section-title { letter-spacing:.2px; }
   </style>
 
   <!-- Metadados de citação -->
@@ -211,7 +233,7 @@
   <section id="como-funciona" class="section">
     <div class="container">
       <h2 class="section-title">Como funciona (4 etapas)</h2>
-      <ol class="steps">
+    <ol class="steps">
         <li><strong>Cadastro & Setup</strong> — provisionamento automático por equipe.</li>
         <li><strong>Desafios CTF</strong> — CTFd libera fases conforme flags.</li>
         <li><strong>Injeção de Logs</strong> — Kafka → Logstash → Elasticsearch.</li>
@@ -224,10 +246,16 @@
   <section class="section">
     <div class="container">
       <div class="wide-figure">
-        <img src="img/flow.png" alt="Dinâmica do HIKARI: seleção do desafio, hints e envio de flags" loading="lazy" decoding="async">
+        <picture>
+          <!-- Se tiver webp futuramente, basta descomentar a linha abaixo -->
+          <!-- <source srcset="img/flow.webp" type="image/webp"> -->
+          <img src="img/flow.png" width="1024" height="auto"
+               alt="Dinâmica do HIKARI: seleção do desafio, investigação no Kibana, hints com custo de pontos e submissão de flags no CTFd"
+               loading="lazy" decoding="async">
+        </picture>
       </div>
       <p class="figcap">
-        Dinâmica do HIKARI: o participante escolhe o desafio, investiga no Kibana, pode liberar dicas (com custo de pontos) e submete a flag no CTFd.
+        Dinâmica do HIKARI: escolha o desafio, investigue no Kibana, libere dicas (com custo) e submeta a flag no CTFd.
       </p>
     </div>
   </section>
