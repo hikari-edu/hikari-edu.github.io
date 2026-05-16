@@ -19,7 +19,7 @@
   <link rel="preload" as="image" href="img/shield.png" imagesrcset="img/shield.png 1x">
 
   <!-- Seu CSS principal -->
-  <link rel="stylesheet" href="style.css?v=16"/>
+  <link rel="stylesheet" href="style.css?v=17"/>
 
   <style>
     /* =========================
@@ -418,25 +418,32 @@
   <!-- ARTEFATO -->
   <section id="artefato" class="section">
     <div class="container">
-      <h2>Artefato de Pesquisa (SBSeg)</h2>
-      <p>O stack completo é publicado como artefato avaliado pelos critérios SBC de reprodutibilidade científica.</p>
+      <h2>Artefato de Pesquisa</h2>
+      <p>O stack completo é publicado como artefato avaliado pelos três
+      critérios SBC de reprodutibilidade científica.</p>
       <div class="grid grid-3" style="margin-top:16px">
         <div class="card">
           <h3>🟢 Available</h3>
-          <p>Repositório público com licença permissiva. Stack fixado por tag, sem dependências externas além de imagens Docker.</p>
+          <p>Repositório público sob licença permissiva, com release fixada por
+          tag. Toda a stack — código, configurações, datasets de teste — vive
+          no mesmo repositório.</p>
         </div>
         <div class="card">
           <h3>🟢 Functional</h3>
-          <p><code>run_acceptance.sh</code> — 24 verificações automáticas cobrindo registro, login, CTF, SIEM, live board, analytics e feedback.</p>
+          <p>Suíte de aceitação com 24 verificações automáticas cobrindo
+          registro, login, CTF, SIEM, placar ao vivo, analytics e feedback —
+          executada a cada release.</p>
         </div>
         <div class="card">
           <h3>🟢 Reproducible</h3>
-          <p>Um único comando sobe o ambiente completo. <code>verify_backup_import.sh</code> reproduz datasets históricos selados em projeto Compose isolado.</p>
+          <p>Um único comando sobe o ambiente completo em qualquer máquina com
+          Docker. Datasets históricos selados podem ser importados num projeto
+          Compose isolado para reprodução determinística.</p>
         </div>
       </div>
       <div class="cta-row" style="margin-top:18px">
-        <a class="btn btn-primary" href="https://github.com/sidneibarbieri/hikari" target="_blank" rel="noopener">Ver no GitHub</a>
-        <a class="btn" href="https://github.com/sidneibarbieri/hikari/blob/main/hikari-platform/docs/INSTALL.md" target="_blank" rel="noopener">Guia de instalação</a>
+        <a class="btn btn-primary" href="https://github.com/sidneibarbieri/hikari" target="_blank" rel="noopener">Acessar o repositório</a>
+        <a class="btn" href="#quickstart">Como subir o ambiente</a>
       </div>
     </div>
   </section>
@@ -444,11 +451,20 @@
   <!-- QUICKSTART -->
   <section id="quickstart" class="section alt">
     <div class="container">
-      <h2>Começar em 3 comandos</h2>
+      <h2>Suba o ambiente em minutos</h2>
+      <p>Um clone, um Docker Compose e uma suíte de verificação — todo o stack
+      (CTFd + Kafka + Elasticsearch + Kibana) sobe em uma única máquina sem
+      dependências externas.</p>
       <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>git clone https://github.com/sidneibarbieri/hikari.git
 cd hikari/hikari-platform/deploy/local
 cp .env.example .env &amp;&amp; docker-compose up -d --build &amp;&amp; bash run_acceptance.sh</code></pre>
-      <p style="margin-top:10px">Kibana em <strong>:5601</strong> · CTFd em <strong>:8000</strong> · Elasticsearch em <strong>:9200</strong> · MariaDB em <strong>:3306</strong></p>
+      <p style="margin-top:10px; font-size:.9rem; opacity:.85">
+        A suíte <code>run_acceptance.sh</code> roda 24 verificações automáticas
+        cobrindo registro, login, CTF, SIEM, placar ao vivo, analytics e
+        feedback. Veja o
+        <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/hikari-platform/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>
+        para opções de produção (TLS, OAuth, ILM).
+      </p>
     </div>
   </section>
 
