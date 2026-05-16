@@ -456,13 +456,13 @@
       (CTFd + Kafka + Elasticsearch + Kibana) sobe em uma única máquina sem
       dependências externas.</p>
       <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>git clone https://github.com/sidneibarbieri/hikari.git
-cd hikari/hikari-platform/deploy/local
+cd hikari/deploy/local
 cp .env.example .env &amp;&amp; docker-compose up -d --build &amp;&amp; bash run_acceptance.sh</code></pre>
       <p style="margin-top:10px; font-size:.9rem; opacity:.85">
         A suíte <code>run_acceptance.sh</code> roda 24 verificações automáticas
         cobrindo registro, login, CTF, SIEM, placar ao vivo, analytics e
         feedback. Veja o
-        <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/hikari-platform/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>
+        <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>
         para opções de produção (TLS, OAuth, ILM).
       </p>
     </div>
