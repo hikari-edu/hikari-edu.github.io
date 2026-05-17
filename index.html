@@ -10,7 +10,7 @@
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="HIKARI — Desafios Reais, Ameaças Ocultas" />
   <meta property="og:description" content="CTF progressivo + logs reais + investigação no Kibana. Plataforma de threat hunting gamificado." />
-  <meta property="og:image" content="img/og.jpg" />
+  <meta property="og:image" content="img/sword.png" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -18,7 +18,6 @@
   <link rel="preload" as="image" href="img/sword.png" imagesrcset="img/sword.png 1x">
   <link rel="preload" as="image" href="img/shield.png" imagesrcset="img/shield.png 1x">
 
-  <!-- Seu CSS principal -->
   <link rel="stylesheet" href="style.css?v=17"/>
 
   <style>
@@ -217,12 +216,37 @@
     .wide-figure img{ display:block; width:100%; height:auto; object-fit:contain; border-radius: inherit; }
     .figcap{ width:min(var(--wide-vw), var(--wide-max)); margin:10px auto 0; text-align:center; color:var(--muted); }
 
+    .demo-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+    .demo-card{
+      background:var(--panel);
+      border:1px solid var(--panel-bd);
+      border-radius: var(--radius-xl);
+      padding:12px;
+      box-shadow: var(--shadow-1);
+    }
+    .demo-card video{
+      width:100%;
+      aspect-ratio:16/9;
+      display:block;
+      border-radius:14px;
+      background:#050914;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .demo-card h3{ margin:12px 4px 4px; }
+    .demo-card p{ margin:0 4px 4px; font-size:.95rem; }
+
     /* =========================
        Footer com ícones
     ==========================*/
     .footer{ border-top:1px solid rgba(255,255,255,.06); margin-top:30px; }
     .footer-grid{ display:grid; gap:24px; grid-template-columns: repeat(3,1fr); padding:28px 0; }
     @media (max-width:900px){ .footer-grid{ grid-template-columns: 1fr; } }
+    @media (max-width:980px){ .demo-grid{ grid-template-columns: 1fr; } }
     .copy{ text-align:center; color:rgba(255,255,255,.6); padding:14px 0 28px; font-size:.95rem; }
     .socials{ display:flex; gap:.6rem; flex-wrap:wrap; }
     .social{
@@ -273,6 +297,9 @@
         </a>
         <a href="#publicacao" class="icon-link" title="Publicação" aria-label="Publicação">
           <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5"/></svg>
+        </a>
+        <a href="#demos" class="icon-link" title="Demonstrações" aria-label="Demonstrações">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5zm-4 0h2v14H4V5z"/></svg>
         </a>
         <a href="#resultados" class="icon-link" title="Resultados (Paper)" aria-label="Resultados">
           <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
@@ -430,7 +457,7 @@
         </div>
         <div class="card">
           <h3>🟢 Functional</h3>
-          <p>Suíte de aceitação com 24 verificações automáticas cobrindo
+          <p>Suíte de aceitação com 25 verificações automáticas cobrindo
           registro, login, CTF, SIEM, placar ao vivo, analytics e feedback —
           executada a cada release.</p>
         </div>
@@ -448,8 +475,33 @@
     </div>
   </section>
 
+  <!-- DEMONSTRAÇÕES -->
+  <section id="demos" class="section alt">
+    <div class="container">
+      <h2>Demonstrações</h2>
+      <p>Três fluxos gravados diretamente da plataforma: competidor, SIEM e análise científica.</p>
+      <div class="demo-grid">
+        <article class="demo-card">
+          <video controls preload="none" poster="assets/demos/posters/competidor.jpg" src="assets/demos/hikari-demo-competidor.webm"></video>
+          <h3>Competidor</h3>
+          <p>Cadastro, entrada em equipe, abertura de desafios e acesso ao SIEM.</p>
+        </article>
+        <article class="demo-card">
+          <video controls preload="none" poster="assets/demos/posters/siem.jpg" src="assets/demos/hikari-demo-siem.webm"></video>
+          <h3>SIEM</h3>
+          <p>Dashboard do Kibana com painéis e atalhos de caça para threat hunting.</p>
+        </article>
+        <article class="demo-card">
+          <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg" src="assets/demos/hikari-demo-pesquisa.webm"></video>
+          <h3>Análise científica</h3>
+          <p>Placar ao vivo, métricas de atividade e exportação dos dados de pesquisa.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- QUICKSTART -->
-  <section id="quickstart" class="section alt">
+  <section id="quickstart" class="section">
     <div class="container">
       <h2>Suba o ambiente em minutos</h2>
       <p>Um clone, um Docker Compose e uma suíte de verificação — todo o stack
@@ -459,7 +511,7 @@
 cd hikari/deploy/local
 cp .env.example .env &amp;&amp; docker-compose up -d --build &amp;&amp; bash run_acceptance.sh</code></pre>
       <p style="margin-top:10px; font-size:.9rem; opacity:.85">
-        A suíte <code>run_acceptance.sh</code> roda 24 verificações automáticas
+        A suíte <code>run_acceptance.sh</code> roda 25 verificações automáticas
         cobrindo registro, login, CTF, SIEM, placar ao vivo, analytics e
         feedback. Veja o
         <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>

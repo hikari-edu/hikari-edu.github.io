@@ -5,3 +5,5 @@ _site
 .jekyll-cache
 .bundle
 node_modules
+output/
+
