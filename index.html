@@ -457,7 +457,7 @@
         </div>
         <div class="card">
           <h3>🟢 Functional</h3>
-          <p>Suíte de aceitação com 25 verificações automáticas cobrindo
+          <p>Suíte de aceitação com 26 verificações automáticas cobrindo
           registro, login, CTF, SIEM, placar ao vivo, analytics e feedback —
           executada a cada release.</p>
         </div>
@@ -509,13 +509,16 @@
       dependências externas.</p>
       <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>git clone https://github.com/sidneibarbieri/hikari.git
 cd hikari/deploy/local
-cp .env.example .env &amp;&amp; docker-compose up -d --build &amp;&amp; bash run_acceptance.sh</code></pre>
+bash bootstrap.sh</code></pre>
       <p style="margin-top:10px; font-size:.9rem; opacity:.85">
-        A suíte <code>run_acceptance.sh</code> roda 25 verificações automáticas
-        cobrindo registro, login, CTF, SIEM, placar ao vivo, analytics e
-        feedback. Veja o
+        <code>bootstrap.sh</code> detecta o sistema operacional, valida
+        recursos (RAM, disco, portas), confere se o Docker está instalado
+        (e mostra o comando exato de instalação se não estiver), prepara
+        o <code>.env</code> e dispara a suíte de aceitação com 26 verificações
+        automáticas (registro, login, CTF, SIEM, placar ao vivo, analytics,
+        feedback, isolamento de autorização). Para produção, consulte o
         <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>
-        para opções de produção (TLS, OAuth, ILM).
+        (TLS, OAuth, ILM).
       </p>
     </div>
   </section>
