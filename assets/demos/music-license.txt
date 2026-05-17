@@ -1,0 +1,7 @@
+Song: Ronin
+Composer: Yoitrax
+Website: https://www.youtube.com/channel/UCz8VLO0XtHqntpAlx0-XtfA
+License: Creative Commons Attribution 3.0
+License URL: https://creativecommons.org/licenses/by/3.0/
+Source: BreakingCopyright
+Source URL: https://breakingcopyright.com
