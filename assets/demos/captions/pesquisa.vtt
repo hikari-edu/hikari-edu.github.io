@@ -1,19 +1,22 @@
 WEBVTT
 
-00:00.000 --> 00:08.000
-Administradores acompanham a competição por placar, solves e evolução das equipes.
+00:00.000 --> 00:07.000
+Fluxo de pesquisa: competição, telemetria, feedback e exportação auditável.
 
-00:08.000 --> 00:20.000
-O painel ao vivo foi desenhado para operação local e projeção em telão.
+00:07.000 --> 00:16.000
+O placar ao vivo mostra ranking, evolução por equipe e solves recentes.
 
-00:20.000 --> 00:32.000
-A análise científica consolida eventos do CTFd, consultas no Kibana e respostas de feedback.
+00:16.000 --> 00:27.000
+A análise científica consolida eventos do CTFd e consultas no Kibana.
 
-00:32.000 --> 00:42.000
-O relatório de feedback mostra cobertura por competição, equipes respondentes e métricas agregadas.
+00:27.000 --> 00:36.000
+Filtros por evento, usuário ou equipe isolam padrões de operação.
 
-00:42.000 --> 00:52.000
-Filtros por evento, usuário e equipe permitem investigar padrões de operação.
+00:36.000 --> 00:49.000
+O panorama do feedback mostra cobertura, pendências e métricas agregadas.
 
-00:52.000 --> 01:00.000
-Os dados são exportados em JSONL para auditoria, reprodução e estudos posteriores.
+00:49.000 --> 00:56.000
+As respostas por equipe apoiam relatórios internos e prestação de contas.
+
+00:56.000 --> 01:00.000
+A exportação JSONL preserva os dados para auditoria e estudos posteriores.

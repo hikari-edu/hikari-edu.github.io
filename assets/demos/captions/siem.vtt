@@ -1,19 +1,22 @@
 WEBVTT
 
-00:00.000 --> 00:08.000
-O SIEM do Hikari usa Kibana com dados injetados no Elasticsearch durante a competição.
+00:00.000 --> 00:07.000
+Fluxo do SIEM: sinais de caça, atalhos KQL, Kibana e retorno ao desafio.
 
-00:08.000 --> 00:20.000
-Os painéis mostram severidade, evolução temporal, IPs, portas e mensagens relevantes.
+00:07.000 --> 00:16.000
+Atalhos KQL reduzem ruído e priorizam hipóteses de investigação.
 
-00:20.000 --> 00:32.000
-Atalhos de caça aplicam filtros KQL para reduzir ruído e acelerar a análise.
+00:16.000 --> 00:29.000
+O dashboard Kibana consolida severidade, tempo, IPs, portas e mensagens.
 
-00:32.000 --> 00:42.000
-O competidor combina filtros, intervalo de tempo e consultas para encontrar evidências.
+00:29.000 --> 00:35.000
+Os painéis mantêm os sinais no mesmo contexto operacional.
 
-00:42.000 --> 00:52.000
-Cada consulta feita pelo competidor é registrada para análise científica posterior.
+00:35.000 --> 00:44.000
+IPs, portas, países e detecções apoiam novos pivôs de investigação.
+
+00:44.000 --> 00:52.000
+O resumo Hikari orienta a próxima consulta e registra a atividade.
 
 00:52.000 --> 01:00.000
-O resultado da investigação volta ao CTFd, onde a flag é validada.
+A evidência encontrada no SIEM volta ao CTFd como resposta validável.

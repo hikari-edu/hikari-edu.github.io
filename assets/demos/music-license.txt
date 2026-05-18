@@ -1,4 +1,4 @@
-Demo 1
+Demo 1 - Competidor
 Song: A Just Ronin
 Composer: Solas Composer
 Website: https://open.spotify.com/artist/5awFg11m6qCdmOsy8LxEvc
@@ -7,7 +7,16 @@ License URL: https://creativecommons.org/licenses/by-sa/3.0/
 Source: BreakingCopyright
 Source URL: https://breakingcopyright.com
 
-Legacy demos
+Demo 2 - SIEM
+Song: Ronin
+Composer: Yoitrax
+Website: https://www.youtube.com/channel/UCz8VLO0XtHqntpAlx0-XtfA
+License: Creative Commons Attribution 3.0
+License URL: https://creativecommons.org/licenses/by/3.0/
+Source: BreakingCopyright
+Source URL: https://breakingcopyright.com
+
+Demo 3 - Analise cientifica
 Song: Ronin
 Composer: Yoitrax
 Website: https://www.youtube.com/channel/UCz8VLO0XtHqntpAlx0-XtfA
