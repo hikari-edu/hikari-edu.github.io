@@ -1,19 +1,25 @@
 WEBVTT
 
-00:00.000 --> 00:08.000
-Hikari registra a jornada do competidor desde o primeiro acesso.
+00:00.000 --> 00:06.000
+Fluxo do competidor: conta, equipe, desafio, SIEM, flag e placar ao vivo.
 
-00:08.000 --> 00:18.000
-O participante cria a conta, entra na plataforma e identifica a competição ativa.
+00:06.000 --> 00:14.000
+O participante cria uma conta real na plataforma.
 
-00:18.000 --> 00:30.000
-O competidor entra em uma equipe ou atua individualmente, conforme a regra do evento.
+00:14.000 --> 00:22.000
+Antes da operação, ele cria uma equipe para competir em grupo.
 
-00:30.000 --> 00:42.000
-Cada desafio apresenta uma investigação objetiva e um caminho direto para o SIEM.
+00:22.000 --> 00:32.000
+O desafio orienta a investigação e abre o SIEM autenticado.
 
-00:42.000 --> 00:52.000
-A flag é enviada no CTFd; acertos, erros e tentativas ficam atribuídos ao usuário e à equipe.
+00:32.000 --> 00:43.000
+O Kibana exibe painéis e atalhos para localizar evidências nos logs.
 
-00:52.000 --> 01:00.000
-Quando um desafio é resolvido, novos eventos podem ser liberados para a próxima investigação.
+00:43.000 --> 00:49.000
+Uma tentativa incorreta também é registrada para análise posterior.
+
+00:49.000 --> 00:55.000
+A flag correta confirma o solve e atualiza a pontuação.
+
+00:55.000 --> 00:59.800
+O placar ao vivo mostra o efeito do solve na competição.
