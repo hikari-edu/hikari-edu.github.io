@@ -30,19 +30,17 @@
       --panel-bd: rgba(255,255,255,.06);
       --text: #e8eefc;
       --muted: rgba(232,238,252,.75);
-      --brand: #22c55e;          /* verde HIKARI */
-      --brand-2: #00e5ff;        /* ciano glow */
+      --brand: #22c55e;
+      --brand-2: #00e5ff;
       --radius-xl: 20px;
       --radius-ill: 24px;
       --shadow-1: 0 10px 30px rgba(0,0,0,.30), 0 2px 10px rgba(0,0,0,.25);
       --shadow-2: 0 24px 60px rgba(0,0,0,.40), 0 6px 20px rgba(0,0,0,.30);
       --maxw: 1160px;
 
-      /* Ilustrações (card alto 3:4) */
       --ill-width: clamp(260px, 28.8vw, 460px);
       --ill-ratio: 3/4;
 
-      /* Bloco wide (dinâmica) */
       --wide-max: 1040px;
       --wide-vw: 78vw;
       --wide-radius: 20px;
@@ -300,7 +298,7 @@
     }
   </style>
 
-  <!-- Metadados de citação (SBSeg) -->
+  <!-- Metadados de citação -->
   <link rel="canonical" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637">
   <meta name="citation_title" content="HIKARI — Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado">
   <meta name="citation_author" content="Sidnei Barbieri">
@@ -341,7 +339,7 @@
         <a href="#resultados" class="icon-link" title="Resultados (Paper)" aria-label="Resultados">
           <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
         </a>
-        <a href="#artefato" class="icon-link" title="Artefato SBSeg" aria-label="Artefato SBSeg">
+        <a href="#artefato" class="icon-link" title="Artefato" aria-label="Artefato">
           <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
         </a>
         <a href="#parcerias" class="icon-link" title="Participações Institucionais" aria-label="Participações Institucionais">
@@ -360,10 +358,11 @@
         <p class="hero-sub"><strong>Desafios Reais, Ameaças Ocultas:</strong> plataforma de threat hunting gamificado.</p>
         <p class="hero-sub">Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>eventos reais injetados ao vivo</em> e <em>investigações no Kibana</em>.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="#porque">Explorar a Plataforma</a>
-          <a class="btn" href="#publicacao">Ler o Paper (SBSeg 2025)</a>
+          <a class="btn btn-primary" href="#demos">Ver demonstrações</a>
+          <a class="btn" href="#quickstart">Subir o ambiente</a>
+          <a class="btn" href="#publicacao">Ler o paper</a>
         </div>
-        <p class="hero-meta">218 participantes • 7 edições (ITA, PUC Minas, Hackers do Bem, Anatel/ITU) • stack público no GitHub</p>
+        <p class="hero-meta">218 participantes • 7 edições • stack público no GitHub • suíte de aceitação com 26 verificações</p>
       </div>
 
       <!-- Ilustração com moldura neon (com fallback iPhone automático) -->
@@ -452,7 +451,7 @@
       <div>
         <h2>Publicação</h2>
         <h3>HIKARI — Desafios Reais, Ameaças Ocultas</h3>
-        <p>SBSeg 2025 • Instituto Tecnológico de Aeronáutica (ITA)</p>
+        <p>Artigo revisado por pares, assinado pelos autores do Hikari.</p>
         <div class="cta-row">
           <a class="btn btn-primary"
              href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637"
@@ -470,7 +469,7 @@
   <section id="resultados" class="section alt">
     <div class="container">
       <h2>Resultados com Usuários</h2>
-      <p style="margin-bottom:12px">Validação empírica em 7 edições: ITA, PUC Minas, Hackers do Bem e competição oficial Anatel/ITU (RESEG 2025).</p>
+      <p style="margin-bottom:12px">Validação empírica em 7 edições, incluindo uso acadêmico, comunitário e governamental.</p>
       <div class="grid grid-3" style="margin-top:12px">
         <div class="card"><div style="font-weight:800; font-size:1.6rem">218</div><div class="muted">Participantes em 7 edições</div></div>
         <div class="card"><div style="font-weight:800; font-size:1.6rem">85%–92%</div><div class="muted">Realismo dos cenários e ganho de competência</div></div>
@@ -640,19 +639,16 @@ bash bootstrap.sh</code></pre>
         <p>Sidnei Barbieri<br>Bruno Moreira Camargos Belo<br>Leonardo Chahud<br>Leonardo Vaz de Meneses<br>Cesar Marcondes<br>Lourenço Alves Pereira Júnior</p>
       </div>
       <div class="footer-col">
-        <h4>Contato & Redes</h4>
+        <h4>Repositórios e referências</h4>
         <div class="socials">
-          <a href="mailto:ljr@ita.br" class="social" aria-label="E-mail">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </a>
           <a href="https://github.com/sidneibarbieri/hikari" target="_blank" rel="noopener" class="social" aria-label="GitHub">
             <svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61-.55-1.37-1.35-1.73-1.35-1.73-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.25 1.86 1.25 1.08 1.86 2.83 1.32 3.52 1.01.11-.79.42-1.32.76-1.62-2.67-.3-5.48-1.34-5.48-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.64.25 2.86.12 3.16.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.65-5.49 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58A12 12 0 0 0 12 .5z"/></svg>
           </a>
-          <a href="https://www.linkedin.com/in/lourenco-pereira/" target="_blank" rel="noopener" class="social" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8 8.5h3.8v2h.05c.53-1 1.84-2 3.8-2 4.06 0 4.8 2.67 4.8 6.14V23h-4v-6.6c0-1.58-.02-3.62-2.2-3.62-2.2 0-2.54 1.72-2.54 3.5V23H8V8.5z"/></svg>
+          <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener" class="social" aria-label="Publicação científica">
+            <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5M8 13h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
           </a>
-          <a href="https://ljr.github.io/" target="_blank" rel="noopener" class="social" aria-label="Website">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2zm0 18c-3.31 0-6-3.58-6-8s2.69-8 6-8 6 3.58 6 8-2.69 8-6 8zm0-14c-2.21 0-4 2.69-4 6s1.79 6 4 6 4-2.69 4-6-1.79-6-4-6z"/></svg>
+          <a href="https://www.rnp.br/casos-de-uso/hackers-do-bem-como-a-gamificacao-contribui-para-a-formacao-da-nova-geracao-de-defensores-ciberneticos-do-brasil/" target="_blank" rel="noopener" class="social" aria-label="Matéria da RNP">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4V5zm2 2v10h12V7H6zm2 2h8v2H8V9zm0 4h5v2H8v-2z"/></svg>
           </a>
         </div>
       </div>
