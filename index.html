@@ -239,6 +239,43 @@
     }
     .demo-card h3{ margin:12px 4px 4px; }
     .demo-card p{ margin:0 4px 4px; font-size:.95rem; }
+    .demo-meta{
+      margin:10px 4px 8px;
+      color:rgba(232,238,252,.66);
+      font-size:.82rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    .demo-steps{
+      margin:10px 4px 2px;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:6px;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+    .demo-steps li{
+      display:grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      gap:.55rem;
+      align-items:start;
+    }
+    .demo-steps time{
+      color:var(--brand);
+      font-variant-numeric: tabular-nums;
+      font-weight:800;
+    }
+    .demo-proof{
+      margin:10px 4px 2px;
+      padding:.65rem .75rem;
+      border:1px solid rgba(34,197,94,.28);
+      border-radius:12px;
+      background:rgba(34,197,94,.08);
+      color:rgba(232,238,252,.86);
+      font-size:.9rem;
+    }
 
     /* =========================
        Footer com ícones
@@ -450,19 +487,19 @@
       critérios SBC de reprodutibilidade científica.</p>
       <div class="grid grid-3" style="margin-top:16px">
         <div class="card">
-          <h3>🟢 Available</h3>
+          <h3>Disponível</h3>
           <p>Repositório público sob licença permissiva, com release fixada por
           tag. Toda a stack — código, configurações, datasets de teste — vive
           no mesmo repositório.</p>
         </div>
         <div class="card">
-          <h3>🟢 Functional</h3>
+          <h3>Funcional</h3>
           <p>Suíte de aceitação com 26 verificações automáticas cobrindo
-          registro, login, CTF, SIEM, placar ao vivo, analytics e feedback —
-          executada a cada release.</p>
+          registro, login, CTF, SIEM, placar ao vivo, analytics, feedback e
+          panorama pós-competição — executada a cada release.</p>
         </div>
         <div class="card">
-          <h3>🟢 Reproducible</h3>
+          <h3>Reprodutível</h3>
           <p>Um único comando sobe o ambiente completo em qualquer máquina com
           Docker. Datasets históricos selados podem ser importados num projeto
           Compose isolado para reprodução determinística.</p>
@@ -479,22 +516,58 @@
   <section id="demos" class="section alt">
     <div class="container">
       <h2>Demonstrações</h2>
-      <p>Três fluxos gravados diretamente da plataforma: competidor, SIEM e análise científica.</p>
+      <p>Três demonstrações de cerca de um minuto mostram o fluxo completo: operação do competidor, investigação no SIEM e análise científica pós-competição.</p>
       <div class="demo-grid">
         <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/competidor.jpg" src="assets/demos/hikari-demo-competidor.webm"></video>
+          <video controls preload="none" poster="assets/demos/posters/competidor.jpg">
+            <source src="assets/demos/hikari-demo-competidor.webm" type="video/webm">
+            <track kind="captions" src="assets/demos/captions/competidor.vtt" srclang="pt-BR" label="Português" default>
+          </video>
           <h3>Competidor</h3>
           <p>Cadastro, entrada em equipe, abertura de desafios e acesso ao SIEM.</p>
+          <div class="demo-meta">Roteiro: 60 segundos</div>
+          <ul class="demo-steps">
+            <li><time>0:00</time><span>Entrar na plataforma e localizar a competição.</span></li>
+            <li><time>0:10</time><span>Criar conta e autenticar como participante.</span></li>
+            <li><time>0:20</time><span>Entrar em equipe ou operar individualmente.</span></li>
+            <li><time>0:32</time><span>Abrir o desafio e seguir para o SIEM.</span></li>
+            <li><time>0:44</time><span>Enviar flag e registrar acertos, erros e tentativas.</span></li>
+          </ul>
+          <div class="demo-proof">Prova exibida: o competidor chega ao desafio, consulta o SIEM e registra ações atribuídas.</div>
         </article>
         <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/siem.jpg" src="assets/demos/hikari-demo-siem.webm"></video>
+          <video controls preload="none" poster="assets/demos/posters/siem.jpg">
+            <source src="assets/demos/hikari-demo-siem.webm" type="video/webm">
+            <track kind="captions" src="assets/demos/captions/siem.vtt" srclang="pt-BR" label="Português" default>
+          </video>
           <h3>SIEM</h3>
           <p>Dashboard do Kibana com painéis e atalhos de caça para threat hunting.</p>
+          <div class="demo-meta">Roteiro: 60 segundos</div>
+          <ul class="demo-steps">
+            <li><time>0:00</time><span>Abrir o Kibana pelo gateway autenticado.</span></li>
+            <li><time>0:10</time><span>Ler severidade, tempo, IPs, portas e mensagens.</span></li>
+            <li><time>0:22</time><span>Aplicar atalhos KQL para reduzir ruído.</span></li>
+            <li><time>0:36</time><span>Refinar a consulta com intervalo de tempo.</span></li>
+            <li><time>0:48</time><span>Usar a evidência encontrada para responder ao desafio.</span></li>
+          </ul>
+          <div class="demo-proof">Prova exibida: o dashboard responde aos dados indexados e orienta a investigação.</div>
         </article>
         <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg" src="assets/demos/hikari-demo-pesquisa.webm"></video>
+          <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg">
+            <source src="assets/demos/hikari-demo-pesquisa.webm" type="video/webm">
+            <track kind="captions" src="assets/demos/captions/pesquisa.vtt" srclang="pt-BR" label="Português" default>
+          </video>
           <h3>Análise científica</h3>
           <p>Placar ao vivo, métricas de atividade e exportação dos dados de pesquisa.</p>
+          <div class="demo-meta">Roteiro: 60 segundos</div>
+          <ul class="demo-steps">
+            <li><time>0:00</time><span>Acompanhar placar ao vivo e solves recentes.</span></li>
+            <li><time>0:12</time><span>Ver interações do CTFd e consultas no Kibana.</span></li>
+            <li><time>0:24</time><span>Medir cobertura do feedback por competição.</span></li>
+            <li><time>0:38</time><span>Filtrar por evento, usuário ou equipe.</span></li>
+            <li><time>0:50</time><span>Exportar JSONL para auditoria e análise posterior.</span></li>
+          </ul>
+          <div class="demo-proof">Prova exibida: administradores veem cobertura do feedback e exportam dados por competição.</div>
         </article>
       </div>
       <p class="figcap">Trilha dos vídeos: <em>Ronin</em>, Yoitrax, Creative Commons BY 3.0, via BreakingCopyright.</p>

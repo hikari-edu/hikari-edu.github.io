@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00.000 --> 00:08.000
+Hikari registra a jornada do competidor desde o primeiro acesso.
+
+00:08.000 --> 00:18.000
+O participante cria a conta, entra na plataforma e identifica a competição ativa.
+
+00:18.000 --> 00:30.000
+O competidor entra em uma equipe ou atua individualmente, conforme a regra do evento.
+
+00:30.000 --> 00:42.000
+Cada desafio apresenta uma investigação objetiva e um caminho direto para o SIEM.
+
+00:42.000 --> 00:52.000
+A flag é enviada no CTFd; acertos, erros e tentativas ficam atribuídos ao usuário e à equipe.
+
+00:52.000 --> 01:00.000
+Quando um desafio é resolvido, novos eventos podem ser liberados para a próxima investigação.
