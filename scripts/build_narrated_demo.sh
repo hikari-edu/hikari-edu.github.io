@@ -9,17 +9,44 @@ fi
 raw_video=$1
 narration_text=$2
 output_video=$3
-voice=${HIKARI_NARRATOR_VOICE:-Luciana}
-rate=${HIKARI_NARRATOR_RATE:-145}
-audio_file=$(mktemp "${TMPDIR:-/tmp}/hikari-narration.XXXXXX.aiff")
-trap 'rm -f "$audio_file"' EXIT
+engine=${HIKARI_NARRATION_ENGINE:-openai}
+voice=${HIKARI_NARRATOR_VOICE:-coral}
+audio_base=$(mktemp "${TMPDIR:-/tmp}/hikari-narration.XXXXXX")
+audio_file=
+trap 'rm -f "$audio_base" "$audio_base.aiff" "$audio_base.mp3"' EXIT
 
 [[ -f "$raw_video" && -f "$narration_text" ]] || {
   echo "Vídeo ou roteiro de narração não encontrado." >&2
   exit 1
 }
 
-say -v "$voice" -r "$rate" -f "$narration_text" -o "$audio_file"
+case "$engine" in
+  openai)
+    : "${OPENAI_API_KEY:?Defina OPENAI_API_KEY para gerar a narração neural.}"
+    payload=$(jq -Rs --arg voice "$voice" '{
+      model: "gpt-4o-mini-tts",
+      voice: $voice,
+      input: .,
+      response_format: "mp3",
+      instructions: "Fale em português do Brasil, com voz adulta, clara e natural. Mantenha ritmo conversacional e profissional, com pausas breves entre as ideias. Evite tom publicitário, monotonia, pressa e entonação artificial."
+    }' "$narration_text")
+    curl --fail --silent --show-error https://api.openai.com/v1/audio/speech \
+      -H "Authorization: Bearer $OPENAI_API_KEY" \
+      -H 'Content-Type: application/json' \
+      --data "$payload" \
+      -o "$audio_base.mp3"
+    audio_file="$audio_base.mp3"
+    ;;
+  macos)
+    voice=${HIKARI_NARRATOR_VOICE:-Luciana}
+    say -v "$voice" -r "${HIKARI_NARRATOR_RATE:-145}" -f "$narration_text" -o "$audio_base.aiff"
+    audio_file="$audio_base.aiff"
+    ;;
+  *)
+    echo "Motor de narração inválido: $engine. Use openai ou macos." >&2
+    exit 1
+    ;;
+esac
 duration=$(ffprobe -v error -show_entries format=duration -of default=nk=1:nw=1 "$raw_video")
 mkdir -p "$(dirname "$output_video")"
 
