@@ -1,13 +1,16 @@
 WEBVTT
 
-00:00.000 --> 00:08.000
-A organização cria a edição e inicia o prazo quando todos estão prontos.
+00:00.000 --> 00:09.000
+A organização cria a edição, define a pontuação por equipes e escolhe a duração inicial.
 
-00:08.000 --> 00:17.000
-O prazo pode ser ajustado em blocos de cinco minutos.
+00:09.000 --> 00:20.000
+Com a competição em andamento, o painel exibe o prazo e o estado da execução.
 
-00:17.000 --> 00:26.000
+00:20.000 --> 00:31.000
+O prazo é ajustado em blocos de cinco minutos. Aqui, a organização acrescenta trinta minutos.
+
+00:31.000 --> 00:41.000
 Pausar bloqueia novas submissões e preserva o tempo restante.
 
-00:26.000 --> 00:35.000
-Retomar faz o relógio continuar sem recriar a competição.
+00:41.000 --> 00:53.000
+Ao retomar, o relógio continua do ponto em que parou e o histórico registra cada mudança.

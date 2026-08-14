@@ -118,40 +118,50 @@ async function loginAsAdmin(page) {
 async function recordOperation(page) {
   await loginAsAdmin(page);
   await page.goto(`${baseUrl}/admin/hikari/competitions`, { waitUntil: "domcontentloaded" });
-  const runningControl = page.getByRole("button", { name: "Pausar" });
-  if ((await runningControl.count()) === 0) {
-    await page.locator('input[name="key"]').fill(`landing-${stamp}`);
-    await page.locator('input[name="name"]').fill("Demonstração da operação");
-    await page.locator('select[name="duration_minutes"]').selectOption("240");
+  const finishButton = page.getByRole("button", { name: "Encerrar" });
+  if ((await finishButton.count()) > 0) {
     await Promise.all([
       page.waitForNavigation({ waitUntil: "domcontentloaded" }),
-      page.getByRole("button", { name: "Criar execução" }).click(),
-    ]);
-    await pause(6_000);
-    await Promise.all([
-      page.waitForNavigation({ waitUntil: "domcontentloaded" }),
-      page.getByRole("button", { name: "Iniciar agora" }).click(),
+      finishButton.click(),
     ]);
   }
-  await pause(10_000);
+
+  await page.locator('input[name="key"]').fill(`operacao-${stamp}`);
+  await page.locator('input[name="name"]').fill("Demonstração da operação");
+  await page.locator('select[name="scoring_mode"]').selectOption("teams");
+  await page.locator('select[name="duration_minutes"]').selectOption("240");
+  await pause(5_000);
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: "domcontentloaded" }),
+    page.getByRole("button", { name: "Criar execução" }).click(),
+  ]);
+  await pause(7_000);
+  await Promise.all([
+    page.waitForNavigation({ waitUntil: "domcontentloaded" }),
+    page.getByRole("button", { name: "Iniciar agora" }).click(),
+  ]);
+  await page.getByRole("button", { name: "Ajustar prazo" }).waitFor({ timeout: 15_000 });
+  await pause(8_000);
+  await page.locator('input[name="adjust_minutes"]').fill("30");
+  await pause(4_000);
   await Promise.all([
     page.waitForNavigation({ waitUntil: "domcontentloaded" }),
     page.getByRole("button", { name: "Ajustar prazo" }).click(),
   ]);
   await page.getByRole("button", { name: "Pausar" }).waitFor({ timeout: 15_000 });
-  await pause(7_000);
+  await pause(8_000);
   await Promise.all([
     page.waitForNavigation({ waitUntil: "domcontentloaded" }),
     page.getByRole("button", { name: "Pausar" }).click(),
   ]);
   await page.getByRole("button", { name: "Retomar" }).waitFor({ timeout: 15_000 });
-  await pause(7_000);
+  await pause(8_000);
   await Promise.all([
     page.waitForNavigation({ waitUntil: "domcontentloaded" }),
     page.getByRole("button", { name: "Retomar" }).click(),
   ]);
   await page.getByRole("button", { name: "Pausar" }).waitFor({ timeout: 15_000 });
-  await pause(10_000);
+  await pause(12_000);
 }
 
 async function recordResearch(page) {
