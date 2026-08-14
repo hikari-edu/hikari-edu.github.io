@@ -216,7 +216,7 @@
 
     .demo-grid{
       display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap:16px;
       margin-top:18px;
     }
@@ -515,7 +515,7 @@
   <section id="demos" class="section alt">
     <div class="container">
       <h2>Demonstrações</h2>
-      <p>Três demonstrações curtas mostram o fluxo do competidor, a investigação no SIEM e a análise administrativa após a competição.</p>
+      <p>Demonstrações orientadas por tarefa mostram como competir, investigar, operar uma edição e analisar os dados após o encerramento.</p>
       <div class="demo-grid">
         <article class="demo-card">
           <video controls preload="none" poster="assets/demos/posters/competidor.jpg">
@@ -526,15 +526,13 @@
           <p>Conta, equipe, desafio, SIEM, tentativa, solve e placar.</p>
           <div class="demo-meta">Narração em português e legendas opcionais</div>
           <ul class="demo-steps">
-            <li><time>0:00</time><span>Ver o objetivo do fluxo do competidor.</span></li>
-            <li><time>0:06</time><span>Criar conta e registrar o participante.</span></li>
-            <li><time>0:14</time><span>Criar equipe para operar em grupo.</span></li>
-            <li><time>0:22</time><span>Abrir o desafio e acessar o SIEM.</span></li>
-            <li><time>0:32</time><span>Consultar o dashboard Kibana pelo gateway autenticado.</span></li>
-            <li><time>0:43</time><span>Registrar tentativa incorreta e flag correta.</span></li>
-            <li><time>0:55</time><span>Confirmar o impacto no placar ao vivo.</span></li>
+            <li><time>0:00</time><span>Criar conta e registrar o participante.</span></li>
+            <li><time>0:15</time><span>Criar uma equipe individual para participar.</span></li>
+            <li><time>0:31</time><span>Abrir o desafio e seguir para o SIEM.</span></li>
+            <li><time>0:48</time><span>Testar uma resposta e registrar a flag correta.</span></li>
+            <li><time>0:55</time><span>Confirmar o solve no placar ao vivo.</span></li>
           </ul>
-          <div class="demo-proof">Prova exibida: o vídeo mostra cadastro, equipe, SIEM, Kibana, erro, solve e telemetria atribuída.</div>
+          <div class="demo-proof">Prova exibida: o vídeo mostra cadastro, equipe, SIEM, tentativa incorreta, solve e telemetria atribuída.</div>
         </article>
         <article class="demo-card">
           <video controls preload="none" poster="assets/demos/posters/siem.jpg">
@@ -546,13 +544,28 @@
           <div class="demo-meta">Narração em português e legendas opcionais</div>
           <ul class="demo-steps">
             <li><time>0:00</time><span>Ver a superfície SIEM com métricas da competição.</span></li>
-            <li><time>0:07</time><span>Usar atalhos KQL para priorizar hipóteses.</span></li>
-            <li><time>0:16</time><span>Abrir o dashboard Kibana pelo gateway autenticado.</span></li>
-            <li><time>0:29</time><span>Comparar severidade, tempo, IPs, portas e detecções.</span></li>
-            <li><time>0:44</time><span>Revisar eventos recentes no resumo Hikari.</span></li>
-            <li><time>0:52</time><span>Voltar ao desafio para registrar a resposta.</span></li>
+            <li><time>0:12</time><span>Abrir uma consulta KQL pronta no Discover.</span></li>
+            <li><time>0:34</time><span>Voltar à superfície Hikari para mudar de hipótese.</span></li>
+            <li><time>0:42</time><span>Abrir o dashboard Kibana pelo gateway autenticado.</span></li>
+            <li><time>0:58</time><span>Comparar severidade, tempo, IPs, portas e detecções.</span></li>
           </ul>
-          <div class="demo-proof">Prova exibida: os painéis carregam dados reais do Elasticsearch e mantêm o caminho de volta ao CTFd.</div>
+          <div class="demo-proof">Prova exibida: os painéis carregam eventos indexados do cenário de demonstração e mantêm o caminho de volta ao CTFd.</div>
+        </article>
+        <article class="demo-card">
+          <video controls preload="none" poster="assets/demos/posters/operacao.jpg">
+            <source src="assets/demos/hikari-demo-operacao.webm" type="video/webm">
+            <track kind="captions" src="assets/demos/captions/operacao.vtt" srclang="pt-BR" label="Português">
+          </video>
+          <h3>Operação da competição</h3>
+          <p>Controle de prazo, pausa e retomada de uma execução em andamento.</p>
+          <div class="demo-meta">Narração em português e legendas opcionais</div>
+          <ul class="demo-steps">
+            <li><time>0:00</time><span>Ver o estado e o prazo da execução ativa.</span></li>
+            <li><time>0:10</time><span>Ajustar a duração quando a organização precisar.</span></li>
+            <li><time>0:20</time><span>Pausar a execução de forma controlada.</span></li>
+            <li><time>0:28</time><span>Retomar a competição e confirmar o novo estado.</span></li>
+          </ul>
+          <div class="demo-proof">Prova exibida: a administração altera o relógio e controla a execução sem expor o SIEM diretamente.</div>
         </article>
         <article class="demo-card">
           <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg">
@@ -564,11 +577,10 @@
           <div class="demo-meta">Narração em português e legendas opcionais</div>
           <ul class="demo-steps">
             <li><time>0:00</time><span>Acompanhar ranking, solves e evolução em tempo real.</span></li>
-            <li><time>0:16</time><span>Abrir a análise científica protegida por conta administrativa.</span></li>
-            <li><time>0:27</time><span>Filtrar atividades por tipo de evento.</span></li>
-            <li><time>0:36</time><span>Ver cobertura, pendências e métricas de feedback.</span></li>
-            <li><time>0:49</time><span>Consultar status por equipe e resumo numérico.</span></li>
-            <li><time>0:56</time><span>Exportar JSONL para auditoria e análise posterior.</span></li>
+            <li><time>0:12</time><span>Abrir a análise científica protegida por conta administrativa.</span></li>
+            <li><time>0:23</time><span>Filtrar atividades por tipo de evento.</span></li>
+            <li><time>0:35</time><span>Ver cobertura, pendências e métricas de feedback.</span></li>
+            <li><time>0:43</time><span>Exportar JSONL para auditoria e análise posterior.</span></li>
           </ul>
           <div class="demo-proof">Prova exibida: administradores filtram telemetria, acompanham feedback e exportam os dados auditáveis.</div>
         </article>
@@ -604,9 +616,9 @@ bash bootstrap.sh</code></pre>
   <section id="parcerias" class="section">
     <div class="container">
       <h2>Participações Institucionais</h2>
-      <p>Plataforma oficial do <strong>CTF no RESEG2025</strong>, evento da <strong>Anatel</strong> e da <strong>União Internacional de Telecomunicações (ITU)</strong>.</p>
+      <p>O Hikari integrou o CTF do RESEG 2025. A cobertura externa abaixo contextualiza o exercício setorial de cibersegurança.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="https://www.gov.br/anatel/pt-br/assuntos/noticias/anatel-abre-1a-edicao-do-redes-seguras-destacando-cooperacao-e-resiliencia-em-ciberseguranca" target="_blank" rel="noopener">Saiba mais</a>
+        <a class="btn btn-primary" href="https://teletime.com.br/27/05/2025/anatel-prepara-simulacao-setorial-de-ciberseguranca-com-operadoras/" target="_blank" rel="noopener">Ler o contexto setorial</a>
       </div>
     </div>
   </section>

@@ -1,19 +1,22 @@
 WEBVTT
 
 00:00.000 --> 00:07.000
-O competidor cria uma conta e forma sua equipe.
+Crie uma conta e uma equipe individual para começar.
 
-00:07.000 --> 00:15.000
-Uma equipe individual permite competir sozinho.
+00:07.000 --> 00:16.000
+Você pode competir sozinho e receber integrantes depois.
 
-00:15.000 --> 00:25.000
-O desafio apresenta a investigação e conduz ao SIEM.
+00:16.000 --> 00:26.000
+Abra o desafio e acesse o SIEM durante a investigação.
 
-00:25.000 --> 00:34.000
-Os eventos liberados apoiam a busca pela evidência.
+00:26.000 --> 00:36.000
+Os eventos liberados ajudam a confirmar a hipótese.
 
-00:34.000 --> 00:42.000
-Tentativas e respostas ficam atribuídas à equipe.
+00:36.000 --> 00:44.000
+Uma tentativa incorreta indica que a resposta deve ser revista.
 
-00:42.000 --> 00:48.000
-O solve atualiza a pontuação e o placar ao vivo.
+00:44.000 --> 00:53.000
+A flag correta confirma o solve e atualiza a pontuação da equipe.
+
+00:53.000 --> 01:00.000
+O placar ao vivo registra o avanço da competição.

@@ -1,16 +1,16 @@
 WEBVTT
 
-00:00.000 --> 00:09.000
-A análise científica reúne eventos, solves e respostas de feedback.
+00:00.000 --> 00:10.000
+O placar registra a classificação, a diferença e os solves recentes.
 
-00:09.000 --> 00:19.000
-Os filtros recortam os registros por evento, competidor ou equipe.
+00:10.000 --> 00:21.000
+A Análise científica reúne eventos, tentativas e feedbacks.
 
-00:19.000 --> 00:29.000
-O panorama do feedback informa cobertura, pendências e métricas agregadas.
+00:21.000 --> 00:33.000
+Filtre os dados por evento, competidor ou equipe.
 
-00:29.000 --> 00:39.000
-As exportações em JSONL mantêm os dados estruturados para análise posterior.
+00:33.000 --> 00:43.000
+As métricas resumem atividade, solves e cobertura do questionário.
 
-00:39.000 --> 00:47.000
-A área é restrita à administração da competição.
+00:43.000 --> 00:50.000
+As exportações JSONL preservam registros estruturados por edição.

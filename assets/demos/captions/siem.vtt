@@ -1,16 +1,22 @@
 WEBVTT
 
-00:00.000 --> 00:07.000
-O acesso ao SIEM ocorre pelo gateway autenticado do Hikari.
+00:00.000 --> 00:09.000
+O SIEM reúne os eventos liberados para os desafios.
 
-00:07.000 --> 00:16.000
-A organização mantém o vínculo entre a consulta, o competidor e a equipe.
+00:09.000 --> 00:18.000
+O gateway associa cada consulta ao competidor e à equipe.
 
-00:16.000 --> 00:27.000
-O painel reúne severidade, fontes, destinos e eventos indexados.
+00:18.000 --> 00:29.000
+Os atalhos de caça abrem o Discover com a consulta já aplicada.
 
-00:27.000 --> 00:38.000
-No Discover, filtros e consultas KQL permitem aprofundar a investigação.
+00:29.000 --> 00:40.000
+Os documentos retornados podem ser refinados com filtros e KQL.
 
-00:38.000 --> 00:47.000
-O acesso respeita o período ativo da competição.
+00:40.000 --> 00:52.000
+Cada consulta registrada preserva a sequência de investigação.
+
+00:52.000 --> 01:04.000
+O dashboard resume severidade, destinos e outros sinais indexados.
+
+01:04.000 --> 01:15.000
+Com evidência suficiente, o competidor retorna ao desafio para enviar a flag.
