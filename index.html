@@ -515,7 +515,7 @@
   <section id="demos" class="section alt">
     <div class="container">
       <h2>Demonstrações</h2>
-      <p>Três demonstrações de cerca de um minuto mostram o fluxo completo: operação do competidor, investigação no SIEM e análise científica pós-competição.</p>
+      <p>Três demonstrações curtas mostram o fluxo do competidor, a investigação no SIEM e a análise administrativa após a competição.</p>
       <div class="demo-grid">
         <article class="demo-card">
           <video controls preload="none" poster="assets/demos/posters/competidor.jpg">
@@ -523,8 +523,8 @@
             <track kind="captions" src="assets/demos/captions/competidor.vtt" srclang="pt-BR" label="Português">
           </video>
           <h3>Competidor</h3>
-          <p>Cadastro, equipe, desafio, SIEM, tentativa incorreta, flag correta e placar.</p>
-          <div class="demo-meta">Roteiro validado: 60 segundos</div>
+          <p>Conta, equipe, desafio, SIEM, tentativa, solve e placar.</p>
+          <div class="demo-meta">Narração em português e legendas opcionais</div>
           <ul class="demo-steps">
             <li><time>0:00</time><span>Ver o objetivo do fluxo do competidor.</span></li>
             <li><time>0:06</time><span>Criar conta e registrar o participante.</span></li>
@@ -541,9 +541,9 @@
             <source src="assets/demos/hikari-demo-siem.webm" type="video/webm">
             <track kind="captions" src="assets/demos/captions/siem.vtt" srclang="pt-BR" label="Português">
           </video>
-          <h3>SIEM</h3>
+          <h3>Investigação no SIEM</h3>
           <p>Atalhos de caça, dashboard Kibana, pivôs de rede e retorno ao desafio.</p>
-          <div class="demo-meta">Roteiro validado: 60 segundos</div>
+          <div class="demo-meta">Narração em português e legendas opcionais</div>
           <ul class="demo-steps">
             <li><time>0:00</time><span>Ver a superfície SIEM com métricas da competição.</span></li>
             <li><time>0:07</time><span>Usar atalhos KQL para priorizar hipóteses.</span></li>
@@ -561,7 +561,7 @@
           </video>
           <h3>Análise científica</h3>
           <p>Placar ao vivo, filtros de atividade, panorama de feedback e exportação JSONL.</p>
-          <div class="demo-meta">Roteiro validado: 60 segundos</div>
+          <div class="demo-meta">Narração em português e legendas opcionais</div>
           <ul class="demo-steps">
             <li><time>0:00</time><span>Acompanhar ranking, solves e evolução em tempo real.</span></li>
             <li><time>0:16</time><span>Abrir a análise científica protegida por conta administrativa.</span></li>
@@ -573,7 +573,7 @@
           <div class="demo-proof">Prova exibida: administradores filtram telemetria, acompanham feedback e exportam os dados auditáveis.</div>
         </article>
       </div>
-      <p class="figcap">Trilha dos vídeos: Demo 1 usa <em>A Just Ronin</em>, Solas Composer, Creative Commons BY-SA 3.0. Demos 2 e 3 usam <em>Ronin</em>, Yoitrax, Creative Commons BY 3.0. Fontes via BreakingCopyright.</p>
+      <p class="figcap">As demonstrações usam fluxos reais da plataforma e dados de teste. A trilha foi removida; cada vídeo usa narração em português e legendas WebVTT opcionais.</p>
     </div>
   </section>
 
@@ -591,7 +591,7 @@ bash bootstrap.sh</code></pre>
         <code>bootstrap.sh</code> detecta o sistema operacional, valida
         recursos (RAM, disco, portas), confere se o Docker está instalado
         (e mostra o comando exato de instalação se não estiver), prepara
-        o <code>.env</code> e dispara a suíte de aceitação com 26 verificações
+        o <code>.env</code> e dispara a suíte de aceitação com 31 verificações
         automáticas (registro, login, CTF, SIEM, placar ao vivo, analytics,
         feedback, isolamento de autorização). Para produção, consulte o
         <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>

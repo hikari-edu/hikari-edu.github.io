@@ -1,25 +1,19 @@
 WEBVTT
 
-00:00.000 --> 00:06.000
-Fluxo do competidor: conta, equipe, desafio, SIEM, flag e placar ao vivo.
+00:00.000 --> 00:07.000
+O competidor cria uma conta e forma sua equipe.
 
-00:06.000 --> 00:14.000
-O participante cria uma conta real na plataforma.
+00:07.000 --> 00:15.000
+Uma equipe individual permite competir sozinho.
 
-00:14.000 --> 00:22.000
-Antes da operação, ele cria uma equipe para competir em grupo.
+00:15.000 --> 00:25.000
+O desafio apresenta a investigação e conduz ao SIEM.
 
-00:22.000 --> 00:32.000
-O desafio orienta a investigação e abre o SIEM autenticado.
+00:25.000 --> 00:34.000
+Os eventos liberados apoiam a busca pela evidência.
 
-00:32.000 --> 00:43.000
-O Kibana exibe painéis e atalhos para localizar evidências nos logs.
+00:34.000 --> 00:42.000
+Tentativas e respostas ficam atribuídas à equipe.
 
-00:43.000 --> 00:49.000
-Uma tentativa incorreta também é registrada para análise posterior.
-
-00:49.000 --> 00:55.000
-A flag correta confirma o solve e atualiza a pontuação.
-
-00:55.000 --> 00:59.800
-O placar ao vivo mostra o efeito do solve na competição.
+00:42.000 --> 00:48.000
+O solve atualiza a pontuação e o placar ao vivo.
