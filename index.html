@@ -386,7 +386,7 @@
 
       <div class="grid grid-3" style="margin-top:14px">
         <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: detecção, correlação e resposta — ponta a ponta.</p></div>
-        <div class="card"><h3>IaC e escala</h3><p>Ambiente dockerizado, <strong>instância por equipe</strong> e provisionamento automático.</p></div>
+        <div class="card"><h3>Infraestrutura reprodutível</h3><p>Stack Docker declarativa, serviços separados e configuração versionada.</p></div>
         <div class="card"><h3>Anonimização</h3><p>Preserva valor analítico sem expor dados sensíveis.</p></div>
       </div>
     </div>
@@ -401,7 +401,7 @@
           <li><strong>CTFd + Plugin</strong>: gerencia desafios, flags e progressão.</li>
           <li><strong>Kafka → Logstash → Elasticsearch</strong>: pipeline de ingestão e indexação.</li>
           <li><strong>Kibana</strong>: interface de investigação e KQL.</li>
-          <li><strong>Contêineres</strong>: isolamento e paralelismo por equipe.</li>
+          <li><strong>Contêineres</strong>: isolamento entre serviços e operação reproduzível.</li>
           <li><strong>Anonimização</strong>: preserva valor analítico sem expor dados sensíveis.</li>
         </ul>
         <div class="cta-row">
@@ -421,7 +421,7 @@
     <div class="container">
       <h2>Como funciona (4 etapas)</h2>
       <ol class="steps-grid" aria-label="Etapas do funcionamento">
-        <li class="step"><span class="badge">1</span><h3>Cadastro & Setup</h3><p>Provisionamento automático por equipe.</p></li>
+        <li class="step"><span class="badge">1</span><h3>Cadastro e equipes</h3><p>Crie ou entre em uma equipe antes do início da competição.</p></li>
         <li class="step"><span class="badge">2</span><h3>Desafios CTF</h3><p>Fases liberadas conforme flags.</p></li>
         <li class="step"><span class="badge">3</span><h3>Injeção de Logs</h3><p>Kafka → Logstash → Elasticsearch.</p></li>
         <li class="step"><span class="badge">4</span><h3>Investigação</h3><p>Análise e correlação no Kibana.</p></li>
@@ -607,9 +607,26 @@ bash bootstrap.sh</code></pre>
         o <code>.env</code> e dispara a suíte de aceitação com 31 verificações
         automáticas (registro, login, CTF, SIEM, placar ao vivo, analytics,
         feedback, isolamento de autorização). Para produção, consulte o
-        <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">guia de instalação</a>
+        <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/deploy/production/README.md" target="_blank" rel="noopener">guia de implantação</a>
         (TLS, OAuth, ILM).
       </p>
+    </div>
+  </section>
+
+  <!-- DIMENSIONAMENTO -->
+  <section id="infraestrutura" class="section alt">
+    <div class="container">
+      <h2>Dimensionamento para implantação</h2>
+      <p>Use estes valores como ponto de partida. Antes do evento, execute um ensaio com o volume esperado de logs e consultas simultâneas.</p>
+      <div class="grid grid-3" style="margin-top:16px">
+        <div class="card"><h3>Ensaio ou turma pequena</h3><p><strong>4 vCPU · 8 GB RAM · 40 GB livres</strong><br>Ambiente de preparação e validação.</p></div>
+        <div class="card"><h3>Até 50 equipes</h3><p><strong>4 vCPU · 16 GB RAM · 80 GB livres</strong><br>Competição com monitoramento contínuo.</p></div>
+        <div class="card"><h3>Cerca de 100 equipes</h3><p><strong>8 vCPU · 32 GB RAM · 100 GB livres</strong><br>Ponto de partida conservador para um evento nacional.</p></div>
+      </div>
+      <p class="figcap">A RAM suporta Elasticsearch, Kafka e Logstash; o disco mantém imagens, backups e edições arquivadas. Exponha apenas SSH, HTTP e HTTPS. O Kibana permanece acessível pelo gateway autenticado do Hikari.</p>
+      <div class="cta-row" style="margin-top:16px">
+        <a class="btn btn-primary" href="https://github.com/sidneibarbieri/hikari/blob/main/deploy/production/README.md" target="_blank" rel="noopener">Ler o guia de implantação</a>
+      </div>
     </div>
   </section>
 
