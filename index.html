@@ -362,7 +362,7 @@
           <a class="btn" href="#quickstart">Subir o ambiente</a>
           <a class="btn" href="#publicacao">Ler o paper</a>
         </div>
-        <p class="hero-meta">294 participantes • 8 edições • stack público no GitHub • suíte de aceitação com 31 verificações</p>
+        <p class="hero-meta">294 participantes • 8 edições • plataforma licenciada • suíte de aceitação com 31 verificações</p>
       </div>
 
       <!-- Ilustração com moldura neon (com fallback iPhone automático) -->
@@ -482,14 +482,16 @@
   <section id="artefato" class="section">
     <div class="container">
       <h2>Artefato de Pesquisa</h2>
-      <p>O stack completo é publicado como artefato avaliado pelos três
-      critérios SBC de reprodutibilidade científica.</p>
+      <p>A plataforma é proprietária e licenciada. O rigor de engenharia abaixo é
+      o mesmo que sustentou uma competição nacional de quatro horas sem falha, e
+      a versão publicada sob licença MIT — antecessora desta — está referenciada
+      ao final da página.</p>
       <div class="grid grid-3" style="margin-top:16px">
         <div class="card">
-          <h3>Disponível</h3>
-          <p>Repositório público sob licença permissiva, com release fixada por
-          tag. Toda a stack — código, configurações, datasets de teste — vive
-          no mesmo repositório.</p>
+          <h3>Rastreável</h3>
+          <p>Cada versão é fixada por marcação, e a instância declara em qual está
+          rodando. A construção que conduziu o RESEG 2026 ficou preservada e é
+          reproduzível.</p>
         </div>
         <div class="card">
           <h3>Funcional</h3>
@@ -505,7 +507,7 @@
         </div>
       </div>
       <div class="cta-row" style="margin-top:18px">
-        <a class="btn btn-primary" href="https://github.com/sidneibarbieri/hikari" target="_blank" rel="noopener">Acessar o repositório</a>
+        <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20licenciamento">Falar sobre licenciamento</a>
         <a class="btn" href="#quickstart">Como subir o ambiente</a>
       </div>
     </div>
@@ -597,8 +599,7 @@
       <p>Um clone, um Docker Compose e uma suíte de verificação — todo o stack
       (CTFd + Kafka + Elasticsearch + Kibana) sobe em uma única máquina sem
       dependências externas.</p>
-      <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>git clone https://github.com/sidneibarbieri/hikari.git
-cd hikari/deploy/local
+      <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>cd hikari/deploy/local
 bash bootstrap.sh</code></pre>
       <p style="margin-top:10px; font-size:.9rem; opacity:.85">
         <code>bootstrap.sh</code> detecta o sistema operacional, valida
@@ -607,7 +608,7 @@ bash bootstrap.sh</code></pre>
         o <code>.env</code> e dispara a suíte de aceitação com 31 verificações
         automáticas (registro, login, CTF, SIEM, placar ao vivo, analytics,
         feedback, isolamento de autorização). Para produção, consulte o
-        <a class="link" href="https://github.com/sidneibarbieri/hikari/blob/main/deploy/production/README.md" target="_blank" rel="noopener">guia de implantação</a>
+        <span class="link">guia de implantação entregue ao licenciado</span>
         (TLS, OAuth, ILM).
       </p>
     </div>
@@ -625,7 +626,7 @@ bash bootstrap.sh</code></pre>
       </div>
       <p class="figcap">A RAM suporta Elasticsearch, Kafka e Logstash; o disco mantém imagens, backups e edições arquivadas. Exponha apenas SSH, HTTP e HTTPS. O Kibana permanece acessível pelo gateway autenticado do Hikari.</p>
       <div class="cta-row" style="margin-top:16px">
-        <a class="btn btn-primary" href="https://github.com/sidneibarbieri/hikari/blob/main/deploy/production/README.md" target="_blank" rel="noopener">Ler o guia de implantação</a>
+        <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20guia%20de%20implantação">Solicitar o guia de implantação</a>
       </div>
     </div>
   </section>
@@ -687,7 +688,7 @@ bash bootstrap.sh</code></pre>
       <div class="footer-col">
         <h4>Repositórios e referências</h4>
         <div class="socials">
-          <a href="https://github.com/sidneibarbieri/hikari" target="_blank" rel="noopener" class="social" aria-label="GitHub">
+          <a href="https://github.com/c2dc/hikari" target="_blank" rel="noopener" class="social" aria-label="GitHub">
             <svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61-.55-1.37-1.35-1.73-1.35-1.73-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.25 1.86 1.25 1.08 1.86 2.83 1.32 3.52 1.01.11-.79.42-1.32.76-1.62-2.67-.3-5.48-1.34-5.48-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.64.25 2.86.12 3.16.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.65-5.49 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58A12 12 0 0 0 12 .5z"/></svg>
           </a>
           <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener" class="social" aria-label="Publicação científica">
@@ -700,8 +701,8 @@ bash bootstrap.sh</code></pre>
       </div>
       <div class="footer-col">
         <h4>Artefato</h4>
-        <p>Plataforma aberta para treinamento, demonstração e pesquisa em threat hunting gamificado.</p>
-        <p style="margin-top:10px"><a href="https://github.com/sidneibarbieri/hikari" class="link" target="_blank" rel="noopener">Código-fonte</a><br><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica</a></p>
+        <p>Plataforma licenciada para treinamento, demonstração e pesquisa em threat hunting gamificado.</p>
+        <p style="margin-top:10px"><a href="https://github.com/c2dc/hikari" class="link" target="_blank" rel="noopener">Hikari original (MIT)</a><br><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica</a></p>
       </div>
     </div>
     <div class="copy">Copyright © 2026 Autores do Hikari</div>
