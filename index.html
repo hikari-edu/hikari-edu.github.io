@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>HIKARI — Desafios Reais, Ameaças Ocultas</title>
-  <meta name="description" content="Treine seu Blue Team com CTF progressivo, ingestão de eventos reais via Kafka e investigações práticas no Kibana." />
+  <meta name="description" content="Treine seu Blue Team com CTF progressivo, evidências liberadas por fases via Kafka e investigações práticas no Kibana." />
   <link rel="icon" href="img/logo.png">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="HIKARI — Desafios Reais, Ameaças Ocultas" />
-  <meta property="og:description" content="CTF progressivo + logs reais + investigação no Kibana. Plataforma de threat hunting gamificado." />
+  <meta property="og:description" content="CTF progressivo + evidências por fases + investigação no Kibana. Plataforma de threat hunting gamificado." />
   <meta property="og:image" content="img/sword.png" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -177,6 +177,8 @@
     .grid{ display:grid; gap:min(5vw, 40px); }
     .grid-2{ grid-template-columns: 1.05fr .95fr; align-items:center; }
     .grid-3{ grid-template-columns: repeat(3, 1fr); }
+    /* Cartões lado a lado: colunas iguais e a mesma altura na linha. */
+    .grid-cartoes{ grid-template-columns: 1fr 1fr; align-items:stretch; }
     @media (max-width: 980px){ .grid-2, .grid-3{ grid-template-columns: 1fr; } }
     .card{ background:var(--panel); border:1px solid var(--panel-bd); border-radius: var(--radius-xl); padding:16px 14px; box-shadow: var(--shadow-1); }
     .checklist{ padding-left:0; list-style:none; }
@@ -362,14 +364,14 @@
         <img src="img/logo.png" alt="" width="44" height="44" class="logo" style="opacity:.9; border-radius:10px;">
         <h1>HIKARI</h1>
         <p class="hero-sub"><strong>Desafios Reais, Ameaças Ocultas:</strong> plataforma de threat hunting gamificado.</p>
-        <p class="hero-sub">Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>eventos reais injetados ao vivo</em> e <em>investigações no Kibana</em>.</p>
+        <p class="hero-sub">Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>evidências injetadas por fases</em> e <em>investigações no Kibana</em>.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#demos">Ver demonstrações</a>
           <a class="btn" href="#quickstart">Subir o ambiente</a>
           <a class="btn" href="#minicurso">Minicurso de threat hunting</a>
           <a class="btn" href="#publicacao">Ler o paper</a>
         </div>
-        <p class="hero-meta">294 participantes • 8 edições • plataforma licenciada • suíte de aceitação com 43 verificações</p>
+        <p class="hero-meta">Avaliado no SBSeg 2025 • RESEG 2025 e 2026 • plataforma licenciada • suíte de aceitação com 43 verificações</p>
       </div>
 
       <!-- Ilustração com moldura neon (com fallback iPhone automático) -->
@@ -383,18 +385,18 @@
   <section id="porque" class="section">
     <div class="container">
       <h2>Por que o HIKARI?</h2>
-      <p><strong>Três pilares, um resultado:</strong> ingestão de logs reais, progressão gamificada por fases e investigação no Kibana — como em um SOC de verdade.</p>
+      <p><strong>Três pilares, um resultado:</strong> ingestão de logs de segurança, progressão gamificada por fases e investigação no Kibana — como em um SOC de verdade.</p>
 
       <div class="grid grid-3" style="margin-top:16px">
-        <div class="card"><h3>Eventos reais, não sintéticos</h3><p>Logs anonimizados injetados por <strong>Kafka</strong> e processados em <strong>Logstash/Elasticsearch</strong>.</p></div>
+        <div class="card"><h3>A resposta está nos eventos</h3><p>Logs de segurança injetados por <strong>Kafka</strong> e processados em <strong>Logstash/Elasticsearch</strong>; cada flag sai de uma consulta sobre eles.</p></div>
         <div class="card"><h3>Progressão que pressiona</h3><p><strong>CTFd + plugin</strong> libera evidências por fase — como no dia a dia do SOC.</p></div>
         <div class="card"><h3>Ferramentas de mercado</h3><p>Investigue no <strong>Kibana</strong>, com KQL e dashboards.</p></div>
       </div>
 
       <div class="grid grid-3" style="margin-top:14px">
-        <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: detecção, correlação e resposta — ponta a ponta.</p></div>
+        <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: da primeira detecção à correlação que reconstitui o ataque.</p></div>
         <div class="card"><h3>Infraestrutura reprodutível</h3><p>Stack Docker declarativa, serviços separados e configuração versionada.</p></div>
-        <div class="card"><h3>Anonimização</h3><p>Preserva valor analítico sem expor dados sensíveis.</p></div>
+        <div class="card"><h3>Um SIEM comum</h3><p>Todas as equipes investigam o mesmo índice, sob a mesma janela; o que muda é a pergunta que cada uma faz.</p></div>
       </div>
     </div>
   </section>
@@ -409,7 +411,6 @@
           <li><strong>Kafka → Logstash → Elasticsearch</strong>: pipeline de ingestão e indexação.</li>
           <li><strong>Kibana</strong>: interface de investigação e KQL.</li>
           <li><strong>Contêineres</strong>: isolamento entre serviços e operação reproduzível.</li>
-          <li><strong>Anonimização</strong>: preserva valor analítico sem expor dados sensíveis.</li>
         </ul>
         <div class="cta-row">
           <a class="btn btn-primary" href="#como-funciona">Como funciona</a>
@@ -447,7 +448,7 @@
       <ul class="checklist" style="max-width:900px; margin:10px auto 0;">
         <li>Dicas debitam pontos, mas aceleram.</li>
         <li>Flags válidas liberam a próxima fase.</li>
-        <li>Eventos reais, ambiente isolado por equipe.</li>
+        <li>Um SIEM comum a todas as equipes; cada fase cai para todas ao mesmo tempo.</li>
       </ul>
     </div>
   </section>
@@ -467,7 +468,7 @@
       </div>
       <div class="card">
         <h3>Métricas reportadas</h3>
-        <p>218 participantes em 7 edições. 92% identificaram análise de logs como competência mais desenvolvida. Evidências quantitativas (SUS, NASA-TLX, NPS) e qualitativas.</p>
+        <p>Três edições avaliadas (ITA, pós-graduação da PUC Minas e Hackers do Bem/RNP), com 46 respostas. A análise de logs foi a competência mais citada, por 92% dos respondentes. Questionário com escala de 1 a 5 e análise temática das respostas abertas.</p>
       </div>
     </div>
   </section>
@@ -476,11 +477,11 @@
   <section id="resultados" class="section alt">
     <div class="container">
       <h2>Resultados com Usuários</h2>
-      <p style="margin-bottom:12px">Validação empírica em 7 edições, incluindo uso acadêmico, comunitário e governamental.</p>
+      <p style="margin-bottom:12px">Números do artigo do SBSeg 2025: três edições, entre novembro de 2024 e abril de 2025, em contextos acadêmico e comunitário.</p>
       <div class="grid grid-3" style="margin-top:12px">
-        <div class="card"><div style="font-weight:800; font-size:1.6rem">218</div><div class="muted">Participantes em 7 edições</div></div>
-        <div class="card"><div style="font-weight:800; font-size:1.6rem">85%–92%</div><div class="muted">Realismo dos cenários e ganho de competência</div></div>
-        <div class="card"><div style="font-weight:800; font-size:1.6rem">&gt; 4,2/5</div><div class="muted">Eficácia no aprendizado (SUS + NASA-TLX)</div></div>
+        <div class="card"><div style="font-weight:800; font-size:1.6rem">46</div><div class="muted">Respostas em 3 edições</div></div>
+        <div class="card"><div style="font-weight:800; font-size:1.6rem">~87%</div><div class="muted">Consideraram os desafios realistas ou muito realistas</div></div>
+        <div class="card"><div style="font-weight:800; font-size:1.6rem">&gt; 4,2/5</div><div class="muted">Nota média da eficácia no aprendizado</div></div>
       </div>
     </div>
   </section>
@@ -490,9 +491,9 @@
     <div class="container">
       <h2>Artefato de Pesquisa</h2>
       <p>A plataforma é proprietária e licenciada. O rigor de engenharia abaixo é
-      o mesmo que sustentou uma competição nacional de quatro horas sem falha, e
-      a versão publicada sob licença MIT — antecessora desta — está referenciada
-      ao final da página.</p>
+      o mesmo que sustentou uma competição nacional de quatro horas, e o
+      repositório público da versão antecessora, sem licença declarada, está
+      referenciado ao final da página.</p>
       <div class="grid grid-3" style="margin-top:16px">
         <div class="card">
           <h3>Rastreável</h3>
@@ -603,7 +604,7 @@
   <section id="quickstart" class="section">
     <div class="container">
       <h2>Suba o ambiente em minutos</h2>
-      <p>Um clone, um Docker Compose e uma suíte de verificação — todo o stack
+      <p>Com o repositório entregue ao licenciado: um Docker Compose e uma suíte de verificação — todo o stack
       (CTFd + Kafka + Elasticsearch + Kibana) sobe em uma única máquina sem
       dependências externas.</p>
       <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>cd hikari/deploy/local
@@ -662,7 +663,7 @@ bash bootstrap.sh</code></pre>
       <div class="grid grid-3" style="margin-top:14px">
         <div class="card">
           <h3>Um só critério de desempate</h3>
-          <p>Pontos; depois quem chegou antes àquela pontuação, contando a dica aberta. O telão, o pódio e o placar oficial seguem a mesma ordem, e o competidor encontra a própria equipe na classificação completa, mesmo longe do topo.</p>
+          <p>Pontos; depois quem chegou antes àquela pontuação, contando a dica aberta. A tela cheia, o pódio e o placar oficial seguem a mesma ordem, e o competidor encontra a própria equipe na classificação completa, mesmo longe do topo.</p>
         </div>
         <div class="card">
           <h3>Aprender depois da prova</h3>
@@ -706,18 +707,18 @@ bash bootstrap.sh</code></pre>
       <h2>Participações Institucionais</h2>
       <p>O Hikari operou o CTF do RESEG em 2025 e em 2026 — o exercício setorial de cibersegurança do setor de telecomunicações brasileiro, promovido pela ANATEL — e foi confirmado para a Ciber Week da Brisanet, em outubro de 2026.</p>
 
-      <div class="grid grid-2" style="margin-top:16px; gap:20px">
+      <div class="grid grid-2 grid-cartoes" style="margin-top:16px; gap:20px">
         <div class="card">
           <h3>Ciber Week Brisanet 2026 — confirmada</h3>
           <p>A <strong>1ª Ciber Week Brisanet</strong> tem uma Arena de Desafios Técnicos conduzida no Hikari em <strong>15 de outubro de 2026</strong>: seis horas de prova, equipes de até cinco pessoas, <strong>165 desafios</strong> em oito fases de investigação.</p>
         </div>
         <div class="card">
-          <h3>RESEG 2025 — a primeira edição setorial</h3>
-          <p>O Hikari conduziu o CTF do exercício setorial de cibersegurança das operadoras de telecomunicações promovido pela ANATEL: equipes das operadoras investigando incidentes num SIEM comum, sob a mesma janela de prova.</p>
+          <h3>RESEG 2025 — com a versão antecessora</h3>
+          <p>Em <strong>14 de agosto de 2025</strong>, o CTF do exercício setorial das operadoras de telecomunicações rodou na versão antecessora do Hikari. Em cerca de três horas, <strong>25 contas</strong> de profissionais de <strong>sete organizações do setor</strong> (pelos domínios de e-mail do cadastro) enviaram <strong>1.389 respostas</strong>, e <strong>33 desafios</strong> foram resolvidos ao menos uma vez.</p>
         </div>
         <div class="card">
-          <h3>RESEG 2026 — quatro horas, sem falhas</h3>
-          <p><strong>13 equipes, 76 competidores, 125 desafios</strong> numa janela única de quatro horas. Os 125 desafios foram resolvidos ao menos uma vez e quatro equipes chegaram ao teto de pontuação. A instância registrou <strong>3.931 submissões</strong> e <strong>54.698 consultas ao SIEM</strong>, sem nenhuma falha de infraestrutura.</p>
+          <h3>RESEG 2026 — quatro horas, 125 desafios</h3>
+          <p><strong>13 equipes, 73 competidores em equipe (76 inscritos), 125 desafios</strong> numa janela única de quatro horas. Os 125 desafios foram resolvidos ao menos uma vez e quatro equipes chegaram ao teto de pontuação. A instância registrou <strong>3.931 submissões</strong> e <strong>54.698 consultas ao SIEM</strong>; 99,8% das consultas responderam com sucesso, e a maior parte das demais foi recusada como consulta inválida.</p>
         </div>
         <div class="card">
           <h3>O que a prova ensinou</h3>
@@ -736,10 +737,10 @@ bash bootstrap.sh</code></pre>
     <div class="container">
       <h2>Cobertura da Mídia</h2>
       <p style="margin-bottom:16px">Reportagens e artigos que documentam o impacto do Hikari na formação de defensores cibernéticos.</p>
-      <div class="grid grid-2" style="margin-top:12px; gap:20px">
+      <div class="grid grid-2 grid-cartoes" style="margin-top:12px; gap:20px">
         <div class="card">
           <h3>SBSeg 2025 — Publicação científica</h3>
-          <p>Artigo completo avaliado por pares apresentado no Simpósio Brasileiro de Cibersegurança, com evidências quantitativas de 218 participantes em 7 edições.</p>
+          <p>Artigo completo avaliado por pares apresentado no Simpósio Brasileiro de Cibersegurança, com a avaliação de três edições e 46 respostas ao questionário.</p>
           <div class="cta-row" style="margin-top:12px">
             <a class="btn btn-primary" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">Ler no SOL/SBC</a>
           </div>
@@ -780,7 +781,7 @@ bash bootstrap.sh</code></pre>
       <div class="footer-col">
         <h4>Artefato</h4>
         <p>Plataforma licenciada para treinamento, demonstração e pesquisa em threat hunting gamificado.</p>
-        <p style="margin-top:10px"><a href="https://github.com/c2dc/hikari" class="link" target="_blank" rel="noopener">Hikari original (MIT)</a><br><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica</a></p>
+        <p style="margin-top:10px"><a href="https://github.com/c2dc/hikari" class="link" target="_blank" rel="noopener">Hikari original (repositório público)</a><br><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica</a></p>
       </div>
     </div>
     <div class="copy">Copyright © 2026 Time Hikari</div>
