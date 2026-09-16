@@ -341,10 +341,10 @@
         <a href="#resultados" class="icon-link" title="Resultados (Paper)" aria-label="Resultados">
           <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
         </a>
-        <a href="#artefato" class="icon-link" title="Artefato" aria-label="Artefato">
+        <a href="#garantias" class="icon-link" title="Garantias de engenharia" aria-label="Garantias de engenharia">
           <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
         </a>
-        <a href="#versao-2026" class="icon-link" title="Versão 2026" aria-label="Versão 2026">
+        <a href="#versao-2026" class="icon-link" title="A versão atual" aria-label="A versão atual">
           <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.9H22l-6 4.4 2.3 7L12 16l-6.3 4.3 2.3-7-6-4.4h7.6z"/></svg>
         </a>
         <a href="#minicurso" class="icon-link" title="Minicurso de Threat Hunting" aria-label="Minicurso de Threat Hunting">
@@ -367,11 +367,11 @@
         <p class="hero-sub">Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>evidências injetadas por fases</em> e <em>investigações no Kibana</em>.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#demos">Ver demonstrações</a>
-          <a class="btn" href="#quickstart">Subir o ambiente</a>
+          <a class="btn" href="#implantacao">Como implantamos</a>
           <a class="btn" href="#minicurso">Minicurso de threat hunting</a>
           <a class="btn" href="#publicacao">Ler o paper</a>
         </div>
-        <p class="hero-meta">Avaliado no SBSeg 2025 • RESEG 2025 e 2026 • plataforma licenciada • suíte de aceitação com 43 verificações</p>
+        <p class="hero-meta">Conduziu o CTF do RESEG em 2025 e 2026 • Ciber Week Brisanet 2026 • avaliado no SBSeg 2025 • plataforma licenciada</p>
       </div>
 
       <!-- Ilustração com moldura neon (com fallback iPhone automático) -->
@@ -389,13 +389,13 @@
 
       <div class="grid grid-3" style="margin-top:16px">
         <div class="card"><h3>A resposta está nos eventos</h3><p>Logs de segurança injetados por <strong>Kafka</strong> e processados em <strong>Logstash/Elasticsearch</strong>; cada flag sai de uma consulta sobre eles.</p></div>
-        <div class="card"><h3>Progressão que pressiona</h3><p><strong>CTFd + plugin</strong> libera evidências por fase — como no dia a dia do SOC.</p></div>
+        <div class="card"><h3>Progressão que pressiona</h3><p>Novas evidências entram no SIEM conforme a investigação avança — como no dia a dia do SOC.</p></div>
         <div class="card"><h3>Ferramentas de mercado</h3><p>Investigue no <strong>Kibana</strong>, com KQL e dashboards.</p></div>
       </div>
 
       <div class="grid grid-3" style="margin-top:14px">
         <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: da primeira detecção à correlação que reconstitui o ataque.</p></div>
-        <div class="card"><h3>Infraestrutura reprodutível</h3><p>Stack Docker declarativa, serviços separados e configuração versionada.</p></div>
+        <div class="card"><h3>Pronta para o evento</h3><p>Sobe em uma máquina, em nuvem ou na sua infraestrutura, e é conferida antes de cada prova.</p></div>
         <div class="card"><h3>Um SIEM comum</h3><p>Todas as equipes investigam o mesmo índice, sob a mesma janela; o que muda é a pergunta que cada uma faz.</p></div>
       </div>
     </div>
@@ -407,7 +407,7 @@
       <div>
         <h2>Arquitetura</h2>
         <ul class="checklist">
-          <li><strong>CTFd + Plugin</strong>: gerencia desafios, flags e progressão.</li>
+          <li><strong>Plataforma de desafios</strong>: gerencia desafios, respostas e progressão por fases.</li>
           <li><strong>Kafka → Logstash → Elasticsearch</strong>: pipeline de ingestão e indexação.</li>
           <li><strong>Kibana</strong>: interface de investigação e KQL.</li>
           <li><strong>Contêineres</strong>: isolamento entre serviços e operação reproduzível.</li>
@@ -486,37 +486,28 @@
     </div>
   </section>
 
-  <!-- ARTEFATO -->
-  <section id="artefato" class="section">
+  <!-- GARANTIAS -->
+  <section id="garantias" class="section">
     <div class="container">
-      <h2>Artefato de Pesquisa</h2>
-      <p>A plataforma é proprietária e licenciada. O rigor de engenharia abaixo é
-      o mesmo que sustentou uma competição nacional de quatro horas, e o
-      repositório público da versão antecessora, sem licença declarada, está
-      referenciado ao final da página.</p>
+      <h2>Garantias de engenharia</h2>
+      <p>O que sustenta uma prova nacional não é o roteiro do dia: é o que a plataforma confere sozinha, antes de qualquer pessoa entrar.</p>
       <div class="grid grid-3" style="margin-top:16px">
         <div class="card">
-          <h3>Rastreável</h3>
-          <p>Cada versão é fixada por marcação, e a instância declara em qual está
-          rodando. A construção que conduziu o RESEG 2026 ficou preservada e é
-          reproduzível.</p>
+          <h3>Cada prova começa conferida</h3>
+          <p>Antes da largada, a plataforma recalcula a resposta de todos os desafios sobre a evidência, confere que cada dica leva ao campo certo e que nenhuma resposta muda quando novas evidências entram. Se algo não fecha, a prova não abre.</p>
         </div>
         <div class="card">
-          <h3>Funcional</h3>
-          <p>Suíte de aceitação com 43 verificações automáticas cobrindo
-          registro, login, CTF, SIEM, placar ao vivo, analytics, feedback e
-          panorama pós-competição — executada a cada release.</p>
+          <h3>Verificada a cada versão</h3>
+          <p>Uma suíte automática percorre cadastro, equipes, desafios, SIEM, placar ao vivo, certificado e análise de dados a cada versão publicada. Nada vai para o ar sem passar.</p>
         </div>
         <div class="card">
-          <h3>Reprodutível</h3>
-          <p>Um único comando sobe o ambiente completo em qualquer máquina com
-          Docker. Datasets históricos selados podem ser importados num projeto
-          Compose isolado para reprodução determinística.</p>
+          <h3>Operável por quem não a construiu</h3>
+          <p>Prazo, pausa, extensão e encerramento ficam a um clique, com registro de cada ação e ponto de restauração testado. Um cartão de operação de uma página conduz o evento.</p>
         </div>
       </div>
       <div class="cta-row" style="margin-top:18px">
         <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20licenciamento">Falar sobre licenciamento</a>
-        <a class="btn" href="#quickstart">Como subir o ambiente</a>
+        <a class="btn" href="#demos">Ver demonstrações</a>
       </div>
     </div>
   </section>
@@ -596,45 +587,31 @@
           <div class="demo-proof">Prova exibida: administradores filtram telemetria, acompanham feedback e exportam os dados auditáveis.</div>
         </article>
       </div>
-      <p class="figcap">As demonstrações usam fluxos reais da plataforma e dados de teste. A trilha foi removida; cada vídeo usa narração em português e legendas WebVTT opcionais.</p>
+      <p class="figcap">As demonstrações percorrem fluxos reais da plataforma, com narração em português e legendas opcionais.</p>
     </div>
   </section>
 
   <!-- QUICKSTART -->
-  <section id="quickstart" class="section">
+  <section id="implantacao" class="section">
     <div class="container">
-      <h2>Suba o ambiente em minutos</h2>
-      <p>Com o repositório entregue ao licenciado: um Docker Compose e uma suíte de verificação — todo o stack
-      (CTFd + Kafka + Elasticsearch + Kibana) sobe em uma única máquina sem
-      dependências externas.</p>
-      <pre style="background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:18px 22px; overflow-x:auto; font-size:.92rem; line-height:1.7; color:#b6f0cb; margin:16px 0 0"><code>cd hikari/deploy/local
-bash bootstrap.sh</code></pre>
-      <p style="margin-top:10px; font-size:.9rem; opacity:.85">
-        <code>bootstrap.sh</code> detecta o sistema operacional, valida
-        recursos (RAM, disco, portas), confere se o Docker está instalado
-        (e mostra o comando exato de instalação se não estiver), prepara
-        o <code>.env</code> e dispara a suíte de aceitação com 43 verificações
-        automáticas (registro, login, CTF, SIEM, placar ao vivo, analytics,
-        feedback, isolamento de autorização). Para produção, consulte o
-        <span class="link">guia de implantação entregue ao licenciado</span>
-        (TLS, OAuth, ILM).
-      </p>
-    </div>
-  </section>
-
-  <!-- DIMENSIONAMENTO -->
-  <section id="infraestrutura" class="section alt">
-    <div class="container">
-      <h2>Dimensionamento para implantação</h2>
-      <p>Use estes valores como ponto de partida. Antes do evento, execute um ensaio com o volume esperado de logs e consultas simultâneas.</p>
+      <h2>Como implantamos</h2>
       <div class="grid grid-3" style="margin-top:16px">
-        <div class="card"><h3>Ensaio ou turma pequena</h3><p><strong>4 vCPU · 8 GB RAM · 40 GB livres</strong><br>Ambiente de preparação e validação.</p></div>
-        <div class="card"><h3>Até 50 equipes</h3><p><strong>4 vCPU · 16 GB RAM · 80 GB livres</strong><br>Competição com monitoramento contínuo.</p></div>
-        <div class="card"><h3>Cerca de 100 equipes</h3><p><strong>8 vCPU · 32 GB RAM · 100 GB livres</strong><br>Ponto de partida conservador para um evento nacional.</p></div>
+        <div class="card">
+          <h3>Na nuvem, conduzida por nós</h3>
+          <p>O Time Hikari sobe o ambiente, carrega o cenário, ensaia com a organização e acompanha o dia da prova.</p>
+        </div>
+        <div class="card">
+          <h3>Na sua infraestrutura</h3>
+          <p>Uma máquina, sem dependência de serviço externo: a plataforma, o pipeline de eventos e o SIEM sobem juntos, e o acesso ao Kibana passa pelo controle da própria plataforma.</p>
+        </div>
+        <div class="card">
+          <h3>Com cenário sob medida</h3>
+          <p>Cenários próprios do seu setor, com respostas conferidas por código, ou o acervo já usado nas competições nacionais.</p>
+        </div>
       </div>
-      <p class="figcap">A RAM suporta Elasticsearch, Kafka e Logstash; o disco mantém imagens, backups e edições arquivadas. Exponha apenas SSH, HTTP e HTTPS. O Kibana permanece acessível pelo gateway autenticado do Hikari.</p>
+      <p class="figcap">Dimensionamento, requisitos e passo a passo de implantação seguem no guia entregue ao licenciado.</p>
       <div class="cta-row" style="margin-top:16px">
-        <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20guia%20de%20implantação">Solicitar o guia de implantação</a>
+        <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20implantação">Solicitar o guia de implantação</a>
       </div>
     </div>
   </section>
@@ -761,15 +738,11 @@ bash bootstrap.sh</code></pre>
     <div class="container footer-grid">
       <div class="footer-col">
         <h4>Time Hikari</h4>
-        <p>Lourenço Alves Pereira Júnior<br>Sidnei Barbieri<br>Ágney Lopes Roth Ferraz</p>
-        <p style="margin-top:10px; font-size:.9rem">O artigo do SBSeg 2025 foi assinado também por Bruno Moreira Camargos Belo, Leonardo Chahud, Leonardo Vaz de Meneses e Cesar Marcondes.</p>
+        <p>Lourenço Alves Pereira Júnior<br>Sidnei Barbieri<br>Ágney Lopes Roth Ferraz<br>Bruno Moreira Camargos Belo<br>Leonardo Chahud<br>Leonardo Vaz de Meneses<br>Cesar Marcondes</p>
       </div>
       <div class="footer-col">
-        <h4>Repositórios e referências</h4>
+        <h4>Referências</h4>
         <div class="socials">
-          <a href="https://github.com/c2dc/hikari" target="_blank" rel="noopener" class="social" aria-label="GitHub">
-            <svg viewBox="0 0 24 24"><path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.2c-3.34.73-4.04-1.61-4.04-1.61-.55-1.37-1.35-1.73-1.35-1.73-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.25 1.86 1.25 1.08 1.86 2.83 1.32 3.52 1.01.11-.79.42-1.32.76-1.62-2.67-.3-5.48-1.34-5.48-5.95 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.16 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.64.25 2.86.12 3.16.77.84 1.24 1.91 1.24 3.22 0 4.62-2.81 5.65-5.49 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.82.58A12 12 0 0 0 12 .5z"/></svg>
-          </a>
           <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener" class="social" aria-label="Publicação científica">
             <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5M8 13h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
           </a>
@@ -781,7 +754,7 @@ bash bootstrap.sh</code></pre>
       <div class="footer-col">
         <h4>Artefato</h4>
         <p>Plataforma licenciada para treinamento, demonstração e pesquisa em threat hunting gamificado.</p>
-        <p style="margin-top:10px"><a href="https://github.com/c2dc/hikari" class="link" target="_blank" rel="noopener">Hikari original (repositório público)</a><br><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica</a></p>
+        <p style="margin-top:10px"><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica (SBSeg 2025)</a><br><a href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20licenciamento" class="link">Licenciamento e demonstração</a></p>
       </div>
     </div>
     <div class="copy">Copyright © 2026 Time Hikari</div>
