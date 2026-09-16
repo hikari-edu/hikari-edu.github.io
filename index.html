@@ -1,307 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>HIKARI — Desafios Reais, Ameaças Ocultas</title>
-  <meta name="description" content="Treine seu Blue Team com CTF progressivo, evidências liberadas por fases via Kafka e investigações práticas no Kibana." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hikari — Desafios reais, ameaças ocultas</title>
+  <meta name="description" content="Plataforma de threat hunting gamificado do ITA: competições de defesa em que cada resposta sai de uma investigação real num SIEM, com evidências liberadas por fases.">
+  <meta name="theme-color" content="#06090F">
   <link rel="icon" href="img/logo.png">
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="HIKARI — Desafios Reais, Ameaças Ocultas" />
-  <meta property="og:description" content="CTF progressivo + evidências por fases + investigação no Kibana. Plataforma de threat hunting gamificado." />
-  <meta property="og:image" content="img/sword.png" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:title" content="Hikari — Desafios reais, ameaças ocultas">
+  <meta property="og:description" content="Threat hunting gamificado: investigação num SIEM real, evidências por fases e respostas conferidas antes de cada prova.">
+  <meta property="og:image" content="img/sword.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Preload das ilustrações -->
-  <link rel="preload" as="image" href="img/sword.png" imagesrcset="img/sword.png 1x">
-  <link rel="preload" as="image" href="img/shield.png" imagesrcset="img/shield.png 1x">
-
-  <link rel="stylesheet" href="style.css?v=17"/>
-
-  <style>
-    /* =========================
-       Base & Theme
-    ==========================*/
-    :root{
-      --bg: #0b1222;
-      --panel: rgba(255,255,255,.03);
-      --panel-bd: rgba(255,255,255,.06);
-      --text: #e8eefc;
-      --muted: rgba(232,238,252,.75);
-      --brand: #22c55e;
-      --brand-2: #00e5ff;
-      --radius-xl: 20px;
-      --radius-ill: 24px;
-      --shadow-1: 0 10px 30px rgba(0,0,0,.30), 0 2px 10px rgba(0,0,0,.25);
-      --shadow-2: 0 24px 60px rgba(0,0,0,.40), 0 6px 20px rgba(0,0,0,.30);
-      --maxw: 1160px;
-
-      --ill-width: clamp(260px, 28.8vw, 460px);
-      --ill-ratio: 3/4;
-
-      --wide-max: 1040px;
-      --wide-vw: 78vw;
-      --wide-radius: 20px;
-    }
-    @media (max-width: 980px){
-      :root{ --ill-width: 70vw; }
-    }
-
-    html,body{
-      height:100%;
-      background:
-        radial-gradient(1200px 600px at 15% 10%, #13223b 0%, #0b1222 55%) no-repeat,
-        var(--bg);
-    }
-    body{
-      margin:0; color:var(--text);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      font: 400 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      text-rendering: optimizeLegibility;
-    }
-    .container{ width: min(92vw, var(--maxw)); margin-inline:auto; }
-
-    h1,h2,h3{ letter-spacing:.2px; margin:0 0 .4rem; }
-    h1{ font-size: clamp(36px, 5vw, 58px); line-height:1.05; }
-    h2{ font-size: clamp(24px, 3.2vw, 34px); }
-    h3{ font-size: 1.1rem; }
-
-    p{ margin:.35rem 0 0; color:var(--muted); }
-    a{ color:var(--text); text-decoration:none; }
-    .btn{
-      display:inline-flex; align-items:center; gap:.55rem; padding:.7rem 1rem; border-radius:999px;
-      border:1px solid var(--panel-bd); background:var(--panel); color:var(--text); backdrop-filter: saturate(120%) blur(2px);
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-1); border-color: rgba(255,255,255,.12); }
-    .btn-primary{ background: linear-gradient(180deg, #27d466, #18a54b); border-color: transparent; color:#04120a; font-weight:700; }
-    .btn-primary:hover{ box-shadow: 0 0 0 3px rgba(34,197,94,.25), 0 12px 30px rgba(34,197,94,.35); }
-
-    /* =========================
-       Topbar com ícones
-    ==========================*/
-    .topbar{ position:sticky; top:0; z-index:50; background: linear-gradient(180deg, rgba(2,8,23,.85), rgba(2,8,23,.55)); backdrop-filter: blur(6px); border-bottom:1px solid rgba(255,255,255,.05); }
-    .topbar-inner{ display:flex; align-items:center; justify-content:space-between; padding:10px 0; }
-    .brand{ display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.3px; }
-    .brand-logo{ width:28px; height:28px; border-radius:8px; }
-    .brand-name{ font-size:1.05rem; }
-    .top-links{ display:flex; align-items:center; gap:.25rem; }
-    .icon-link{
-      display:inline-grid; place-items:center; width:40px; height:40px;
-      border-radius:12px; border:1px solid transparent; color:var(--text);
-      transition: border-color .2s ease, background .2s ease, transform .2s ease;
-    }
-    .icon-link svg{ width:22px; height:22px; fill:currentColor; opacity:.9; }
-    .icon-link:hover{ border-color:rgba(255,255,255,.12); background:rgba(255,255,255,.04); transform: translateY(-1px); }
-    @media (max-width: 860px){
-      .brand-name{ display:none; } /* compacta no iPhone como na versão antiga */
-      .top-links{ gap:.1rem; }
-      .icon-link{ width:36px; height:36px; }
-      .icon-link svg{ width:20px; height:20px; }
-    }
-
-    /* =========================
-       Hero
-    ==========================*/
-    .hero{ padding: min(6vh, 36px) 0 40px; }
-    .hero-grid{ display:grid; grid-template-columns: 1.2fr .95fr; gap:min(6vw, 56px); align-items:center; }
-    @media (max-width: 980px){ .hero-grid{ grid-template-columns: 1fr; } }
-    .hero-sub{ font-size: clamp(16px, 1.9vw, 18px); }
-    .hero-ctas{ display:flex; gap:.6rem; margin-top:16px; flex-wrap:wrap; }
-    .hero-meta{ opacity:.8; font-size:.95rem; margin-top:10px; }
-
-    /* =========================
-       Moldura Neon (Desktop/Android)
-       + fallback seguro no iPhone
-    ==========================*/
-    .neon-frame{
-      position:relative; width: var(--ill-width); aspect-ratio: var(--ill-ratio);
-      border-radius: var(--radius-ill); overflow:hidden; isolation:isolate;
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
-      box-shadow: var(--shadow-2);
-      will-change: transform; -webkit-backface-visibility: hidden; transform: translateZ(0);
-    }
-    .neon-frame img{
-      width:100%; height:100%; object-fit:cover; display:block; border-radius: inherit;
-    }
-    /* Borda neon elegante */
-    .neon-frame::before{
-      content:""; position:absolute; inset:0; border-radius: inherit; pointer-events:none;
-      background: linear-gradient(135deg, rgba(34,197,94,.9), rgba(0,229,255,.95) 55%, rgba(34,197,94,.9) 100%);
-      padding:2px; filter: blur(8px) saturate(150%);
-      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      opacity:.95;
-    }
-    .neon-frame::after{
-      content:""; position:absolute; inset:-30px; border-radius: inherit; z-index:-1;
-      background: radial-gradient(260px 220px at 88% 12%, rgba(0,229,255,.18), transparent 65%),
-                  radial-gradient(420px 280px at 12% 86%, rgba(34,197,94,.18), transparent 70%);
-      filter: blur(6px);
-    }
-
-    /* ---- Fallback “como antes” no iPhone / telas pequenas ----
-       - Remove a borda ::before (que pode serrilhar no iOS)
-       - Aplica glow com drop-shadow direto na imagem
-    */
-    @media (max-width: 980px){
-      .neon-frame::before{ display:none; }
-      .neon-frame img{
-        filter:
-          drop-shadow(0 0 10px #39ff14)
-          drop-shadow(0 0 22px #39ff14)
-          drop-shadow(0 0 10px #00e5ff)
-          drop-shadow(0 0 22px #00e5ff);
-      }
-    }
-    /* Sinalização extra para Safari/iOS (a maioria dos iPhones bate aqui) */
-    @supports (-webkit-touch-callout: none) {
-      .neon-frame::before{ display:none; }
-      .neon-frame img{
-        filter:
-          drop-shadow(0 0 10px #39ff14)
-          drop-shadow(0 0 22px #39ff14)
-          drop-shadow(0 0 10px #00e5ff)
-          drop-shadow(0 0 22px #00e5ff);
-      }
-    }
-
-    /* =========================
-       Seções & Cards
-    ==========================*/
-    .section{ padding: 56px 0; }
-    .section.alt{ background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.0)); }
-    .grid{ display:grid; gap:min(5vw, 40px); }
-    .grid-2{ grid-template-columns: 1.05fr .95fr; align-items:center; }
-    .grid-3{ grid-template-columns: repeat(3, 1fr); }
-    /* Cartões lado a lado: colunas iguais e a mesma altura na linha. */
-    .grid-cartoes{ grid-template-columns: 1fr 1fr; align-items:stretch; }
-    @media (max-width: 980px){ .grid-2, .grid-3{ grid-template-columns: 1fr; } }
-    .card{ background:var(--panel); border:1px solid var(--panel-bd); border-radius: var(--radius-xl); padding:16px 14px; box-shadow: var(--shadow-1); }
-    .checklist{ padding-left:0; list-style:none; }
-    .checklist li{ margin:10px 0; }
-    .checklist strong{ color:#fff; }
-    .cta-row{ display:flex; gap:.6rem; margin-top:14px; flex-wrap:wrap; }
-
-    /* =========================
-       COMO FUNCIONA (4 etapas)
-    ==========================*/
-    .steps-grid{
-      list-style:none; padding:0; margin: 24px 0 0;
-      display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;
-    }
-    .step{ padding:16px 14px; border-radius:16px; background:var(--panel); border:1px solid var(--panel-bd); box-shadow: var(--shadow-1); }
-    .step h3{ margin:8px 0 6px; font-size:1.06rem; }
-    .step p{ margin:0; }
-    .badge{
-      display:inline-grid; place-items:center; width:28px; height:28px; border-radius:50%;
-      background: #21c55d; color:#04120a; font-weight:800;
-      box-shadow: 0 0 14px rgba(33,197,93,.52), inset 0 0 12px rgba(255,255,255,.35);
-    }
-    @media (max-width:1000px){ .steps-grid{ grid-template-columns: repeat(2,1fr); } }
-    @media (max-width:560px){ .steps-grid{ grid-template-columns: 1fr; } }
-
-    /* =========================
-       DINÂMICA (imagem wide)
-    ==========================*/
-    .wide-figure{
-      width: min(var(--wide-vw), var(--wide-max));
-      margin: 22px auto 10px; border-radius: var(--wide-radius); overflow:hidden; box-shadow: var(--shadow-2);
-      background: rgba(255,255,255,.02);
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
-    }
-    .wide-figure img{ display:block; width:100%; height:auto; object-fit:contain; border-radius: inherit; }
-    .figcap{ width:min(var(--wide-vw), var(--wide-max)); margin:10px auto 0; text-align:center; color:var(--muted); }
-
-    .demo-grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-    .demo-card{
-      background:var(--panel);
-      border:1px solid var(--panel-bd);
-      border-radius: var(--radius-xl);
-      padding:12px;
-      box-shadow: var(--shadow-1);
-    }
-    .demo-card video{
-      width:100%;
-      aspect-ratio:16/9;
-      display:block;
-      border-radius:14px;
-      background:#050914;
-      border:1px solid rgba(255,255,255,.08);
-    }
-    .demo-card h3{ margin:12px 4px 4px; }
-    .demo-card p{ margin:0 4px 4px; font-size:.95rem; }
-    .demo-meta{
-      margin:10px 4px 8px;
-      color:rgba(232,238,252,.66);
-      font-size:.82rem;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-    .demo-steps{
-      margin:10px 4px 2px;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap:6px;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-    .demo-steps li{
-      display:grid;
-      grid-template-columns: 3.2rem minmax(0, 1fr);
-      gap:.55rem;
-      align-items:start;
-    }
-    .demo-steps time{
-      color:var(--brand);
-      font-variant-numeric: tabular-nums;
-      font-weight:800;
-    }
-    .demo-proof{
-      margin:10px 4px 2px;
-      padding:.65rem .75rem;
-      border:1px solid rgba(34,197,94,.28);
-      border-radius:12px;
-      background:rgba(34,197,94,.08);
-      color:rgba(232,238,252,.86);
-      font-size:.9rem;
-    }
-
-    /* =========================
-       Footer com ícones
-    ==========================*/
-    .footer{ border-top:1px solid rgba(255,255,255,.06); margin-top:30px; }
-    .footer-grid{ display:grid; gap:24px; grid-template-columns: repeat(3,1fr); padding:28px 0; }
-    @media (max-width:900px){ .footer-grid{ grid-template-columns: 1fr; } }
-    @media (max-width:980px){ .demo-grid{ grid-template-columns: 1fr; } }
-    .copy{ text-align:center; color:rgba(255,255,255,.6); padding:14px 0 28px; font-size:.95rem; }
-    .socials{ display:flex; gap:.6rem; flex-wrap:wrap; }
-    .social{
-      display:inline-grid; place-items:center; width:44px; height:44px; border-radius:14px;
-      border:1px solid var(--panel-bd); background:var(--panel); box-shadow: var(--shadow-1);
-      transition: transform .2s ease, border-color .2s ease, background .2s ease;
-    }
-    .social:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.05); }
-    .social svg{ width:22px; height:22px; fill: currentColor; opacity:.92; }
-
-    /* Motion safe */
-    @media (prefers-reduced-motion: reduce){
-      *{ animation:none!important; transition:none!important; }
-    }
-  </style>
-
-  <!-- Metadados de citação -->
-  <link rel="canonical" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637">
   <meta name="citation_title" content="HIKARI — Desafios Reais, Ameaças Ocultas: Uma Plataforma de Threat Hunting Gamificado">
   <meta name="citation_author" content="Sidnei Barbieri">
   <meta name="citation_author" content="Bruno Moreira Camargos Belo">
@@ -310,497 +22,746 @@
   <meta name="citation_author" content="Cesar Marcondes">
   <meta name="citation_author" content="Lourenço Alves Pereira Júnior">
   <meta name="citation_publication_date" content="2025">
-  <meta name="citation_journal_title" content="Anais do Simpósio Brasileiro de Cibersegurança (SBSeg)">
+  <meta name="citation_conference_title" content="Anais do Simpósio Brasileiro de Cibersegurança (SBSeg)">
   <meta name="citation_pdf_url" content="https://sol.sbc.org.br/index.php/sbseg/article/view/36637/36424">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/sword.png">
+
+  <style>
+    /* ─── Identidade ───────────────────────────────────────────────────────
+       Hikari significa luz. A página é tinta profunda atravessada por uma só
+       luz esmeralda; o ouro fica reservado ao que é conquista. Serifada para
+       autoridade, sans refinada para leitura, mono só onde há consulta real. */
+    :root {
+      --tinta: #06090f;
+      --superficie: #0b111a;
+      --superficie-2: #101824;
+      --linha: rgba(233, 238, 242, 0.08);
+      --linha-forte: rgba(233, 238, 242, 0.16);
+      --texto: #e9eef2;
+      --texto-2: #a3adb8;
+      --texto-3: #6f7a86;
+      --esmeralda: #34d3a0;
+      --esmeralda-profunda: #0fae7c;
+      --esmeralda-halo: rgba(52, 211, 160, 0.14);
+      --ouro: #d4a35a;
+      --ouro-suave: rgba(212, 163, 90, 0.12);
+      --serifada: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+      --sans: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --largura: 1180px;
+      --respiro: clamp(5rem, 11vw, 9.5rem);
+      --raio: 14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--tinta);
+      color: var(--texto);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.65;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    /* Grão fino sobre a tinta: dá matéria ao escuro sem virar textura visível. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--esmeralda); color: var(--tinta); }
+    :focus-visible { outline: 2px solid var(--esmeralda); outline-offset: 3px; border-radius: 6px; }
+
+    .moldura { position: relative; z-index: 1; width: min(var(--largura), 100% - 2.5rem); margin-inline: auto; }
+    .rotulo {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--esmeralda);
+    }
+    .rotulo--ouro { color: var(--ouro); }
+    h1, h2 { font-family: var(--serifada); font-weight: 400; letter-spacing: -0.015em; line-height: 1.02; margin: 0; }
+    h2 { font-size: clamp(2.3rem, 5vw, 3.9rem); }
+    h2 em, h1 em { font-style: italic; color: var(--esmeralda); }
+    h3 { font-family: var(--sans); font-size: 1.05rem; font-weight: 500; letter-spacing: -0.005em; margin: 0 0 0.45rem; }
+    p { margin: 0; color: var(--texto-2); }
+    .lead { font-size: clamp(1.08rem, 1.6vw, 1.22rem); color: var(--texto-2); max-width: 44rem; }
+    section { position: relative; padding-block: var(--respiro); }
+    .abertura-secao { display: grid; gap: 1.1rem; margin-bottom: clamp(2.6rem, 5vw, 4rem); max-width: 50rem; }
+    .fio { border: 0; border-top: 1px solid var(--linha); margin: 0; }
+
+    /* ─── Botões ─── */
+    .acoes { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .botao {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.82rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid var(--linha-forte);
+      font-size: 0.93rem; font-weight: 500;
+      color: var(--texto);
+      transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+    .botao:hover { border-color: var(--esmeralda); transform: translateY(-1px); }
+    .botao--luz { background: var(--esmeralda); border-color: var(--esmeralda); color: var(--tinta); }
+    .botao--luz:hover { background: #4ee0b0; }
+    .botao svg { width: 16px; height: 16px; }
+
+    /* ─── Menu ─── */
+    .menu {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+      background: rgba(6, 9, 15, 0.72);
+      border-bottom: 1px solid var(--linha);
+    }
+    .menu .moldura { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1rem; }
+    .marca { display: flex; align-items: center; gap: 0.65rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0.22em; font-size: 0.82rem; }
+    .marca img { width: 30px; height: 30px; }
+    .icones { display: flex; align-items: center; gap: 0.15rem; }
+    .icone {
+      position: relative;
+      display: grid; place-items: center;
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      color: var(--texto-2);
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .icone:hover { color: var(--texto); background: rgba(233, 238, 242, 0.05); }
+    .icone svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .icone[data-dica]:hover::after {
+      content: attr(data-dica);
+      position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.72rem; color: var(--texto);
+      background: var(--superficie-2); border: 1px solid var(--linha);
+      padding: 0.3rem 0.55rem; border-radius: 6px;
+    }
+    .icone--contato { color: var(--tinta); background: var(--esmeralda); margin-left: 0.4rem; }
+    .icone--contato:hover { color: var(--tinta); background: #4ee0b0; }
+
+    /* ─── Herói ─── */
+    .heroi { padding-block: clamp(3.5rem, 8vw, 6.5rem) clamp(4rem, 9vw, 7rem); overflow: hidden; }
+    .heroi::after {
+      /* A luz: um feixe estreito que nasce na lâmina e se dissolve no escuro. */
+      content: ""; position: absolute; z-index: 0; pointer-events: none;
+      right: 8%; top: -10%; width: 42rem; height: 58rem;
+      background: radial-gradient(closest-side, var(--esmeralda-halo), transparent 72%);
+      filter: blur(20px);
+    }
+    .heroi .moldura { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+    .heroi h1 { font-size: clamp(3.2rem, 8.2vw, 6.6rem); margin-block: 1.4rem 1.6rem; }
+    .heroi .lead { margin-bottom: 2.2rem; }
+    .credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-top: 2.6rem; font-size: 0.85rem; color: var(--texto-3); }
+    .credenciais span { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .credenciais span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ouro); }
+    .lamina { position: relative; justify-self: end; width: min(100%, 25rem); aspect-ratio: 930 / 1470; }
+    .lamina img { width: 100%; height: 100%; object-fit: cover; border-radius: 22px; mask-image: linear-gradient(180deg, #000 72%, transparent); -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); }
+    .lamina::before { content: ""; position: absolute; inset: -1px; border-radius: 23px; border: 1px solid var(--linha); pointer-events: none; }
+
+    /* Entrada da página: uma só sequência, discreta. */
+    @keyframes surgir { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .surge { opacity: 0; animation: surgir 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+    .surge:nth-child(2) { animation-delay: 0.08s; }
+    .surge:nth-child(3) { animation-delay: 0.16s; }
+    .surge:nth-child(4) { animation-delay: 0.24s; }
+    .surge:nth-child(5) { animation-delay: 0.32s; }
+
+    /* ─── Faixa de uso ─── */
+    .uso { padding-block: 2.2rem; border-block: 1px solid var(--linha); background: rgba(11, 17, 26, 0.5); }
+    .uso .moldura { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem 2rem; }
+    .uso .rotulo { color: var(--texto-3); }
+    .uso ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 2.6rem; }
+    .uso li { font-family: var(--serifada); font-size: 1.35rem; color: var(--texto-2); }
+
+    /* ─── Pilares ─── */
+    .pilares { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--linha); }
+    .pilar { padding: 2.2rem 2rem 0 0; }
+    .pilar + .pilar { padding-left: 2rem; border-left: 1px solid var(--linha); }
+    .pilar .numero { font-family: var(--serifada); font-size: 2.6rem; color: var(--ouro); line-height: 1; display: block; margin-bottom: 1.2rem; }
+
+    /* ─── Percurso ─── */
+    .percurso { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; }
+    .etapa { min-width: 0; background: var(--tinta); padding: 2rem 1.6rem; }
+    .etapa .rotulo { display: block; margin-bottom: 2.4rem; }
+    .consulta { font-family: var(--mono); font-size: 0.8rem; color: var(--esmeralda); background: var(--superficie); border: 1px solid var(--linha); border-radius: 8px; padding: 0.6rem 0.75rem; margin-top: 1rem; overflow-x: auto; white-space: nowrap; }
+
+    /* ─── Demonstrações ─── */
+    .demos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+    .demo { border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; background: var(--superficie); }
+    .demo video { width: 100%; aspect-ratio: 16 / 9; background: #000; display: block; }
+    .demo div { padding: 1.3rem 1.4rem 1.5rem; }
+
+    /* ─── Engenharia ─── */
+    .garantias { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.6rem 3rem; }
+    .garantia { padding-top: 1.4rem; border-top: 1px solid var(--linha-forte); }
+
+    /* ─── Números ─── */
+    .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--linha); border-block: 1px solid var(--linha); }
+    .numero-bloco { background: var(--tinta); padding: 2.4rem 1.6rem 2.2rem 0; }
+    .numero-bloco + .numero-bloco { padding-left: 1.6rem; }
+    .numero-bloco strong { display: block; font-family: var(--serifada); font-weight: 400; font-size: clamp(2.6rem, 5vw, 3.8rem); line-height: 1; color: var(--texto); margin-bottom: 0.8rem; }
+    .fonte { margin-top: 1.4rem; font-size: 0.82rem; color: var(--texto-3); }
+
+    /* ─── Provas conduzidas ─── */
+    .provas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .prova { border: 1px solid var(--linha); border-radius: var(--raio); padding: 1.8rem; background: linear-gradient(180deg, var(--superficie), transparent); }
+    .prova .rotulo { display: block; margin-bottom: 1.3rem; }
+    .prova--destaque { border-color: rgba(212, 163, 90, 0.35); background: linear-gradient(180deg, var(--ouro-suave), transparent 70%); }
+
+    /* ─── Implantação ─── */
+    .modos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; margin-bottom: 2.4rem; }
+    .modo { background: var(--tinta); padding: 2rem 1.8rem; }
+
+    /* ─── Minicurso ─── */
+    .minicurso { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+    .casos { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: 1.2rem; }
+    .casos li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.9rem; }
+    .casos li span { font-family: var(--serifada); font-size: 1.7rem; color: var(--ouro); line-height: 1; }
+    .material { border: 1px solid var(--linha); border-radius: var(--raio); background: var(--superficie); }
+    .material a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.05rem 1.3rem; border-top: 1px solid var(--linha); transition: background 0.2s ease; }
+    .material a:first-child { border-top: 0; }
+    .material a:hover { background: var(--superficie-2); }
+    .material small { color: var(--texto-3); font-size: 0.8rem; }
+    .material svg { width: 15px; height: 15px; stroke: var(--esmeralda); fill: none; stroke-width: 1.8; flex: none; }
+
+    /* ─── Ciência e mídia ─── */
+    .registros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .registro { display: flex; flex-direction: column; gap: 0.8rem; padding: 1.8rem; border: 1px solid var(--linha); border-radius: var(--raio); transition: border-color 0.25s ease; }
+    .registro:hover { border-color: var(--linha-forte); }
+    .registro .ir { margin-top: auto; padding-top: 0.6rem; font-size: 0.88rem; color: var(--esmeralda); }
+
+    /* ─── Time ─── */
+    .time { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+    .coordenacao { padding: 2.2rem; border: 1px solid rgba(212, 163, 90, 0.3); border-radius: var(--raio); background: linear-gradient(160deg, var(--ouro-suave), transparent 60%); }
+    .coordenacao .nome { font-family: var(--serifada); font-size: clamp(2rem, 3.6vw, 2.7rem); line-height: 1.05; margin: 1rem 0 0.8rem; color: var(--texto); }
+    .integrantes { list-style: none; margin: 0; padding: 0; }
+    .integrantes li { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--linha); font-size: 1.05rem; color: var(--texto); }
+    .integrantes li small { color: var(--texto-3); font-size: 0.82rem; }
+
+    /* ─── Contato ─── */
+    .contato { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+    .formulario { display: grid; gap: 1rem; padding: clamp(1.4rem, 3vw, 2.2rem); border: 1px solid var(--linha); border-radius: var(--raio); background: var(--superficie); }
+    .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .campo { display: grid; gap: 0.4rem; }
+    .campo label { font-size: 0.8rem; color: var(--texto-2); }
+    .campo input, .campo select, .campo textarea {
+      width: 100%;
+      font: inherit; font-size: 0.95rem; color: var(--texto);
+      background: var(--tinta);
+      border: 1px solid var(--linha-forte);
+      border-radius: 10px;
+      padding: 0.75rem 0.85rem;
+      transition: border-color 0.2s ease;
+    }
+    .campo textarea { min-height: 8rem; resize: vertical; }
+    .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--esmeralda); }
+    .armadilha { position: absolute; left: -10000px; }
+    .aviso { font-size: 0.8rem; color: var(--texto-3); }
+    .estado { font-size: 0.92rem; min-height: 1.4rem; }
+    .estado[data-tipo="ok"] { color: var(--esmeralda); }
+    .estado[data-tipo="erro"] { color: #f0a58a; }
+    .formulario button { justify-self: start; cursor: pointer; font: inherit; }
+    .formulario button:disabled { opacity: 0.6; cursor: progress; }
+
+    /* ─── Rodapé ─── */
+    .rodape { padding-block: 2.6rem; border-top: 1px solid var(--linha); font-size: 0.85rem; color: var(--texto-3); }
+    .rodape .moldura { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; }
+    .rodape nav { display: flex; flex-wrap: wrap; gap: 1.4rem; }
+    .rodape a:hover { color: var(--texto); }
+
+    /* ─── Larguras menores ─── */
+    @media (max-width: 960px) {
+      .heroi .moldura, .minicurso, .time, .contato { grid-template-columns: 1fr; }
+      .lamina { justify-self: center; width: min(100%, 16rem); }
+      .percurso, .numeros { grid-template-columns: repeat(2, 1fr); }
+      .garantias, .provas, .registros, .modos { grid-template-columns: 1fr; }
+      .pilares { grid-template-columns: 1fr; }
+      .pilar, .pilar + .pilar { padding: 2rem 0; border-left: 0; border-bottom: 1px solid var(--linha); }
+      .demos { grid-template-columns: 1fr; }
+      .numero-bloco, .numero-bloco + .numero-bloco { padding: 2rem 1.2rem; }
+    }
+    @media (max-width: 720px) {
+      .icones .icone:not(.icone--contato):nth-child(n+4) { display: none; }
+      .campos { grid-template-columns: 1fr; }
+      .percurso { grid-template-columns: 1fr; }
+      .uso .moldura { justify-content: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .surge { animation: none; opacity: 1; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAV com ícones -->
-  <nav class="topbar" aria-label="Navegação principal">
-    <div class="container topbar-inner">
-      <a href="#" class="brand">
-        <img src="img/logo.png" alt="HIKARI" class="brand-logo" />
-        <span class="brand-name">HIKARI</span>
+  <header class="menu">
+    <div class="moldura">
+      <a href="#inicio" class="marca" aria-label="Hikari, início">
+        <img src="img/logo.png" alt="" width="30" height="30">
+        HIKARI
       </a>
-      <div class="top-links" role="navigation">
-        <a href="#arquitetura" class="icon-link" title="Arquitetura" aria-label="Arquitetura">
-          <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
+      <nav class="icones" aria-label="Seções">
+        <a class="icone" href="#como-funciona" data-dica="Como funciona" aria-label="Como funciona">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
         </a>
-        <a href="#como-funciona" class="icon-link" title="Como funciona" aria-label="Como funciona">
-          <svg viewBox="0 0 24 24"><path d="M7 4h10v2H7V4zm0 7h10v2H7v-2zm0 7h10v2H7v-2z"/></svg>
+        <a class="icone" href="#demonstracoes" data-dica="Demonstrações" aria-label="Demonstrações">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
         </a>
-        <a href="#dinamica" class="icon-link" title="Dinâmica do jogo" aria-label="Dinâmica do jogo">
-          <svg viewBox="0 0 24 24"><path d="M12 2l4 8h8l-6 6 2 8-8-5-8 5 2-8-6-6h8z"/></svg>
+        <a class="icone" href="#engenharia" data-dica="Engenharia" aria-label="Engenharia">
+          <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
         </a>
-        <a href="#publicacao" class="icon-link" title="Publicação" aria-label="Publicação">
-          <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5"/></svg>
+        <a class="icone" href="#provas" data-dica="Provas conduzidas" aria-label="Provas conduzidas">
+          <svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>
         </a>
-        <a href="#demos" class="icon-link" title="Demonstrações" aria-label="Demonstrações">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5zm-4 0h2v14H4V5z"/></svg>
+        <a class="icone" href="#minicurso" data-dica="Minicurso" aria-label="Minicurso">
+          <svg viewBox="0 0 24 24"><path d="M3 8l9-4 9 4-9 4z"/><path d="M7 10v5c0 1.5 2.2 3 5 3s5-1.5 5-3v-5"/></svg>
         </a>
-        <a href="#resultados" class="icon-link" title="Resultados (Paper)" aria-label="Resultados">
-          <svg viewBox="0 0 24 24"><path d="M3 17h4V7H3v10zm7 0h4V3h-4v14zm7 0h4V11h-4v6z"/></svg>
+        <a class="icone" href="#ciencia" data-dica="Ciência e mídia" aria-label="Ciência e mídia">
+          <svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg>
         </a>
-        <a href="#garantias" class="icon-link" title="Garantias de engenharia" aria-label="Garantias de engenharia">
-          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        <a class="icone" href="#time" data-dica="Time" aria-label="Time">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5.2a3 3 0 0 1 0 5.6M18 14.3c1.8.8 3 2.7 3 5"/></svg>
         </a>
-        <a href="#versao-2026" class="icon-link" title="A versão atual" aria-label="A versão atual">
-          <svg viewBox="0 0 24 24"><path d="M12 2l2.4 6.9H22l-6 4.4 2.3 7L12 16l-6.3 4.3 2.3-7-6-4.4h7.6z"/></svg>
+        <a class="icone icone--contato" href="#contato" data-dica="Contato" aria-label="Contato">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
         </a>
-        <a href="#minicurso" class="icon-link" title="Minicurso de Threat Hunting" aria-label="Minicurso de Threat Hunting">
-          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.9V17h2V9L12 3zm-6 9.2V16c0 2.2 2.7 4 6 4s6-1.8 6-4v-3.8l-6 3.3-6-3.3z"/></svg>
-        </a>
-        <a href="#parcerias" class="icon-link" title="Participações Institucionais" aria-label="Participações Institucionais">
-          <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm-7 9v-1a6 6 0 0 1 12 0v1"/></svg>
-        </a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <img src="img/logo.png" alt="" width="44" height="44" class="logo" style="opacity:.9; border-radius:10px;">
-        <h1>HIKARI</h1>
-        <p class="hero-sub"><strong>Desafios Reais, Ameaças Ocultas:</strong> plataforma de threat hunting gamificado.</p>
-        <p class="hero-sub">Treine seu <strong>Blue Team</strong> com <em>CTF progressivo</em>, <em>evidências injetadas por fases</em> e <em>investigações no Kibana</em>.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="#demos">Ver demonstrações</a>
-          <a class="btn" href="#implantacao">Como implantamos</a>
-          <a class="btn" href="#minicurso">Minicurso de threat hunting</a>
-          <a class="btn" href="#publicacao">Ler o paper</a>
-        </div>
-        <p class="hero-meta">Conduziu o CTF do RESEG em 2025 e 2026 • Ciber Week Brisanet 2026 • avaliado no SBSeg 2025 • plataforma licenciada</p>
-      </div>
-
-      <!-- Ilustração com moldura neon (com fallback iPhone automático) -->
-      <figure class="neon-frame" aria-label="Arte HIKARI">
-        <img src="img/sword.png" alt="Espada HIKARI com brilho neon">
-      </figure>
+      </nav>
     </div>
   </header>
 
-  <!-- POR QUE -->
-  <section id="porque" class="section">
-    <div class="container">
-      <h2>Por que o HIKARI?</h2>
-      <p><strong>Três pilares, um resultado:</strong> ingestão de logs de segurança, progressão gamificada por fases e investigação no Kibana — como em um SOC de verdade.</p>
+  <main id="inicio">
 
-      <div class="grid grid-3" style="margin-top:16px">
-        <div class="card"><h3>A resposta está nos eventos</h3><p>Logs de segurança injetados por <strong>Kafka</strong> e processados em <strong>Logstash/Elasticsearch</strong>; cada flag sai de uma consulta sobre eles.</p></div>
-        <div class="card"><h3>Progressão que pressiona</h3><p>Novas evidências entram no SIEM conforme a investigação avança — como no dia a dia do SOC.</p></div>
-        <div class="card"><h3>Ferramentas de mercado</h3><p>Investigue no <strong>Kibana</strong>, com KQL e dashboards.</p></div>
+    <section class="heroi">
+      <div class="moldura">
+        <div>
+          <p class="rotulo surge">Threat hunting gamificado · ITA</p>
+          <h1 class="surge">Desafios reais,<br><em>ameaças ocultas.</em></h1>
+          <p class="lead surge">Competições de defesa em que cada resposta sai de uma investigação num SIEM de verdade. As evidências chegam por fases, como num incidente, e cada prova é conferida antes da largada.</p>
+          <div class="acoes surge">
+            <a class="botao botao--luz" href="#demonstracoes">Ver a plataforma em uso</a>
+            <a class="botao" href="#contato">Levar o Hikari para sua organização</a>
+          </div>
+          <div class="credenciais surge">
+            <span>RESEG 2025 e 2026 · Anatel</span>
+            <span>1ª Ciber Week Brisanet</span>
+            <span>Artigo no SBSeg 2025</span>
+          </div>
+        </div>
+        <figure class="lamina" aria-hidden="true">
+          <img src="img/sword.png" alt="">
+        </figure>
       </div>
+    </section>
 
-      <div class="grid grid-3" style="margin-top:14px">
-        <div class="card"><h3>Feito para Blue Teams</h3><p>Multiestágio: da primeira detecção à correlação que reconstitui o ataque.</p></div>
-        <div class="card"><h3>Pronta para o evento</h3><p>Sobe em uma máquina, em nuvem ou na sua infraestrutura, e é conferida antes de cada prova.</p></div>
-        <div class="card"><h3>Um SIEM comum</h3><p>Todas as equipes investigam o mesmo índice, sob a mesma janela; o que muda é a pergunta que cada uma faz.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ARQUITETURA -->
-  <section id="arquitetura" class="section alt">
-    <div class="container grid grid-2">
-      <div>
-        <h2>Arquitetura</h2>
-        <ul class="checklist">
-          <li><strong>Plataforma de desafios</strong>: gerencia desafios, respostas e progressão por fases.</li>
-          <li><strong>Kafka → Logstash → Elasticsearch</strong>: pipeline de ingestão e indexação.</li>
-          <li><strong>Kibana</strong>: interface de investigação e KQL.</li>
-          <li><strong>Contêineres</strong>: isolamento entre serviços e operação reproduzível.</li>
+    <div class="uso">
+      <div class="moldura">
+        <span class="rotulo">Em uso e avaliado em</span>
+        <ul>
+          <li>Anatel · RESEG</li>
+          <li>Brisanet</li>
+          <li>SBSeg</li>
+          <li>RNP · Hackers do Bem</li>
+          <li>ITA</li>
         </ul>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#como-funciona">Como funciona</a>
-          <a class="btn" href="#publicacao">Publicação</a>
+      </div>
+    </div>
+
+    <section id="por-que">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Por que o Hikari</p>
+          <h2>O analista aprende a caçar <em>caçando</em>.</h2>
+          <p class="lead">Numa prova de defesa comum, a resposta está no enunciado ou numa ferramenta de ataque. No Hikari, ela está nos eventos, e só aparece para quem formula a pergunta certa.</p>
+        </div>
+        <div class="pilares">
+          <div class="pilar">
+            <span class="numero">01</span>
+            <h3>A resposta está nos eventos</h3>
+            <p>Logs de segurança fluem por Kafka, Logstash e Elasticsearch. Cada flag é o resultado de uma consulta sobre eles, e não uma frase escondida.</p>
+          </div>
+          <div class="pilar">
+            <span class="numero">02</span>
+            <h3>A investigação cresce por fases</h3>
+            <p>Resolver um desafio-portão libera uma nova fase de evidências para todas as equipes, uma única vez. A prova avança como um incidente avança.</p>
+          </div>
+          <div class="pilar">
+            <span class="numero">03</span>
+            <h3>Ferramentas de mercado</h3>
+            <p>As equipes investigam no Kibana, com KQL, painéis e pivôs, sobre o mesmo índice e sob a mesma janela. O que diferencia uma equipe é a pergunta que ela faz.</p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <figure class="neon-frame" aria-label="Arquitetura HIKARI">
-        <img src="img/shield.png" alt="Escudo HIKARI com brilho neon">
-      </figure>
-    </div>
-  </section>
-
-  <!-- COMO FUNCIONA -->
-  <section id="como-funciona" class="section">
-    <div class="container">
-      <h2>Como funciona (4 etapas)</h2>
-      <ol class="steps-grid" aria-label="Etapas do funcionamento">
-        <li class="step"><span class="badge">1</span><h3>Cadastro e equipes</h3><p>Crie ou entre em uma equipe antes do início da competição.</p></li>
-        <li class="step"><span class="badge">2</span><h3>Desafios CTF</h3><p>Fases liberadas conforme flags.</p></li>
-        <li class="step"><span class="badge">3</span><h3>Injeção de Logs</h3><p>Kafka → Logstash → Elasticsearch.</p></li>
-        <li class="step"><span class="badge">4</span><h3>Investigação</h3><p>Análise e correlação no Kibana.</p></li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- DINÂMICA DO JOGO -->
-  <section id="dinamica" class="section alt">
-    <div class="container">
-      <h2>Dinâmica do jogo</h2>
-      <div class="wide-figure">
-        <img src="img/flow.png" alt="Fluxo: escolher desafio, liberar dicas e enviar flag no CTFd">
-      </div>
-      <p class="figcap">O participante escolhe o desafio, investiga no Kibana, pode liberar dicas (com custo de pontos) e submete a flag no CTFd.</p>
-      <ul class="checklist" style="max-width:900px; margin:10px auto 0;">
-        <li>Dicas debitam pontos, mas aceleram.</li>
-        <li>Flags válidas liberam a próxima fase.</li>
-        <li>Um SIEM comum a todas as equipes; cada fase cai para todas ao mesmo tempo.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- PUBLICAÇÃO -->
-  <section id="publicacao" class="section">
-    <div class="container grid grid-2" style="align-items:center;">
-      <div>
-        <h2>Publicação</h2>
-        <h3>HIKARI — Desafios Reais, Ameaças Ocultas</h3>
-        <p>Artigo completo revisado por pares, apresentado no SBSeg 2025.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary"
-             href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637"
-             target="_blank" rel="noopener">Ler no portal oficial (SOL/SBC)</a>
+    <section id="como-funciona" style="padding-top:0">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Como funciona</p>
+          <h2>Da inscrição à <em>detecção</em>.</h2>
+        </div>
+        <div class="percurso">
+          <div class="etapa">
+            <span class="rotulo rotulo--ouro">Etapa 1</span>
+            <h3>Equipes</h3>
+            <p>Competidores entram sozinhos ou em equipe antes da largada.</p>
+          </div>
+          <div class="etapa">
+            <span class="rotulo rotulo--ouro">Etapa 2</span>
+            <h3>Hipótese</h3>
+            <p>Cada desafio é uma pergunta sobre um incidente real do cenário.</p>
+          </div>
+          <div class="etapa">
+            <span class="rotulo rotulo--ouro">Etapa 3</span>
+            <h3>Investigação</h3>
+            <p>A resposta sai de filtros e agregações no SIEM.</p>
+            <div class="consulta">event.dataset:"vpn" and event.outcome:"failure"</div>
+          </div>
+          <div class="etapa">
+            <span class="rotulo rotulo--ouro">Etapa 4</span>
+            <h3>Fase seguinte</h3>
+            <p>O acerto pontua e libera novas evidências para todos.</p>
+          </div>
         </div>
       </div>
-      <div class="card">
-        <h3>Métricas reportadas</h3>
-        <p>Três edições avaliadas (ITA, pós-graduação da PUC Minas e Hackers do Bem/RNP), com 46 respostas. A análise de logs foi a competência mais citada, por 92% dos respondentes. Questionário com escala de 1 a 5 e análise temática das respostas abertas.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- RESULTADOS -->
-  <section id="resultados" class="section alt">
-    <div class="container">
-      <h2>Resultados com Usuários</h2>
-      <p style="margin-bottom:12px">Números do artigo do SBSeg 2025: três edições, entre novembro de 2024 e abril de 2025, em contextos acadêmico e comunitário.</p>
-      <div class="grid grid-3" style="margin-top:12px">
-        <div class="card"><div style="font-weight:800; font-size:1.6rem">46</div><div class="muted">Respostas em 3 edições</div></div>
-        <div class="card"><div style="font-weight:800; font-size:1.6rem">~87%</div><div class="muted">Consideraram os desafios realistas ou muito realistas</div></div>
-        <div class="card"><div style="font-weight:800; font-size:1.6rem">&gt; 4,2/5</div><div class="muted">Nota média da eficácia no aprendizado</div></div>
+    <section id="demonstracoes" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Demonstrações</p>
+          <h2>A plataforma, <em>em uso</em>.</h2>
+          <p class="lead">Fluxos reais da plataforma, com narração e legendas em português.</p>
+        </div>
+        <div class="demos">
+          <article class="demo">
+            <video controls preload="none" poster="assets/demos/posters/competidor.jpg">
+              <source src="assets/demos/hikari-demo-competidor.webm" type="video/webm">
+              <track kind="captions" src="assets/demos/captions/competidor.vtt" srclang="pt-BR" label="Português">
+            </video>
+            <div><h3>Competir</h3><p>Da conta e da equipe ao desafio, ao SIEM e à flag aceita.</p></div>
+          </article>
+          <article class="demo">
+            <video controls preload="none" poster="assets/demos/posters/siem.jpg">
+              <source src="assets/demos/hikari-demo-siem.webm" type="video/webm">
+              <track kind="captions" src="assets/demos/captions/siem.vtt" srclang="pt-BR" label="Português">
+            </video>
+            <div><h3>Investigar no SIEM</h3><p>Atalhos de caça, consultas KQL, painéis e pivôs de rede.</p></div>
+          </article>
+          <article class="demo">
+            <video controls preload="none" poster="assets/demos/posters/operacao.jpg">
+              <source src="assets/demos/hikari-demo-operacao.webm" type="video/webm">
+              <track kind="captions" src="assets/demos/captions/operacao.vtt" srclang="pt-BR" label="Português">
+            </video>
+            <div><h3>Operar uma edição</h3><p>Agendar, pausar, estender e encerrar, com cada ação registrada.</p></div>
+          </article>
+          <article class="demo">
+            <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg">
+              <source src="assets/demos/hikari-demo-pesquisa.webm" type="video/webm">
+              <track kind="captions" src="assets/demos/captions/pesquisa.vtt" srclang="pt-BR" label="Português">
+            </video>
+            <div><h3>Analisar depois da prova</h3><p>Atividade registrada, questionário e exportação para estudo.</p></div>
+          </article>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- GARANTIAS -->
-  <section id="garantias" class="section">
-    <div class="container">
-      <h2>Garantias de engenharia</h2>
-      <p>O que sustenta uma prova nacional não é o roteiro do dia: é o que a plataforma confere sozinha, antes de qualquer pessoa entrar.</p>
-      <div class="grid grid-3" style="margin-top:16px">
-        <div class="card">
-          <h3>Cada prova começa conferida</h3>
-          <p>Antes da largada, a plataforma recalcula a resposta de todos os desafios sobre a evidência, confere que cada dica leva ao campo certo e que nenhuma resposta muda quando novas evidências entram. Se algo não fecha, a prova não abre.</p>
+    <section id="engenharia">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Engenharia de prova nacional</p>
+          <h2>Conferida antes de <em>qualquer pessoa entrar</em>.</h2>
+          <p class="lead">O que sustenta uma competição nacional não é o roteiro do dia. É o que a plataforma confere sozinha, a cada versão e antes de cada largada.</p>
         </div>
-        <div class="card">
-          <h3>Verificada a cada versão</h3>
-          <p>Uma suíte automática percorre cadastro, equipes, desafios, SIEM, placar ao vivo, certificado e análise de dados a cada versão publicada. Nada vai para o ar sem passar.</p>
-        </div>
-        <div class="card">
-          <h3>Operável por quem não a construiu</h3>
-          <p>Prazo, pausa, extensão e encerramento ficam a um clique, com registro de cada ação e ponto de restauração testado. Um cartão de operação de uma página conduz o evento.</p>
+        <div class="garantias">
+          <div class="garantia">
+            <h3>Todo desafio tem resposta</h3>
+            <p>A resposta de cada desafio é recalculada sobre a evidência, e cada dica é conferida contra o campo que contém a resposta. Se algo não fecha, a prova não abre.</p>
+          </div>
+          <div class="garantia">
+            <h3>Nenhuma resposta muda no meio</h3>
+            <p>Novas fases de evidência não alteram o que já foi respondido, e nenhum desafio abre antes da própria evidência.</p>
+          </div>
+          <div class="garantia">
+            <h3>Verificada a cada versão</h3>
+            <p>Uma suíte automática percorre cadastro, equipes, desafios, SIEM, placar, certificado e análise de dados antes de cada publicação.</p>
+          </div>
+          <div class="garantia">
+            <h3>Um só critério de desempate</h3>
+            <p>Pontos e, no empate, quem chegou antes àquela pontuação. Tela cheia, pódio e placar oficial seguem a mesma ordem.</p>
+          </div>
+          <div class="garantia">
+            <h3>Operável por quem não a construiu</h3>
+            <p>Prazo, pausa, extensão e encerramento a um clique, com registro de cada ação e ponto de restauração ensaiado.</p>
+          </div>
+          <div class="garantia">
+            <h3>Aprender depois da prova</h3>
+            <p>Solução comentada em cada desafio, questionário curto e certificado nominal com código de verificação.</p>
+          </div>
         </div>
       </div>
-      <div class="cta-row" style="margin-top:18px">
-        <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20licenciamento">Falar sobre licenciamento</a>
-        <a class="btn" href="#demos">Ver demonstrações</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- DEMONSTRAÇÕES -->
-  <section id="demos" class="section alt">
-    <div class="container">
-      <h2>Demonstrações</h2>
-      <p>Demonstrações orientadas por tarefa mostram como competir, investigar, operar uma edição e analisar os dados após o encerramento.</p>
-      <div class="demo-grid">
-        <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/competidor.jpg">
-            <source src="assets/demos/hikari-demo-competidor.webm" type="video/webm">
-            <track kind="captions" src="assets/demos/captions/competidor.vtt" srclang="pt-BR" label="Português">
-          </video>
-          <h3>Competidor</h3>
-          <p>Conta, equipe, desafio, SIEM, tentativa, solve e placar.</p>
-          <div class="demo-meta">Narração em português e legendas opcionais</div>
-          <ul class="demo-steps">
-            <li><time>0:00</time><span>Criar conta e registrar o participante.</span></li>
-            <li><time>0:15</time><span>Criar uma equipe individual para participar.</span></li>
-            <li><time>0:31</time><span>Abrir o desafio e seguir para o SIEM.</span></li>
-            <li><time>0:48</time><span>Testar uma resposta e registrar a flag correta.</span></li>
-            <li><time>0:55</time><span>Confirmar o solve no placar ao vivo.</span></li>
+    <section id="resultados" style="padding-top:0">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Resultados medidos</p>
+          <h2>Avaliado por quem <em>competiu</em>.</h2>
+        </div>
+        <div class="numeros">
+          <div class="numero-bloco"><strong>3</strong><p>edições avaliadas em contextos acadêmico e comunitário</p></div>
+          <div class="numero-bloco"><strong>46</strong><p>respostas ao questionário de avaliação</p></div>
+          <div class="numero-bloco"><strong>~87%</strong><p>consideraram os desafios realistas ou muito realistas</p></div>
+          <div class="numero-bloco"><strong>&gt;4,2</strong><p>nota média, de 1 a 5, para a eficácia no aprendizado</p></div>
+        </div>
+        <p class="fonte">Fonte: artigo publicado no SBSeg 2025, com edições entre novembro de 2024 e abril de 2025.</p>
+      </div>
+    </section>
+
+    <section id="provas" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Provas conduzidas</p>
+          <h2>Onde o setor <em>treina</em>.</h2>
+          <p class="lead">O Hikari conduziu o CTF do RESEG, o exercício setorial de cibersegurança das operadoras de telecomunicações promovido pela Anatel, e conduz a arena técnica da 1ª Ciber Week Brisanet.</p>
+        </div>
+        <div class="provas">
+          <article class="prova prova--destaque">
+            <span class="rotulo rotulo--ouro">15 de outubro de 2026</span>
+            <h3>1ª Ciber Week Brisanet</h3>
+            <p>Arena de Desafios Técnicos conduzida no Hikari: seis horas de prova, com equipes de até cinco pessoas.</p>
+          </article>
+          <article class="prova">
+            <span class="rotulo">26 de agosto de 2026</span>
+            <h3>RESEG 2026</h3>
+            <p>Treze equipes e 76 inscritos numa janela única de quatro horas, com 125 desafios, todos resolvidos ao menos uma vez, e 54.698 consultas ao SIEM.</p>
+          </article>
+          <article class="prova">
+            <span class="rotulo">14 de agosto de 2025</span>
+            <h3>RESEG 2025</h3>
+            <p>O CTF do exercício setorial rodou na versão antecessora da plataforma, com profissionais de sete organizações do setor.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="implantacao">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Implantação</p>
+          <h2>Do jeito que a sua <em>organização</em> precisa.</h2>
+        </div>
+        <div class="modos">
+          <div class="modo">
+            <h3>Na nuvem, conduzida por nós</h3>
+            <p>O Time Hikari sobe o ambiente, carrega o cenário, ensaia com a organização e acompanha o dia da prova.</p>
+          </div>
+          <div class="modo">
+            <h3>Na sua infraestrutura</h3>
+            <p>Uma máquina, sem dependência de serviço externo: plataforma, pipeline de eventos e SIEM sobem juntos, e o Kibana fica atrás do controle de acesso da plataforma.</p>
+          </div>
+          <div class="modo">
+            <h3>Com cenário sob medida</h3>
+            <p>Cenários do seu setor, com respostas conferidas por código, ou o acervo já usado nas competições nacionais.</p>
+          </div>
+        </div>
+        <div class="acoes">
+          <a class="botao botao--luz" href="#contato">Conversar sobre implantação</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="minicurso" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+      <div class="moldura minicurso">
+        <div>
+          <p class="rotulo">Minicurso</p>
+          <h2 style="margin:1.1rem 0 1.4rem">Threat hunting <em>na prática</em>.</h2>
+          <p class="lead">Da hipótese à detecção em três estudos de caso numa operadora fictícia. Em cada um, a consulta mais óbvia cai numa isca, e a caçada só avança quando a pergunta muda.</p>
+          <ul class="casos">
+            <li><span>1</span><div><h3>Da força bruta ao privilégio</h3><p>A origem que adivinhou a senha da VPN e o administrador que ela criou.</p></div></li>
+            <li><span>2</span><div><h3>O canal que respira</h3><p>Um implante disfarçado de atualizador e a exfiltração que só aparece somando.</p></div></li>
+            <li><span>3</span><div><h3>Do mapa do diretório ao impacto</h3><p>A enumeração do Active Directory que antecede a cifra dos servidores.</p></div></li>
           </ul>
-          <div class="demo-proof">Prova exibida: o vídeo mostra cadastro, equipe, SIEM, tentativa incorreta, solve e telemetria atribuída.</div>
-        </article>
-        <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/siem.jpg">
-            <source src="assets/demos/hikari-demo-siem.webm" type="video/webm">
-            <track kind="captions" src="assets/demos/captions/siem.vtt" srclang="pt-BR" label="Português">
-          </video>
-          <h3>Investigação no SIEM</h3>
-          <p>Atalhos de caça, dashboard Kibana, pivôs de rede e retorno ao desafio.</p>
-          <div class="demo-meta">Narração em português e legendas opcionais</div>
-          <ul class="demo-steps">
-            <li><time>0:00</time><span>Ver a superfície SIEM com métricas da competição.</span></li>
-            <li><time>0:12</time><span>Abrir uma consulta KQL pronta no Discover.</span></li>
-            <li><time>0:34</time><span>Voltar à superfície Hikari para mudar de hipótese.</span></li>
-            <li><time>0:42</time><span>Abrir o dashboard Kibana pelo gateway autenticado.</span></li>
-            <li><time>0:58</time><span>Comparar severidade, tempo, IPs, portas e detecções.</span></li>
-          </ul>
-          <div class="demo-proof">Prova exibida: os painéis carregam eventos indexados do cenário de demonstração e mantêm o caminho de volta ao CTFd.</div>
-        </article>
-        <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/operacao.jpg">
-            <source src="assets/demos/hikari-demo-operacao.webm" type="video/webm">
-            <track kind="captions" src="assets/demos/captions/operacao.vtt" srclang="pt-BR" label="Português">
-          </video>
-          <h3>Operação da competição</h3>
-          <p>Controle de prazo, pausa e retomada de uma execução em andamento.</p>
-          <div class="demo-meta">Narração em português e legendas opcionais</div>
-          <ul class="demo-steps">
-            <li><time>0:00</time><span>Criar a execução com pontuação por equipes e duração inicial.</span></li>
-            <li><time>0:09</time><span>Iniciar a competição e conferir o prazo em andamento.</span></li>
-            <li><time>0:20</time><span>Acrescentar trinta minutos em um ajuste registrado.</span></li>
-            <li><time>0:31</time><span>Pausar e retomar, preservando o tempo restante.</span></li>
-            <li><time>0:41</time><span>Confirmar o estado final e o histórico da operação.</span></li>
-          </ul>
-          <div class="demo-proof">Prova exibida: a administração cria a execução, altera o relógio e registra pausa e retomada sem expor o SIEM diretamente.</div>
-        </article>
-        <article class="demo-card">
-          <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg">
-            <source src="assets/demos/hikari-demo-pesquisa.webm" type="video/webm">
-            <track kind="captions" src="assets/demos/captions/pesquisa.vtt" srclang="pt-BR" label="Português">
-          </video>
-          <h3>Análise científica</h3>
-          <p>Placar ao vivo, filtros de atividade, panorama de feedback e exportação JSONL.</p>
-          <div class="demo-meta">Narração em português e legendas opcionais</div>
-          <ul class="demo-steps">
-            <li><time>0:00</time><span>Acompanhar ranking, solves e evolução em tempo real.</span></li>
-            <li><time>0:12</time><span>Abrir a análise científica protegida por conta administrativa.</span></li>
-            <li><time>0:23</time><span>Filtrar atividades por tipo de evento.</span></li>
-            <li><time>0:35</time><span>Ver cobertura, pendências e métricas de feedback.</span></li>
-            <li><time>0:43</time><span>Exportar JSONL para auditoria e análise posterior.</span></li>
-          </ul>
-          <div class="demo-proof">Prova exibida: administradores filtram telemetria, acompanham feedback e exportam os dados auditáveis.</div>
-        </article>
+        </div>
+        <div class="material">
+          <a href="minicurso/capitulo-threat-hunting-na-pratica.pdf"><span>Capítulo<br><small>formato dos minicursos da SBC · PDF</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="minicurso/slides-threat-hunting-na-pratica.pdf"><span>Apresentação<br><small>slides 16:9 · PDF</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso1.ipynb"><span>Caderno do caso 1<br><small>executa no navegador, sem instalar</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso2.ipynb"><span>Caderno do caso 2<br><small>executa no navegador, sem instalar</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso3.ipynb"><span>Caderno do caso 3<br><small>executa no navegador, sem instalar</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="minicurso/"><span>Todo o material<br><small>cenário, gerador com conferidor e pacote para o Hikari</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        </div>
       </div>
-      <p class="figcap">As demonstrações percorrem fluxos reais da plataforma, com narração em português e legendas opcionais.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- QUICKSTART -->
-  <section id="implantacao" class="section">
-    <div class="container">
-      <h2>Como implantamos</h2>
-      <div class="grid grid-3" style="margin-top:16px">
-        <div class="card">
-          <h3>Na nuvem, conduzida por nós</h3>
-          <p>O Time Hikari sobe o ambiente, carrega o cenário, ensaia com a organização e acompanha o dia da prova.</p>
+    <section id="ciencia">
+      <div class="moldura">
+        <div class="abertura-secao">
+          <p class="rotulo">Ciência e mídia</p>
+          <h2>Revisado por pares, <em>documentado</em> pelo setor.</h2>
         </div>
-        <div class="card">
-          <h3>Na sua infraestrutura</h3>
-          <p>Uma máquina, sem dependência de serviço externo: a plataforma, o pipeline de eventos e o SIEM sobem juntos, e o acesso ao Kibana passa pelo controle da própria plataforma.</p>
-        </div>
-        <div class="card">
-          <h3>Com cenário sob medida</h3>
-          <p>Cenários próprios do seu setor, com respostas conferidas por código, ou o acervo já usado nas competições nacionais.</p>
-        </div>
-      </div>
-      <p class="figcap">Dimensionamento, requisitos e passo a passo de implantação seguem no guia entregue ao licenciado.</p>
-      <div class="cta-row" style="margin-top:16px">
-        <a class="btn btn-primary" href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20implantação">Solicitar o guia de implantação</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- VERSÃO 2026 -->
-  <section id="versao-2026" class="section alt">
-    <div class="container">
-      <h2>O que a versão 2026 entrega</h2>
-      <p>A versão que conduziu o RESEG 2026 e que conduz a Ciber Week Brisanet cresceu a partir do que cada prova ensinou. Nada abaixo é promessa: cada item tem uma verificação automática que reprova a instalação antes da competição.</p>
-
-      <div class="grid grid-3" style="margin-top:16px">
-        <div class="card">
-          <h3>Todo desafio tem resposta</h3>
-          <p>Antes da prova, um portão confere que cada flag é produzida pela consulta do gabarito sobre a evidência, que nenhuma resposta fica empatada, que nenhum desafio abre antes da própria evidência e que <strong>toda dica leva ao campo que contém a resposta</strong>.</p>
-        </div>
-        <div class="card">
-          <h3>A investigação cresce por fases</h3>
-          <p>Resolver um desafio-portão libera uma nova fase de eventos no SIEM, para todas as equipes, uma única vez. A plataforma registra quando cada fase caiu, por mérito de qual equipe e com quantos eventos.</p>
-        </div>
-        <div class="card">
-          <h3>Placar ao vivo para a plateia</h3>
-          <p>Pódio com troféu e medalhas, relógio da prova, momentos anunciados na hora (fase nova, troca de liderança, primeiro a resolver), pulso da investigação e destaques de campeonato, cada um com o critério escrito na tela.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-3" style="margin-top:14px">
-        <div class="card">
-          <h3>Um só critério de desempate</h3>
-          <p>Pontos; depois quem chegou antes àquela pontuação, contando a dica aberta. A tela cheia, o pódio e o placar oficial seguem a mesma ordem, e o competidor encontra a própria equipe na classificação completa, mesmo longe do topo.</p>
-        </div>
-        <div class="card">
-          <h3>Aprender depois da prova</h3>
-          <p>No encerramento, cada desafio mostra a solução comentada: a resposta, o caminho até ela e o que o caso ensina. Quem atuou e respondeu ao questionário emite um certificado de participação com código de verificação.</p>
-        </div>
-        <div class="card">
-          <h3>Operação sem o desenvolvedor</h3>
-          <p>Execuções agendadas com pausa, extensão e encerramento; checkpoints com restauração ensaiada sobre a produção; cartão de operação de uma página para uma segunda pessoa conduzir o evento.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MINICURSO -->
-  <section id="minicurso" class="section">
-    <div class="container grid grid-2" style="align-items:start;">
-      <div>
-        <h2>Minicurso: Threat Hunting na prática</h2>
-        <p>Um minicurso para nivelar quem vai competir e para formar quem conduz caçadas num SOC. O caçador parte de uma hipótese, escolhe as fontes de dados, pivota entre evidências e transforma o que encontrou em detecção. O curso faz esse caminho três vezes, sobre cenários completos, dentro do próprio Hikari.</p>
-        <ul class="checklist">
-          <li><strong>Estudo de caso 1 — Da força bruta ao privilégio:</strong> falhas de autenticação na VPN, a conta que cedeu, a sessão bem-sucedida e a elevação de privilégio no servidor.</li>
-          <li><strong>Estudo de caso 2 — O canal que respira:</strong> beaconing para um domínio que imita a empresa, o processo mascarado que o gera e a exfiltração que só aparece somando bytes.</li>
-          <li><strong>Estudo de caso 3 — Do mapa do diretório ao impacto:</strong> enumeração de grupos no Active Directory, a conta e o controlador envolvidos, e o comportamento de ransomware nos servidores de arquivos.</li>
-        </ul>
-        <p>Cada estudo de caso usa um cenário próprio do minicurso, gerado de forma reprodutível e com gabarito conferido por código. Nenhum dado de competição é usado, para que o curso possa anteceder a prova sem entregar respostas.</p>
-      </div>
-      <div class="card">
-        <h3>Formato</h3>
-        <p>Capítulo de livro e apresentação no formato dos minicursos da SBC, preparados para proposta ao <strong>SBSeg 2027</strong> e ao <strong>SBRC 2027</strong>. Primeira oferta na Ciber Week Brisanet 2026, antes da competição.</p>
-        <h3 style="margin-top:14px">Público</h3>
-        <p>Estudantes, docentes, analistas de SOC e CSIRT. Não exige experiência prévia com SIEM: o curso começa pela primeira consulta KQL.</p>
-        <h3 style="margin-top:14px">Autores</h3>
-        <p>Sidnei Barbieri, Ágney Lopes Roth Ferraz e Lourenço Alves Pereira Júnior — Time Hikari.</p>
-      </div>
-    </div>
-
-    <div class="container" style="margin-top:22px">
-      <h3>Material do minicurso</h3>
-      <p>Tudo o que o participante recebe, aberto para quem quiser estudar por conta própria. O cenário é fictício e gerado de forma determinística.</p>
-      <div class="grid grid-3" style="margin-top:14px">
-        <div class="card">
-          <h3>Capítulo e apresentação</h3>
-          <p>Capítulo no formato dos minicursos da SBC, com os três estudos de caso completos, e a apresentação 16:9 usada em sala.</p>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn btn-primary" href="minicurso/capitulo-threat-hunting-na-pratica.pdf">Capítulo (PDF)</a>
-            <a class="btn" href="minicurso/slides-threat-hunting-na-pratica.pdf">Slides (PDF)</a>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Cadernos das práticas</h3>
-          <p>Um notebook por estudo de caso, em <code>pandas</code>: os mesmos passos do capítulo, com conferência automática das respostas.</p>
-          <p><strong>Abrir e executar no navegador</strong>, sem instalar nada. A primeira célula baixa a evidência sozinha.</p>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn btn-primary" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso1.ipynb">Executar o Caso 1</a>
-            <a class="btn btn-primary" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso2.ipynb">Executar o Caso 2</a>
-            <a class="btn btn-primary" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso3.ipynb">Executar o Caso 3</a>
-          </div>
-          <p style="margin-top:12px">Prefere rodar na sua máquina? Baixe o caderno e siga o
-            <a href="minicurso/notebooks/LEIAME.md">LEIAME</a>:
-            <a href="minicurso/notebooks/caso1.ipynb">caso 1</a>,
-            <a href="minicurso/notebooks/caso2.ipynb">caso 2</a>,
-            <a href="minicurso/notebooks/caso3.ipynb">caso 3</a>.</p>
-        </div>
-        <div class="card">
-          <h3>Cenário Aurora Telecom</h3>
-          <p>O gerador com o conferidor do gabarito, a evidência pronta (49.277 eventos) e o pacote para jogar na plataforma.</p>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn btn-primary" href="minicurso/cenario/aurora-gerador.zip">Gerador</a>
-            <a class="btn" href="minicurso/cenario/aurora-evidencia.zip">Evidência</a>
-            <a class="btn" href="minicurso/cenario/pacote-hikari-minicurso-aurora.zip">Pacote Hikari</a>
-          </div>
-        </div>
-      </div>
-      <p class="figcap">Proposta preparada para os minicursos do SBSeg e do SBRC 2027: <a class="link" href="minicurso/proposta-minicurso.pdf">proposta (PDF)</a>. Material do Time Hikari para uso educacional; para redistribuição, fale conosco.</p>
-    </div>
-  </section>
-
-  <!-- PARTICIPAÇÕES -->
-  <section id="parcerias" class="section">
-    <div class="container">
-      <h2>Participações Institucionais</h2>
-      <p>O Hikari operou o CTF do RESEG em 2025 e em 2026 — o exercício setorial de cibersegurança do setor de telecomunicações brasileiro, promovido pela ANATEL — e foi confirmado para a Ciber Week da Brisanet, em outubro de 2026.</p>
-
-      <div class="grid grid-2 grid-cartoes" style="margin-top:16px; gap:20px">
-        <div class="card">
-          <h3>Ciber Week Brisanet 2026 — confirmada</h3>
-          <p>A <strong>1ª Ciber Week Brisanet</strong> tem uma Arena de Desafios Técnicos conduzida no Hikari em <strong>15 de outubro de 2026</strong>: seis horas de prova, equipes de até cinco pessoas, <strong>165 desafios</strong> em oito fases de investigação.</p>
-        </div>
-        <div class="card">
-          <h3>RESEG 2025 — com a versão antecessora</h3>
-          <p>Em <strong>14 de agosto de 2025</strong>, o CTF do exercício setorial das operadoras de telecomunicações rodou na versão antecessora do Hikari. Em cerca de três horas, <strong>25 contas</strong> de profissionais de <strong>sete organizações do setor</strong> (pelos domínios de e-mail do cadastro) enviaram <strong>1.389 respostas</strong>, e <strong>33 desafios</strong> foram resolvidos ao menos uma vez.</p>
-        </div>
-        <div class="card">
-          <h3>RESEG 2026 — quatro horas, 125 desafios</h3>
-          <p><strong>13 equipes, 73 competidores em equipe (76 inscritos), 125 desafios</strong> numa janela única de quatro horas. Os 125 desafios foram resolvidos ao menos uma vez e quatro equipes chegaram ao teto de pontuação. A instância registrou <strong>3.931 submissões</strong> e <strong>54.698 consultas ao SIEM</strong>; 99,8% das consultas responderam com sucesso, e a maior parte das demais foi recusada como consulta inválida.</p>
-        </div>
-        <div class="card">
-          <h3>O que a prova ensinou</h3>
-          <p>A execução expôs duas classes de defeito de curadoria e cada uma virou uma conferência automática que hoje reprova antes da prova: gabarito que discorda da flag cadastrada, e resposta que muda quando uma onda de logs cai. As duas rodam no mesmo portão pré-competição.</p>
-        </div>
-      </div>
-
-      <div class="cta-row" style="margin-top:16px">
-        <a class="btn btn-primary" href="https://teletime.com.br/27/05/2025/anatel-prepara-simulacao-setorial-de-ciberseguranca-com-operadoras/" target="_blank" rel="noopener">Ler o contexto setorial</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- COBERTURA DA MÍDIA -->
-  <section id="midia" class="section alt">
-    <div class="container">
-      <h2>Cobertura da Mídia</h2>
-      <p style="margin-bottom:16px">Reportagens e artigos que documentam o impacto do Hikari na formação de defensores cibernéticos.</p>
-      <div class="grid grid-2 grid-cartoes" style="margin-top:12px; gap:20px">
-        <div class="card">
-          <h3>SBSeg 2025 — Publicação científica</h3>
-          <p>Artigo completo avaliado por pares apresentado no Simpósio Brasileiro de Cibersegurança, com a avaliação de três edições e 46 respostas ao questionário.</p>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn btn-primary" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">Ler no SOL/SBC</a>
-          </div>
-        </div>
-        <div class="card">
-          <h3>RNP — Hackers do Bem</h3>
-          <p>Como a gamificação contribui para a formação da nova geração de defensores cibernéticos do Brasil — artigo de caso de uso publicado pela Rede Nacional de Ensino e Pesquisa (RNP).</p>
-          <div class="cta-row" style="margin-top:12px">
-            <a class="btn btn-primary" href="https://www.rnp.br/casos-de-uso/hackers-do-bem-como-a-gamificacao-contribui-para-a-formacao-da-nova-geracao-de-defensores-ciberneticos-do-brasil/" target="_blank" rel="noopener">Ler na RNP</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER com ícones -->
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-col">
-        <h4>Time Hikari</h4>
-        <p>Sidnei Barbieri<br>Lourenço Alves Pereira Júnior<br>Ágney Lopes Roth Ferraz<br>Bruno Moreira Camargos Belo<br>Leonardo Chahud<br>Leonardo Vaz de Meneses<br>Cesar Marcondes</p>
-        <p style="margin-top:10px">A versão atual da plataforma foi desenvolvida por Sidnei Barbieri.</p>
-        <p style="margin-top:10px">Contato: <a href="mailto:sidneibarbieri@gmail.com" class="link">sidneibarbieri@gmail.com</a></p>
-      </div>
-      <div class="footer-col">
-        <h4>Referências</h4>
-        <div class="socials">
-          <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener" class="social" aria-label="Publicação científica">
-            <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5M8 13h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
+        <div class="registros">
+          <a class="registro" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">
+            <span class="rotulo rotulo--ouro">SBSeg 2025</span>
+            <h3>Hikari: desafios reais, ameaças ocultas</h3>
+            <p>Artigo completo no Simpósio Brasileiro de Cibersegurança, com a avaliação de três edições.</p>
+            <span class="ir">Ler o artigo →</span>
           </a>
-          <a href="https://www.rnp.br/casos-de-uso/hackers-do-bem-como-a-gamificacao-contribui-para-a-formacao-da-nova-geracao-de-defensores-ciberneticos-do-brasil/" target="_blank" rel="noopener" class="social" aria-label="Matéria da RNP">
-            <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4V5zm2 2v10h12V7H6zm2 2h8v2H8V9zm0 4h5v2H8v-2z"/></svg>
+          <a class="registro" href="https://www.rnp.br/casos-de-uso/hackers-do-bem-como-a-gamificacao-contribui-para-a-formacao-da-nova-geracao-de-defensores-ciberneticos-do-brasil/" target="_blank" rel="noopener">
+            <span class="rotulo rotulo--ouro">RNP · Hackers do Bem</span>
+            <h3>Gamificação na formação de defensores</h3>
+            <p>Caso de uso publicado pela Rede Nacional de Ensino e Pesquisa.</p>
+            <span class="ir">Ler na RNP →</span>
+          </a>
+          <a class="registro" href="https://teletime.com.br/27/05/2025/anatel-prepara-simulacao-setorial-de-ciberseguranca-com-operadoras/" target="_blank" rel="noopener">
+            <span class="rotulo rotulo--ouro">Teletime</span>
+            <h3>O exercício setorial da Anatel</h3>
+            <p>O contexto do RESEG, a simulação de cibersegurança com as operadoras de telecomunicações.</p>
+            <span class="ir">Ler a reportagem →</span>
           </a>
         </div>
       </div>
-      <div class="footer-col">
-        <h4>Artefato</h4>
-        <p>Plataforma licenciada para treinamento, demonstração e pesquisa em threat hunting gamificado.</p>
-        <p style="margin-top:10px"><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" class="link" target="_blank" rel="noopener">Publicação científica (SBSeg 2025)</a><br><a href="mailto:sidneibarbieri@gmail.com?subject=Hikari%20—%20licenciamento" class="link">Licenciamento e demonstração</a></p>
+    </section>
+
+    <section id="time" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+      <div class="moldura time">
+        <div>
+          <p class="rotulo">Time Hikari</p>
+          <h2 style="margin:1.1rem 0 1.6rem">Pesquisa do <em>ITA</em>.</h2>
+          <div class="coordenacao">
+            <span class="rotulo rotulo--ouro">Coordenação</span>
+            <p class="nome">Lourenço Alves Pereira Júnior</p>
+            <p>Professor do Instituto Tecnológico de Aeronáutica. Coordena o projeto e orienta a pesquisa que deu origem à plataforma.</p>
+          </div>
+        </div>
+        <ul class="integrantes">
+          <li>Lourenço Alves Pereira Júnior <small>coordenação</small></li>
+          <li>César Marcondes</li>
+          <li>Sidnei Barbieri <small>versão atual da plataforma</small></li>
+          <li>Leonardo Chahud</li>
+          <li>Ágney Lopes Roth Ferraz</li>
+          <li>Leonardo Vaz de Meneses</li>
+          <li>Bruno Moreira Camargos Belo</li>
+        </ul>
       </div>
+    </section>
+
+    <section id="contato">
+      <div class="moldura contato">
+        <div>
+          <p class="rotulo">Contato</p>
+          <h2 style="margin:1.1rem 0 1.4rem">Vamos levar o Hikari <em>até você</em>.</h2>
+          <p class="lead">Licenciamento, implantação, cenários sob medida, minicurso ou imprensa. Conte o que sua organização precisa e o Time Hikari responde.</p>
+        </div>
+        <form class="formulario" id="formulario-contato" novalidate>
+          <div class="campos">
+            <div class="campo">
+              <label for="contato-nome">Nome</label>
+              <input id="contato-nome" name="nome" autocomplete="name" required>
+            </div>
+            <div class="campo">
+              <label for="contato-email">E-mail</label>
+              <input id="contato-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="campos">
+            <div class="campo">
+              <label for="contato-organizacao">Organização</label>
+              <input id="contato-organizacao" name="organizacao" autocomplete="organization">
+            </div>
+            <div class="campo">
+              <label for="contato-assunto">Assunto</label>
+              <select id="contato-assunto" name="assunto">
+                <option>Licenciamento</option>
+                <option>Implantação de uma competição</option>
+                <option>Cenário sob medida</option>
+                <option>Minicurso</option>
+                <option>Imprensa</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="contato-mensagem">Mensagem</label>
+            <textarea id="contato-mensagem" name="mensagem" required></textarea>
+          </div>
+          <input class="armadilha" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="aviso">Seus dados são usados apenas para responder a este contato.</p>
+          <button class="botao botao--luz" type="submit">Enviar mensagem</button>
+          <p class="estado" id="estado-contato" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="moldura">
+      <span>© 2026 Time Hikari · Instituto Tecnológico de Aeronáutica</span>
+      <nav aria-label="Rodapé">
+        <a href="#demonstracoes">Demonstrações</a>
+        <a href="#minicurso">Minicurso</a>
+        <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">Artigo</a>
+        <a href="#contato">Contato</a>
+      </nav>
     </div>
-    <div class="copy">Copyright © 2026 Time Hikari</div>
   </footer>
 
+  <script>
+    // O endereço de destino é montado só no envio, para não aparecer na página.
+    const DESTINO = ["sidneibarbieri", "gmail.com"].join("@");
+    const formulario = document.getElementById("formulario-contato");
+    const estado = document.getElementById("estado-contato");
+
+    function informar(texto, tipo) {
+      estado.textContent = texto;
+      estado.dataset.tipo = tipo;
+    }
+
+    function camposValidos() {
+      const obrigatorios = formulario.querySelectorAll("[required]");
+      return [...obrigatorios].every((campo) => campo.checkValidity());
+    }
+
+    async function enviar(evento) {
+      evento.preventDefault();
+      if (!camposValidos()) {
+        informar("Preencha nome, e-mail válido e mensagem.", "erro");
+        return;
+      }
+      const dados = Object.fromEntries(new FormData(formulario));
+      const botao = formulario.querySelector("button");
+      botao.disabled = true;
+      informar("Enviando…", "");
+      const resposta = await fetch(`https://formsubmit.co/ajax/${DESTINO}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ ...dados, _subject: `Hikari · ${dados.assunto} · ${dados.nome}`, _template: "table" }),
+      });
+      botao.disabled = false;
+      if (resposta.ok) {
+        formulario.reset();
+        informar("Mensagem enviada. O Time Hikari responde em breve.", "ok");
+      } else {
+        informar("Não foi possível enviar agora. Tente novamente em alguns minutos.", "erro");
+      }
+    }
+
+    formulario.addEventListener("submit", enviar);
+  </script>
 </body>
 </html>
