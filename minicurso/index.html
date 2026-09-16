@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material do minicurso — Threat Hunting na Prática | Hikari</title>
+<meta name="description" content="Capítulo, slides, cadernos executáveis e cenário reprodutível do minicurso Threat Hunting na Prática.">
+<style>
+  :root { --tinta:#141A22; --suave:#5B6573; --ouro:#A8823F; --papel:#FBFAF6; --linha:#E4E1D8; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--papel); color:var(--tinta);
+         font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif; }
+  main { max-width:820px; margin:0 auto; padding:48px 20px 72px; }
+  a { color:var(--ouro); }
+  h1 { font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin:0 0 8px; letter-spacing:-.01em; }
+  .sub { color:var(--suave); margin:0 0 36px; }
+  h2 { font-size:1.05rem; text-transform:uppercase; letter-spacing:.08em; color:var(--suave);
+       margin:40px 0 14px; font-weight:600; }
+  ul { list-style:none; padding:0; margin:0; }
+  li { border-top:1px solid var(--linha); padding:14px 0; }
+  li:last-child { border-bottom:1px solid var(--linha); }
+  .nome { font-weight:600; }
+  .nota { color:var(--suave); font-size:.92rem; }
+  .btn { display:inline-block; border:1px solid var(--ouro); color:var(--ouro); text-decoration:none;
+         padding:5px 12px; border-radius:3px; font-size:.9rem; margin-right:6px; }
+  .btn-cheio { background:var(--ouro); color:var(--papel); }
+  footer { margin-top:48px; padding-top:20px; border-top:1px solid var(--linha);
+           color:var(--suave); font-size:.88rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Threat Hunting na Prática: da Hipótese à Detecção</h1>
+  <p class="sub">Material completo do minicurso. O cenário é fictício e gerado de forma
+     determinística: nenhum dado de competição real é usado.</p>
+
+  <h2>Executar agora, no navegador</h2>
+  <ul>
+    <li><span class="nome">Caso 1 — da força bruta ao privilégio</span><br>
+      <span class="nota">A origem que entrou na VPN, e a sonda legítima que engana a contagem.</span><br>
+      <a class="btn btn-cheio" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso1.ipynb">Executar</a>
+      <a class="btn" href="notebooks/caso1.ipynb">Baixar</a></li>
+    <li><span class="nome">Caso 2 — o canal que respira</span><br>
+      <span class="nota">Comando e controle disfarçado de atualizador, e a exfiltração fatiada.</span><br>
+      <a class="btn btn-cheio" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso2.ipynb">Executar</a>
+      <a class="btn" href="notebooks/caso2.ipynb">Baixar</a></li>
+    <li><span class="nome">Caso 3 — do mapa do diretório ao impacto</span><br>
+      <span class="nota">Enumeração de grupos, movimento lateral por serviço e cifra.</span><br>
+      <a class="btn btn-cheio" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso3.ipynb">Executar</a>
+      <a class="btn" href="notebooks/caso3.ipynb">Baixar</a></li>
+  </ul>
+  <p class="nota">A primeira célula de cada caderno baixa a evidência sozinha. Não é preciso
+     instalar nada. Para rodar na sua máquina, veja o
+     <a href="notebooks/LEIAME.md">LEIAME</a>.</p>
+
+  <h2>Texto e apresentação</h2>
+  <ul>
+    <li><span class="nome">Capítulo</span>
+      <span class="nota">— no formato dos minicursos da SBC</span><br>
+      <a class="btn" href="capitulo-threat-hunting-na-pratica.pdf">PDF</a></li>
+    <li><span class="nome">Slides</span>
+      <span class="nota">— apresentação 16:9 usada em sala</span><br>
+      <a class="btn" href="slides-threat-hunting-na-pratica.pdf">PDF</a></li>
+    <li><span class="nome">Proposta</span>
+      <span class="nota">— submetida ao SBSeg e ao SBRC</span><br>
+      <a class="btn" href="proposta-minicurso.pdf">PDF</a></li>
+  </ul>
+
+  <h2>Cenário Aurora Telecom</h2>
+  <ul>
+    <li><span class="nome">Evidência pronta</span>
+      <span class="nota">— 49.277 eventos no Elastic Common Schema, com o gabarito</span><br>
+      <a class="btn" href="cenario/aurora-evidencia.zip">ZIP</a></li>
+    <li><span class="nome">Gerador</span>
+      <span class="nota">— recria o cenário, recalcula as respostas e roda os testes</span><br>
+      <a class="btn" href="cenario/aurora-gerador.zip">ZIP</a></li>
+    <li><span class="nome">Pacote de desafios</span>
+      <span class="nota">— para importar na plataforma Hikari e jogar como competição</span><br>
+      <a class="btn" href="cenario/pacote-hikari-minicurso-aurora.zip">ZIP</a></li>
+  </ul>
+
+  <footer>
+    Material do Time Hikari para uso educacional. Para redistribuição, fale conosco.
+    <br><a href="../">Voltar ao Hikari</a>
+  </footer>
+</main>
+</body>
+</html>

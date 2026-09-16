@@ -12,7 +12,20 @@ from typing import Dict, List
 
 import pandas as pd
 
-CENARIO = Path(__file__).resolve().parent.parent / "cenario" / "saida"
+def _pasta_do_cenario() -> Path:
+    """Onde a evidência está: na árvore do repositório, ou ao lado do notebook.
+
+    Em nuvem o notebook roda sozinho, sem o repositório em volta, e a evidência
+    é baixada para uma pasta ao lado dele. Procurar nos dois lugares evita que o
+    caderno precise saber onde está rodando.
+    """
+    aqui = Path(__file__).resolve().parent
+    candidatas = (aqui.parent / "cenario" / "saida", aqui / "cenario" / "saida")
+    return next((pasta for pasta in candidatas if (pasta / "aurora-telecom.json").exists()),
+                candidatas[0])
+
+
+CENARIO = _pasta_do_cenario()
 
 
 def ler_eventos(caminho: Path = CENARIO / "aurora-telecom.json") -> pd.DataFrame:
