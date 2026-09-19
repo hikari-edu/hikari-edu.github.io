@@ -7,3 +7,6 @@ _site
 node_modules
 output/
 
+
+# Documento privado de submissão.
+/minicurso/proposta*

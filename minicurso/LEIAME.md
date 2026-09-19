@@ -4,7 +4,6 @@
 |---|---|
 | `capitulo-threat-hunting-na-pratica.pdf` | capítulo no formato dos minicursos da SBC |
 | `slides-threat-hunting-na-pratica.pdf` | apresentação 16:9 usada em sala |
-| `proposta-minicurso.pdf` | proposta submetida ao SBSeg e ao SBRC 2027 |
 | `notebooks/` | um caderno por estudo de caso, em `pandas`, com conferência do gabarito |
 | `cenario/aurora-gerador.zip` | gerador do cenário, conferidor do gabarito e testes |
 | `cenario/aurora-evidencia.zip` | a evidência pronta (49.277 eventos) e o gabarito |
