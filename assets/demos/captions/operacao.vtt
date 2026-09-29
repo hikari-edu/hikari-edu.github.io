@@ -1,16 +1,13 @@
 WEBVTT
 
-00:00.000 --> 00:09.000
-A organização cria a edição, define a pontuação por equipes e escolhe a duração inicial.
+00:00:00.350 --> 00:00:08.006
+A organização monta a prova a partir da biblioteca de desafios, importando pacotes prontos com evidência e gabarito.
 
-00:09.000 --> 00:20.000
-Com a competição em andamento, o painel exibe o prazo e o estado da execução.
+00:00:09.256 --> 00:00:14.728
+Cada edição é uma execução com início e término agendados, no fuso do evento.
 
-00:20.000 --> 00:31.000
-O prazo é ajustado em blocos de cinco minutos. Aqui, a organização acrescenta trinta minutos.
+00:00:15.978 --> 00:00:23.706
+Durante a prova, pausar, estender e encerrar ficam a um clique, com confirmação, e cada ação fica registrada.
 
-00:31.000 --> 00:41.000
-Pausar bloqueia novas submissões e preserva o tempo restante.
-
-00:41.000 --> 00:53.000
-Ao retomar, o relógio continua do ponto em que parou e o histórico registra cada mudança.
+00:00:24.956 --> 00:00:32.012
+As estatísticas separam competidores de administradores, para que os números descrevam quem de fato competiu.

@@ -1,22 +1,22 @@
 WEBVTT
 
-00:00.000 --> 00:07.000
-Crie uma conta e uma equipe individual para começar.
+00:00:00.350 --> 00:00:06.518
+No Hikari, cada desafio é uma pergunta sobre um incidente, e a resposta está na telemetria.
 
-00:07.000 --> 00:16.000
-Você pode competir sozinho e receber integrantes depois.
+00:00:07.768 --> 00:00:14.920
+Esta pergunta pede a origem externa que adivinhou uma senha da VPN. O SIEM abre direto do desafio.
 
-00:16.000 --> 00:26.000
-Abra o desafio e acesse o SIEM durante a investigação.
+00:00:16.170 --> 00:00:23.034
+A primeira ideia é contar as falhas por origem. O topo da lista tem mais de mil e quatrocentas falhas.
 
-00:26.000 --> 00:36.000
-Os eventos liberados ajudam a confirmar a hipótese.
+00:00:24.284 --> 00:00:32.492
+Mas a resposta é recusada. Aquela origem é uma sonda de monitoramento interna: muitas falhas, uma conta só.
 
-00:36.000 --> 00:44.000
-Uma tentativa incorreta indica que a resposta deve ser revista.
+00:00:33.742 --> 00:00:42.430
+A pergunta certa é quantas contas diferentes cada origem tentou. Uma origem externa tentou sessenta e duas contas, e entrou.
 
-00:44.000 --> 00:53.000
-A flag correta confirma o solve e atualiza a pontuação da equipe.
+00:00:43.680 --> 00:00:50.064
+A resposta é aceita, a pontuação da equipe sobe, e o acerto abre a próxima pergunta do caso.
 
-00:53.000 --> 01:00.000
-O placar ao vivo registra o avanço da competição.
+00:00:51.314 --> 00:00:59.258
+Quem trava pode comprar a dica. Ela custa pontos e não entrega a resposta: aponta a agregação que responde à hipótese.

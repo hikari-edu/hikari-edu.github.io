@@ -1,0 +1,132 @@
+{
+  "voz": "pt-BR-ThalitaMultilingualNeural",
+  "velocidade": "-4%",
+  "videos": [
+    {
+      "chave": "competidor",
+      "titulo": "Competir: da hipótese à flag",
+      "cenas": [
+        {
+          "id": "abertura",
+          "fala": "No Hikari, cada desafio é uma pergunta sobre um incidente, e a resposta está na telemetria."
+        },
+        {
+          "id": "desafio",
+          "fala": "Esta pergunta pede a origem externa que adivinhou uma senha da VPN. O SIEM abre direto do desafio."
+        },
+        {
+          "id": "ingenua",
+          "fala": "A primeira ideia é contar as falhas por origem. O topo da lista tem mais de mil e quatrocentas falhas."
+        },
+        {
+          "id": "erro",
+          "fala": "Mas a resposta é recusada. Aquela origem é uma sonda de monitoramento interna: muitas falhas, uma conta só."
+        },
+        {
+          "id": "refina",
+          "fala": "A pergunta certa é quantas contas diferentes cada origem tentou. Uma origem externa tentou sessenta e duas contas, e entrou."
+        },
+        {
+          "id": "acerto",
+          "fala": "A resposta é aceita, a pontuação da equipe sobe, e o acerto abre a próxima pergunta do caso."
+        },
+        {
+          "id": "dica",
+          "fala": "Quem trava pode comprar a dica. Ela custa pontos e não entrega a resposta: aponta a agregação que responde à hipótese."
+        }
+      ]
+    },
+    {
+      "chave": "siem",
+      "titulo": "Investigar no SIEM",
+      "cenas": [
+        {
+          "id": "painel",
+          "fala": "A entrada do SIEM mostra de onde vem cada registro e quais campos ele traz. A investigação acontece num Kibana de verdade, com os eventos no Elastic Common Schema."
+        },
+        {
+          "id": "atalhos",
+          "fala": "Os atalhos de caça abrem consultas prontas no Discover, já filtradas, para começar a investigação sem decorar sintaxe."
+        },
+        {
+          "id": "kql",
+          "fala": "Com KQL, o competidor filtra os eventos. Aqui, as consultas de DNS da estação suspeita."
+        },
+        {
+          "id": "agregacao",
+          "fala": "A agregação responde à pergunta: um domínio consultado por uma estação só, a cada cinco minutos, inclusive de madrugada."
+        },
+        {
+          "id": "pivo",
+          "fala": "O valor encontrado numa fonte vira filtro em outra. Do domínio para a estação, da estação para o processo que fez a consulta."
+        },
+        {
+          "id": "dashboard",
+          "fala": "O painel mostra o ritmo da atividade: volume por fonte, horário, autenticações aceitas e recusadas. Ele indica onde olhar, e nunca a resposta."
+        }
+      ]
+    },
+    {
+      "chave": "placar",
+      "titulo": "O placar ao vivo",
+      "cenas": [
+        {
+          "id": "podio",
+          "fala": "O placar ao vivo mostra o pódio, a classificação e o tempo restante, com um único critério de desempate na tela."
+        },
+        {
+          "id": "evolucao",
+          "fala": "A evolução mostra a disputa ao longo da prova, e os acertos recentes mostram quem avançou agora."
+        },
+        {
+          "id": "destaques",
+          "fala": "Os destaques premiam pontuação, pioneirismo, precisão na primeira resposta e abertura de fases. Nenhum premia tentativa e erro."
+        }
+      ]
+    },
+    {
+      "chave": "operacao",
+      "titulo": "Operar uma edição",
+      "cenas": [
+        {
+          "id": "biblioteca",
+          "fala": "A organização monta a prova a partir da biblioteca de desafios, importando pacotes prontos com evidência e gabarito."
+        },
+        {
+          "id": "execucao",
+          "fala": "Cada edição é uma execução com início e término agendados, no fuso do evento."
+        },
+        {
+          "id": "controle",
+          "fala": "Durante a prova, pausar, estender e encerrar ficam a um clique, com confirmação, e cada ação fica registrada."
+        },
+        {
+          "id": "estatisticas",
+          "fala": "As estatísticas separam competidores de administradores, para que os números descrevam quem de fato competiu."
+        }
+      ]
+    },
+    {
+      "chave": "depois",
+      "titulo": "Depois da prova",
+      "cenas": [
+        {
+          "id": "solucao",
+          "fala": "Encerrada a prova, cada desafio mostra a solução comentada: a resposta, o caminho até ela e o que o caso ensina."
+        },
+        {
+          "id": "questionario",
+          "fala": "O questionário curto é respondido ainda na plataforma, enquanto a prova está fresca."
+        },
+        {
+          "id": "certificado",
+          "fala": "Quem participou emite o próprio certificado em PDF, com o nome completo e um código que qualquer pessoa pode verificar."
+        },
+        {
+          "id": "pesquisa",
+          "fala": "E a organização exporta a atividade registrada, submissões e consultas, para estudar a própria prova e melhorá-la na edição seguinte."
+        }
+      ]
+    }
+  ]
+}

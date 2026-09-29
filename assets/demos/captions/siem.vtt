@@ -1,22 +1,19 @@
 WEBVTT
 
-00:00.000 --> 00:09.000
-O SIEM reúne os eventos liberados para os desafios.
+00:00:00.350 --> 00:00:10.886
+A entrada do SIEM mostra de onde vem cada registro e quais campos ele traz. A investigação acontece num Kibana de verdade, com os eventos no Elastic Common Schema.
 
-00:09.000 --> 00:18.000
-O gateway associa cada consulta ao competidor e à equipe.
+00:00:12.136 --> 00:00:20.344
+Os atalhos de caça abrem consultas prontas no Discover, já filtradas, para começar a investigação sem decorar sintaxe.
 
-00:18.000 --> 00:29.000
-Os atalhos de caça abrem o Discover com a consulta já aplicada.
+00:00:21.594 --> 00:00:29.346
+Com KQL, o competidor filtra os eventos. Aqui, as consultas de DNS da estação suspeita.
 
-00:29.000 --> 00:40.000
-Os documentos retornados podem ser refinados com filtros e KQL.
+00:00:30.596 --> 00:00:38.828
+A agregação responde à pergunta: um domínio consultado por uma estação só, a cada cinco minutos, inclusive de madrugada.
 
-00:40.000 --> 00:52.000
-Cada consulta registrada preserva a sequência de investigação.
+00:00:40.078 --> 00:00:48.214
+O valor encontrado numa fonte vira filtro em outra. Do domínio para a estação, da estação para o processo que fez a consulta.
 
-00:52.000 --> 01:04.000
-O dashboard resume severidade, destinos e outros sinais indexados.
-
-01:04.000 --> 01:15.000
-Com evidência suficiente, o competidor retorna ao desafio para enviar a flag.
+00:00:49.464 --> 00:01:00.024
+O painel mostra o ritmo da atividade: volume por fonte, horário, autenticações aceitas e recusadas. Ele indica onde olhar, e nunca a resposta.

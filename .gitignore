@@ -10,3 +10,6 @@ output/
 
 # Documento privado de submissão.
 /minicurso/proposta*
+
+# Brutos da produção dos vídeos: cenas gravadas e narração.
+producao-videos/saida/

@@ -204,6 +204,8 @@
     .demo { border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; background: var(--superficie); }
     .demo video { width: 100%; aspect-ratio: 16 / 9; background: #000; display: block; }
     .demo div { padding: 1.3rem 1.4rem 1.5rem; }
+    /* O primeiro vídeo conta a prova inteira; os demais detalham uma parte dela. */
+    .demo--destaque { grid-column: 1 / -1; }
 
     /* ─── Engenharia ─── */
     .garantias { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.6rem 3rem; }
@@ -445,36 +447,43 @@
         <div class="abertura-secao">
           <p class="rotulo">Demonstrações</p>
           <h2>A plataforma, <em>em uso</em>.</h2>
-          <p class="lead">Fluxos reais da plataforma, com narração e legendas em português.</p>
+          <p class="lead">A plataforma real, gravada numa prova fictícia: a Aurora Telecom, o mesmo cenário do minicurso. Narração e legendas em português.</p>
         </div>
         <div class="demos">
-          <article class="demo">
+          <article class="demo demo--destaque">
             <video controls preload="none" poster="assets/demos/posters/competidor.jpg">
               <source src="assets/demos/hikari-demo-competidor.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/competidor.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Competir</h3><p>Da conta e da equipe ao desafio, ao SIEM e à flag aceita.</p></div>
+            <div><h3>Da hipótese à flag</h3><p>Um competidor erra pela pergunta óbvia, refaz a pergunta no SIEM, acerta e usa a dica do desafio seguinte.</p></div>
           </article>
           <article class="demo">
             <video controls preload="none" poster="assets/demos/posters/siem.jpg">
               <source src="assets/demos/hikari-demo-siem.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/siem.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Investigar no SIEM</h3><p>Atalhos de caça, consultas KQL, painéis e pivôs de rede.</p></div>
+            <div><h3>Investigar no SIEM</h3><p>A entrada do SIEM, os atalhos de caça, a busca em KQL, o pivô entre fontes e o painel.</p></div>
+          </article>
+          <article class="demo">
+            <video controls preload="none" poster="assets/demos/posters/placar.jpg">
+              <source src="assets/demos/hikari-demo-placar.webm" type="video/webm">
+              <track kind="captions" src="assets/demos/captions/placar.vtt" srclang="pt-BR" label="Português">
+            </video>
+            <div><h3>Acompanhar o placar</h3><p>O pódio, a classificação com um só critério de desempate, a evolução e os destaques.</p></div>
           </article>
           <article class="demo">
             <video controls preload="none" poster="assets/demos/posters/operacao.jpg">
               <source src="assets/demos/hikari-demo-operacao.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/operacao.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Operar uma edição</h3><p>Agendar, pausar, estender e encerrar, com cada ação registrada.</p></div>
+            <div><h3>Operar uma edição</h3><p>A biblioteca de desafios, o agendamento, o controle da prova e as estatísticas.</p></div>
           </article>
           <article class="demo">
             <video controls preload="none" poster="assets/demos/posters/pesquisa.jpg">
               <source src="assets/demos/hikari-demo-pesquisa.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/pesquisa.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Analisar depois da prova</h3><p>Atividade registrada, questionário e exportação para estudo.</p></div>
+            <div><h3>Depois da prova</h3><p>A solução comentada, o questionário, o certificado verificável e a exportação para estudo.</p></div>
           </article>
         </div>
       </div>
