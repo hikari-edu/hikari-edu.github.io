@@ -1,22 +1,22 @@
 WEBVTT
 
-00:00:00.350 --> 00:00:06.518
+00:00:02.450 --> 00:00:08.618
 No Hikari, cada desafio é uma pergunta sobre um incidente, e a resposta está na telemetria.
 
-00:00:07.768 --> 00:00:14.920
+00:00:09.468 --> 00:00:16.620
 Esta pergunta pede a origem externa que adivinhou uma senha da VPN. O SIEM abre direto do desafio.
 
-00:00:16.170 --> 00:00:23.034
+00:00:17.470 --> 00:00:24.334
 A primeira ideia é contar as falhas por origem. O topo da lista tem mais de mil e quatrocentas falhas.
 
-00:00:24.284 --> 00:00:32.492
+00:00:25.184 --> 00:00:33.392
 Mas a resposta é recusada. Aquela origem é uma sonda de monitoramento interna: muitas falhas, uma conta só.
 
-00:00:33.742 --> 00:00:42.430
+00:00:34.242 --> 00:00:42.930
 A pergunta certa é quantas contas diferentes cada origem tentou. Uma origem externa tentou sessenta e duas contas, e entrou.
 
-00:00:43.680 --> 00:00:50.064
+00:00:43.780 --> 00:00:50.164
 A resposta é aceita, a pontuação da equipe sobe, e o acerto abre a próxima pergunta do caso.
 
-00:00:51.314 --> 00:00:59.258
+00:00:51.014 --> 00:00:58.958
 Quem trava pode comprar a dica. Ela custa pontos e não entrega a resposta: aponta a agregação que responde à hipótese.

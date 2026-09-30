@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Hikari — Desafios reais, ameaças ocultas</title>
-  <meta name="description" content="Plataforma de threat hunting gamificado do ITA: competições de defesa em que cada resposta sai de uma investigação real num SIEM, com evidências liberadas por fases.">
-  <meta name="theme-color" content="#06090F">
-  <link rel="icon" href="img/logo.png">
+  <meta name="description" content="Plataforma de threat hunting gamificado do ITA: competições de defesa em que cada resposta sai de uma investigação num SIEM real, com evidências liberadas por fases.">
+  <meta name="theme-color" content="#05080d">
+  <link rel="icon" href="img/emblema.png">
 
   <meta property="og:title" content="Hikari — Desafios reais, ameaças ocultas">
   <meta property="og:description" content="Threat hunting gamificado: investigação num SIEM real, evidências por fases e respostas conferidas antes de cada prova.">
-  <meta property="og:image" content="img/sword.png">
+  <meta property="og:image" content="img/produto/desafios.jpg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -25,282 +25,298 @@
   <meta name="citation_conference_title" content="Anais do Simpósio Brasileiro de Cibersegurança (SBSeg)">
   <meta name="citation_pdf_url" content="https://sol.sbc.org.br/index.php/sbseg/article/view/36637/36424">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="img/sword.png">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="preload" as="image" href="img/lamina.png">
 
   <style>
-    /* ─── Identidade ───────────────────────────────────────────────────────
-       Hikari significa luz. A página é tinta profunda atravessada por uma só
-       luz esmeralda; o ouro fica reservado ao que é conquista. Serifada para
-       autoridade, sans refinada para leitura, mono só onde há consulta real. */
+    /* Mesmos tokens, fontes e formas da plataforma (hikari_plugin/assets/tokens.css):
+       quem sai desta página e entra numa prova reconhece o mesmo produto. */
     :root {
-      --tinta: #06090f;
-      --superficie: #0b111a;
-      --superficie-2: #101824;
-      --linha: rgba(233, 238, 242, 0.08);
-      --linha-forte: rgba(233, 238, 242, 0.16);
-      --texto: #e9eef2;
-      --texto-2: #a3adb8;
-      --texto-3: #6f7a86;
-      --esmeralda: #34d3a0;
-      --esmeralda-profunda: #0fae7c;
-      --esmeralda-halo: rgba(52, 211, 160, 0.14);
+      --fundo: #05080d;
+      --superficie: #0c121b;
+      --superficie-2: #121b27;
+      --borda: #253244;
+      --borda-suave: #1b2534;
+      --texto: #edf3f8;
+      --texto-2: #9aa7b7;
+      --texto-3: #6b7990;
+      --primaria: #10b981;
+      --primaria-forte: #34d399;
+      --primaria-suave: rgba(16, 185, 129, 0.13);
+      --sobre-primaria: #06101f;
       --ouro: #d4a35a;
       --ouro-suave: rgba(212, 163, 90, 0.12);
-      --serifada: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-      --sans: "Geist", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
-      --largura: 1180px;
-      --respiro: clamp(5rem, 11vw, 9.5rem);
-      --raio: 14px;
+      --raio: 6px;
+      --fonte: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --fonte-titulo: "Space Grotesk", "Inter", -apple-system, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, monospace;
+      --largura: 1200px;
+      --respiro: clamp(4.5rem, 9vw, 8rem);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
-      background: var(--tinta);
+      background: var(--fundo);
       color: var(--texto);
-      font-family: var(--sans);
-      font-size: 17px;
+      font-family: var(--fonte);
+      font-size: 16.5px;
       line-height: 1.65;
-      font-weight: 400;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
-    /* Grão fino sobre a tinta: dá matéria ao escuro sem virar textura visível. */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
-    }
-    img { max-width: 100%; display: block; }
+    img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--esmeralda); color: var(--tinta); }
-    :focus-visible { outline: 2px solid var(--esmeralda); outline-offset: 3px; border-radius: 6px; }
+    ::selection { background: var(--primaria); color: var(--sobre-primaria); }
+    :focus-visible { outline: 2px solid var(--primaria-forte); outline-offset: 3px; border-radius: var(--raio); }
 
-    .moldura { position: relative; z-index: 1; width: min(var(--largura), 100% - 2.5rem); margin-inline: auto; }
+    .moldura { position: relative; z-index: 1; width: min(var(--largura), 100% - 2rem); margin-inline: auto; }
     .rotulo {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
+      font-family: var(--fonte-titulo);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--esmeralda);
+      color: var(--primaria);
+      margin: 0;
     }
     .rotulo--ouro { color: var(--ouro); }
-    h1, h2 { font-family: var(--serifada); font-weight: 400; letter-spacing: -0.015em; line-height: 1.02; margin: 0; }
-    h2 { font-size: clamp(2.3rem, 5vw, 3.9rem); }
-    h2 em, h1 em { font-style: italic; color: var(--esmeralda); }
-    h3 { font-family: var(--sans); font-size: 1.05rem; font-weight: 500; letter-spacing: -0.005em; margin: 0 0 0.45rem; }
+    h1, h2, h3 { font-family: var(--fonte-titulo); margin: 0; color: var(--texto); }
+    h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); font-weight: 700; line-height: 1.06; letter-spacing: -0.02em; }
+    h2 span { color: var(--primaria-forte); }
+    h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.5rem; }
     p { margin: 0; color: var(--texto-2); }
-    .lead { font-size: clamp(1.08rem, 1.6vw, 1.22rem); color: var(--texto-2); max-width: 44rem; }
+    .lead { font-size: clamp(1.04rem, 1.4vw, 1.15rem); color: #c9d3de; max-width: 44rem; }
     section { position: relative; padding-block: var(--respiro); }
-    .abertura-secao { display: grid; gap: 1.1rem; margin-bottom: clamp(2.6rem, 5vw, 4rem); max-width: 50rem; }
-    .fio { border: 0; border-top: 1px solid var(--linha); margin: 0; }
+    .faixa { background: linear-gradient(180deg, transparent, rgba(12, 18, 27, 0.7) 25%, rgba(12, 18, 27, 0.7) 75%, transparent); }
+    .abertura-secao { display: grid; gap: 1rem; margin-bottom: clamp(2.4rem, 4.5vw, 3.6rem); max-width: 48rem; }
+    .cartao {
+      background: var(--superficie);
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      padding: 1.7rem;
+      min-width: 0;
+      transition: border-color 160ms ease, transform 160ms ease;
+    }
 
     /* ─── Botões ─── */
-    .acoes { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .acoes { display: flex; flex-wrap: wrap; gap: 0.65rem; }
     .botao {
-      display: inline-flex; align-items: center; gap: 0.55rem;
-      padding: 0.82rem 1.3rem;
-      border-radius: 999px;
-      border: 1px solid var(--linha-forte);
-      font-size: 0.93rem; font-weight: 500;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      min-height: 2.9rem; padding: 0 1.15rem;
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      background: var(--superficie-2);
+      font-size: 0.95rem; font-weight: 700;
       color: var(--texto);
-      transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+      transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
     }
-    .botao:hover { border-color: var(--esmeralda); transform: translateY(-1px); }
-    .botao--luz { background: var(--esmeralda); border-color: var(--esmeralda); color: var(--tinta); }
-    .botao--luz:hover { background: #4ee0b0; }
-    .botao svg { width: 16px; height: 16px; }
+    .botao:hover { border-color: var(--primaria); transform: translateY(-1px); }
+    .botao--primario { background: var(--primaria); border-color: var(--primaria); color: var(--sobre-primaria); }
+    .botao--primario:hover { background: var(--primaria-forte); border-color: var(--primaria-forte); }
 
     /* ─── Menu ─── */
     .menu {
       position: sticky; top: 0; z-index: 50;
       backdrop-filter: saturate(140%) blur(14px);
       -webkit-backdrop-filter: saturate(140%) blur(14px);
-      background: rgba(6, 9, 15, 0.72);
-      border-bottom: 1px solid var(--linha);
+      background: rgba(5, 8, 13, 0.82);
+      border-bottom: 1px solid var(--borda-suave);
     }
     .menu .moldura { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1rem; }
-    .marca { display: flex; align-items: center; gap: 0.65rem; font-family: var(--sans); font-weight: 600; letter-spacing: 0.22em; font-size: 0.82rem; }
+    .marca { display: flex; align-items: center; gap: 0.6rem; font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.12rem; }
     .marca img { width: 30px; height: 30px; }
-    .icones { display: flex; align-items: center; gap: 0.15rem; }
+    .icones { display: flex; align-items: center; gap: 0.1rem; }
     .icone {
       position: relative;
       display: grid; place-items: center;
       width: 38px; height: 38px;
-      border-radius: 10px;
+      border-radius: var(--raio);
       color: var(--texto-2);
-      transition: color 0.2s ease, background 0.2s ease;
+      transition: color 160ms ease, background 160ms ease;
     }
-    .icone:hover { color: var(--texto); background: rgba(233, 238, 242, 0.05); }
-    .icone svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .icone:hover { color: var(--texto); background: var(--superficie-2); }
+    .icone svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
     .icone[data-dica]:hover::after {
       content: attr(data-dica);
       position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
       white-space: nowrap;
-      font-size: 0.72rem; color: var(--texto);
-      background: var(--superficie-2); border: 1px solid var(--linha);
-      padding: 0.3rem 0.55rem; border-radius: 6px;
+      font-size: 0.74rem; font-weight: 500; color: var(--texto);
+      background: var(--superficie-2); border: 1px solid var(--borda);
+      padding: 0.28rem 0.55rem; border-radius: var(--raio);
     }
-    .icone--contato { color: var(--tinta); background: var(--esmeralda); margin-left: 0.4rem; }
-    .icone--contato:hover { color: var(--tinta); background: #4ee0b0; }
+    .icone--contato { color: var(--sobre-primaria); background: var(--primaria); margin-left: 0.45rem; }
+    .icone--contato:hover { color: var(--sobre-primaria); background: var(--primaria-forte); }
 
-    /* ─── Herói ─── */
-    .heroi { padding-block: clamp(3.5rem, 8vw, 6.5rem) clamp(4rem, 9vw, 7rem); overflow: hidden; }
-    .heroi::after {
-      /* A luz: um feixe estreito que nasce na lâmina e se dissolve no escuro. */
-      content: ""; position: absolute; z-index: 0; pointer-events: none;
-      right: 8%; top: -10%; width: 42rem; height: 58rem;
-      background: radial-gradient(closest-side, var(--esmeralda-halo), transparent 72%);
-      filter: blur(20px);
+    /* ─── Capa: a mesma composição da entrada da plataforma ─── */
+    .capa { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(3.5rem, 7vw, 6rem); overflow: hidden; }
+    .capa::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(760px 520px at 78% 38%, rgba(16, 185, 129, 0.16), transparent 70%),
+        radial-gradient(560px 420px at 8% 92%, rgba(212, 163, 90, 0.07), transparent 70%);
     }
-    .heroi .moldura { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
-    .heroi h1 { font-size: clamp(3.2rem, 8.2vw, 6.6rem); margin-block: 1.4rem 1.6rem; }
-    .heroi .lead { margin-bottom: 2.2rem; }
-    .credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-top: 2.6rem; font-size: 0.85rem; color: var(--texto-3); }
+    .capa .moldura { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+    .capa .emblema { width: clamp(4.2rem, 5.6vw, 5.8rem); margin-bottom: 1.1rem; filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.46)); }
+    .capa h1 { font-size: clamp(4.4rem, 10.5vw, 8.4rem); font-weight: 700; line-height: 0.86; margin: 1rem 0 1.1rem; text-shadow: 0 18px 60px rgba(0, 0, 0, 0.42); }
+    .lema { font-family: var(--fonte-titulo); font-size: clamp(1.1rem, 1.7vw, 1.4rem); font-weight: 600; color: var(--ouro); margin-bottom: 1.2rem; }
+    .capa .lead { max-width: 36rem; margin-bottom: 2rem; }
+    .credenciais { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-top: 2.2rem; font-size: 0.86rem; color: var(--texto-3); }
     .credenciais span { display: inline-flex; align-items: center; gap: 0.5rem; }
     .credenciais span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--ouro); }
-    .lamina { position: relative; justify-self: end; width: min(100%, 25rem); aspect-ratio: 930 / 1470; }
-    .lamina img { width: 100%; height: 100%; object-fit: cover; border-radius: 22px; mask-image: linear-gradient(180deg, #000 72%, transparent); -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); }
-    .lamina::before { content: ""; position: absolute; inset: -1px; border-radius: 23px; border: 1px solid var(--linha); pointer-events: none; }
+    .lamina {
+      justify-self: end;
+      width: min(100%, 27rem);
+      aspect-ratio: 914 / 1200;
+      border-radius: var(--raio);
+      background: url("img/lamina.png") center / cover no-repeat;
+      box-shadow:
+        0 0 0 1px rgba(212, 163, 90, 0.08) inset,
+        0 28px 92px -48px rgba(16, 185, 129, 0.88),
+        0 22px 70px -44px rgba(0, 0, 0, 0.92);
+    }
 
-    /* Entrada da página: uma só sequência, discreta. */
-    @keyframes surgir { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    .surge { opacity: 0; animation: surgir 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
-    .surge:nth-child(2) { animation-delay: 0.08s; }
-    .surge:nth-child(3) { animation-delay: 0.16s; }
-    .surge:nth-child(4) { animation-delay: 0.24s; }
-    .surge:nth-child(5) { animation-delay: 0.32s; }
+    @keyframes surgir { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .surge { opacity: 0; animation: surgir 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+    .surge:nth-child(2) { animation-delay: 0.06s; }
+    .surge:nth-child(3) { animation-delay: 0.12s; }
+    .surge:nth-child(4) { animation-delay: 0.18s; }
+    .surge:nth-child(5) { animation-delay: 0.24s; }
+    .surge:nth-child(6) { animation-delay: 0.30s; }
+    .surge:nth-child(7) { animation-delay: 0.36s; }
 
     /* ─── Faixa de uso ─── */
-    .uso { padding-block: 2.2rem; border-block: 1px solid var(--linha); background: rgba(11, 17, 26, 0.5); }
-    .uso .moldura { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.2rem 2rem; }
+    .uso { padding-block: 1.8rem; border-block: 1px solid var(--borda-suave); background: rgba(12, 18, 27, 0.6); }
+    .uso .moldura { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; }
     .uso .rotulo { color: var(--texto-3); }
-    .uso ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 2.6rem; }
-    .uso li { font-family: var(--serifada); font-size: 1.35rem; color: var(--texto-2); }
+    .uso ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 2.4rem; }
+    .uso li { font-family: var(--fonte-titulo); font-size: 1.1rem; font-weight: 600; color: var(--texto-2); }
 
-    /* ─── Pilares ─── */
-    .pilares { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--linha); }
-    .pilar { padding: 2.2rem 2rem 0 0; }
-    .pilar + .pilar { padding-left: 2rem; border-left: 1px solid var(--linha); }
-    .pilar .numero { font-family: var(--serifada); font-size: 2.6rem; color: var(--ouro); line-height: 1; display: block; margin-bottom: 1.2rem; }
+    /* ─── Produto ─── */
+    .abas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+    .aba {
+      font: inherit; font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      color: var(--texto-2); background: transparent;
+      border: 1px solid var(--borda); border-radius: 999px;
+      padding: 0.45rem 1rem;
+      transition: color 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+    .aba:hover { color: var(--texto); border-color: var(--texto-3); }
+    .aba[aria-selected="true"] { color: var(--sobre-primaria); background: var(--primaria); border-color: var(--primaria); }
+    .tela {
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: var(--superficie);
+      overflow: hidden;
+      box-shadow: 0 40px 120px -60px rgba(16, 185, 129, 0.55), 0 30px 80px -50px rgba(0, 0, 0, 0.9);
+    }
+    .tela-barra { display: flex; align-items: center; gap: 0.45rem; height: 38px; padding: 0 0.9rem; border-bottom: 1px solid var(--borda); background: var(--superficie-2); }
+    .tela-barra i { width: 10px; height: 10px; border-radius: 50%; background: var(--borda); }
+    .tela-barra span { margin-left: 0.8rem; font-family: var(--mono); font-size: 0.76rem; color: var(--texto-3); }
+    .tela img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+    .tela-legenda { display: grid; grid-template-columns: 1fr 2fr; gap: 1.4rem; margin-top: 1.6rem; }
+    [role="tabpanel"][hidden] { display: none; }
 
-    /* ─── Percurso ─── */
-    .percurso { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; }
-    .etapa { min-width: 0; background: var(--tinta); padding: 2rem 1.6rem; }
-    .etapa .rotulo { display: block; margin-bottom: 2.4rem; }
-    .consulta { font-family: var(--mono); font-size: 0.8rem; color: var(--esmeralda); background: var(--superficie); border: 1px solid var(--linha); border-radius: 8px; padding: 0.6rem 0.75rem; margin-top: 1rem; overflow-x: auto; white-space: nowrap; }
+    /* ─── Como funciona ─── */
+    .pilares { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .pilar .numero { display: block; font-family: var(--fonte-titulo); font-size: 2.3rem; font-weight: 700; line-height: 1; color: var(--ouro); margin-bottom: 1.4rem; }
+    .consulta { font-family: var(--mono); font-size: 0.8rem; color: var(--primaria-forte); background: var(--fundo); border: 1px solid var(--borda); border-radius: var(--raio); padding: 0.6rem 0.75rem; margin-top: 1.1rem; overflow-x: auto; white-space: nowrap; }
 
     /* ─── Demonstrações ─── */
-    .demos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
-    .demo { border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; background: var(--superficie); }
+    .demos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
+    .demo { border: 1px solid var(--borda); border-radius: var(--raio); overflow: hidden; background: var(--superficie); }
     .demo video { width: 100%; aspect-ratio: 16 / 9; background: #000; display: block; }
-    .demo div { padding: 1.3rem 1.4rem 1.5rem; }
-    /* O primeiro vídeo conta a prova inteira; os demais detalham uma parte dela. */
+    .demo div { padding: 1.2rem 1.4rem 1.4rem; }
     .demo--destaque { grid-column: 1 / -1; }
 
     /* ─── Engenharia ─── */
-    .garantias { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.6rem 3rem; }
-    .garantia { padding-top: 1.4rem; border-top: 1px solid var(--linha-forte); }
+    .garantias { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .garantia { border-top: 2px solid var(--primaria); }
 
-    /* ─── Números ─── */
-    .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--linha); border-block: 1px solid var(--linha); }
-    .numero-bloco { background: var(--tinta); padding: 2.4rem 1.6rem 2.2rem 0; }
-    .numero-bloco + .numero-bloco { padding-left: 1.6rem; }
-    .numero-bloco strong { display: block; font-family: var(--serifada); font-weight: 400; font-size: clamp(2.6rem, 5vw, 3.8rem); line-height: 1; color: var(--texto); margin-bottom: 0.8rem; }
-    .fonte { margin-top: 1.4rem; font-size: 0.82rem; color: var(--texto-3); }
-
-    /* ─── Provas conduzidas ─── */
-    .provas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
-    .prova { border: 1px solid var(--linha); border-radius: var(--raio); padding: 1.8rem; background: linear-gradient(180deg, var(--superficie), transparent); }
-    .prova .rotulo { display: block; margin-bottom: 1.3rem; }
-    .prova--destaque { border-color: rgba(212, 163, 90, 0.35); background: linear-gradient(180deg, var(--ouro-suave), transparent 70%); }
+    /* ─── Provas e resultados ─── */
+    .provas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .prova .rotulo { margin-bottom: 1.2rem; }
+    .prova--destaque { border-color: rgba(212, 163, 90, 0.45); background: linear-gradient(180deg, var(--ouro-suave), var(--superficie) 70%); }
+    .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: clamp(3rem, 6vw, 4.5rem); }
+    .numero-bloco strong { display: block; font-family: var(--fonte-titulo); font-weight: 700; font-size: clamp(2.3rem, 4.4vw, 3.2rem); line-height: 1; color: var(--texto); margin-bottom: 0.7rem; }
+    .fonte { margin-top: 1.2rem; font-size: 0.82rem; color: var(--texto-3); }
 
     /* ─── Implantação ─── */
-    .modos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--linha); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; margin-bottom: 2.4rem; }
-    .modo { background: var(--tinta); padding: 2rem 1.8rem; }
+    .modos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-bottom: 2.2rem; }
 
     /* ─── Minicurso ─── */
     .minicurso { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
     .casos { list-style: none; margin: 1.8rem 0 0; padding: 0; display: grid; gap: 1.2rem; }
-    .casos li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.9rem; }
-    .casos li span { font-family: var(--serifada); font-size: 1.7rem; color: var(--ouro); line-height: 1; }
-    .material { border: 1px solid var(--linha); border-radius: var(--raio); background: var(--superficie); }
-    .material a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.05rem 1.3rem; border-top: 1px solid var(--linha); transition: background 0.2s ease; }
+    .casos li { display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.9rem; }
+    .casos li span { font-family: var(--fonte-titulo); font-size: 1.5rem; font-weight: 700; color: var(--ouro); line-height: 1.1; }
+    .material { border: 1px solid var(--borda); border-radius: var(--raio); background: var(--superficie); overflow: hidden; }
+    .material a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 1.3rem; border-top: 1px solid var(--borda-suave); font-weight: 600; transition: background 160ms ease; }
     .material a:first-child { border-top: 0; }
     .material a:hover { background: var(--superficie-2); }
-    .material small { color: var(--texto-3); font-size: 0.8rem; }
-    .material svg { width: 15px; height: 15px; stroke: var(--esmeralda); fill: none; stroke-width: 1.8; flex: none; }
+    .material small { color: var(--texto-3); font-size: 0.8rem; font-weight: 400; }
+    .material svg { width: 15px; height: 15px; stroke: var(--primaria-forte); fill: none; stroke-width: 1.8; flex: none; }
 
     /* ─── Ciência e mídia ─── */
-    .registros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
-    .registro { display: flex; flex-direction: column; gap: 0.8rem; padding: 1.8rem; border: 1px solid var(--linha); border-radius: var(--raio); transition: border-color 0.25s ease; }
-    .registro:hover { border-color: var(--linha-forte); }
-    .registro .ir { margin-top: auto; padding-top: 0.6rem; font-size: 0.88rem; color: var(--esmeralda); }
+    .registros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .registro { display: flex; flex-direction: column; gap: 0.7rem; }
+    .registro:hover { border-color: var(--primaria); transform: translateY(-2px); }
+    .registro h3 { margin: 0; }
+    .registro .ir { margin-top: auto; padding-top: 0.5rem; font-size: 0.9rem; font-weight: 600; color: var(--primaria-forte); }
 
     /* ─── Time ─── */
-    .time { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-    .coordenacao { padding: 2.2rem; border: 1px solid rgba(212, 163, 90, 0.3); border-radius: var(--raio); background: linear-gradient(160deg, var(--ouro-suave), transparent 60%); }
-    .coordenacao .nome { font-family: var(--serifada); font-size: clamp(2rem, 3.6vw, 2.7rem); line-height: 1.05; margin: 1rem 0 0.8rem; color: var(--texto); }
-    .integrantes { list-style: none; margin: 0; padding: 0; }
-    .integrantes li { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--linha); font-size: 1.05rem; color: var(--texto); }
-    .integrantes li small { color: var(--texto-3); font-size: 0.82rem; }
+    .time { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+    .coordenacao { border-color: rgba(212, 163, 90, 0.45); background: linear-gradient(160deg, var(--ouro-suave), var(--superficie) 60%); padding: 2rem; }
+    .coordenacao .nome { font-family: var(--fonte-titulo); font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.1; margin: 0.9rem 0 0.7rem; color: var(--texto); }
+    .integrantes { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--borda); }
+    .integrantes li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.95rem 0; border-bottom: 1px solid var(--borda-suave); font-size: 1.03rem; font-weight: 500; color: var(--texto); }
+    .integrantes li small { color: var(--texto-3); font-size: 0.82rem; font-weight: 400; }
 
     /* ─── Contato ─── */
     .contato { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-    .formulario { display: grid; gap: 1rem; padding: clamp(1.4rem, 3vw, 2.2rem); border: 1px solid var(--linha); border-radius: var(--raio); background: var(--superficie); }
+    .formulario { display: grid; gap: 1rem; }
     .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .campo { display: grid; gap: 0.4rem; }
-    .campo label { font-size: 0.8rem; color: var(--texto-2); }
+    .campo label { font-size: 0.82rem; font-weight: 600; color: var(--texto-2); }
     .campo input, .campo select, .campo textarea {
       width: 100%;
       font: inherit; font-size: 0.95rem; color: var(--texto);
-      background: var(--tinta);
-      border: 1px solid var(--linha-forte);
-      border-radius: 10px;
-      padding: 0.75rem 0.85rem;
-      transition: border-color 0.2s ease;
+      background: var(--fundo);
+      border: 1px solid var(--borda);
+      border-radius: var(--raio);
+      padding: 0.72rem 0.85rem;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
     }
     .campo textarea { min-height: 8rem; resize: vertical; }
-    .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--esmeralda); }
+    .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--primaria); box-shadow: 0 0 0 3px var(--primaria-suave); }
     .armadilha { position: absolute; left: -10000px; }
     .aviso { font-size: 0.8rem; color: var(--texto-3); }
     .estado { font-size: 0.92rem; min-height: 1.4rem; }
-    .estado[data-tipo="ok"] { color: var(--esmeralda); }
-    .estado[data-tipo="erro"] { color: #f0a58a; }
-    .formulario button { justify-self: start; cursor: pointer; font: inherit; }
+    .estado[data-tipo="ok"] { color: var(--primaria-forte); }
+    .estado[data-tipo="erro"] { color: #fecaca; }
+    .formulario button { justify-self: start; cursor: pointer; font: inherit; font-weight: 700; }
     .formulario button:disabled { opacity: 0.6; cursor: progress; }
 
     /* ─── Rodapé ─── */
-    .rodape { padding-block: 2.6rem; border-top: 1px solid var(--linha); font-size: 0.85rem; color: var(--texto-3); }
+    .rodape { padding-block: 2.4rem; border-top: 1px solid var(--borda-suave); font-size: 0.86rem; color: var(--texto-3); }
     .rodape .moldura { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; }
+    .rodape .marca { font-size: 0.95rem; color: var(--texto-2); }
+    .rodape .marca img { width: 22px; height: 22px; }
     .rodape nav { display: flex; flex-wrap: wrap; gap: 1.4rem; }
     .rodape a:hover { color: var(--texto); }
 
     /* ─── Larguras menores ─── */
     @media (max-width: 960px) {
-      .heroi .moldura, .minicurso, .time, .contato { grid-template-columns: 1fr; }
-      .lamina { justify-self: center; width: min(100%, 16rem); }
-      .percurso, .numeros { grid-template-columns: repeat(2, 1fr); }
-      .garantias, .provas, .registros, .modos { grid-template-columns: 1fr; }
-      .pilares { grid-template-columns: 1fr; }
-      .pilar, .pilar + .pilar { padding: 2rem 0; border-left: 0; border-bottom: 1px solid var(--linha); }
+      .capa .moldura, .minicurso, .time, .contato, .tela-legenda { grid-template-columns: 1fr; }
+      .lamina { display: none; }
+      .pilares, .garantias, .provas, .registros, .modos { grid-template-columns: 1fr; }
+      .numeros { grid-template-columns: repeat(2, 1fr); }
       .demos { grid-template-columns: 1fr; }
-      .numero-bloco, .numero-bloco + .numero-bloco { padding: 2rem 1.2rem; }
     }
     @media (max-width: 720px) {
       .icones .icone:not(.icone--contato):nth-child(n+4) { display: none; }
       .campos { grid-template-columns: 1fr; }
-      .percurso { grid-template-columns: 1fr; }
       .uso .moldura { justify-content: flex-start; }
+      .cartao { padding: 1.4rem; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -314,12 +330,12 @@
   <header class="menu">
     <div class="moldura">
       <a href="#inicio" class="marca" aria-label="Hikari, início">
-        <img src="img/logo.png" alt="" width="30" height="30">
-        HIKARI
+        <img src="img/emblema.png" alt="" width="30" height="30">
+        Hikari
       </a>
       <nav class="icones" aria-label="Seções">
-        <a class="icone" href="#como-funciona" data-dica="Como funciona" aria-label="Como funciona">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <a class="icone" href="#plataforma" data-dica="A plataforma" aria-label="A plataforma">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </a>
         <a class="icone" href="#demonstracoes" data-dica="Demonstrações" aria-label="Demonstrações">
           <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg>
@@ -348,14 +364,16 @@
 
   <main id="inicio">
 
-    <section class="heroi">
+    <section class="capa">
       <div class="moldura">
         <div>
+          <img class="emblema surge" src="img/emblema.png" alt="" width="93" height="94">
           <p class="rotulo surge">Threat hunting gamificado · ITA</p>
-          <h1 class="surge">Desafios reais,<br><em>ameaças ocultas.</em></h1>
+          <h1 class="surge">Hikari</h1>
+          <p class="lema surge">Desafios reais, ameaças ocultas.</p>
           <p class="lead surge">Competições de defesa em que cada resposta sai de uma investigação num SIEM de verdade. As evidências chegam por fases, como num incidente, e cada prova é conferida antes da largada.</p>
           <div class="acoes surge">
-            <a class="botao botao--luz" href="#demonstracoes">Ver a plataforma em uso</a>
+            <a class="botao botao--primario" href="#plataforma">Conhecer a plataforma</a>
             <a class="botao" href="#contato">Levar o Hikari para sua organização</a>
           </div>
           <div class="credenciais surge">
@@ -364,9 +382,7 @@
             <span>Artigo no SBSeg 2025</span>
           </div>
         </div>
-        <figure class="lamina" aria-hidden="true">
-          <img src="img/sword.png" alt="">
-        </figure>
+        <div class="lamina" role="img" aria-label="A espada do Hikari, a mesma arte da entrada da plataforma"></div>
       </div>
     </section>
 
@@ -383,71 +399,71 @@
       </div>
     </div>
 
-    <section id="por-que">
+    <section id="plataforma">
       <div class="moldura">
         <div class="abertura-secao">
-          <p class="rotulo">Por que o Hikari</p>
-          <h2>O analista aprende a caçar <em>caçando</em>.</h2>
-          <p class="lead">Numa prova de defesa comum, a resposta está no enunciado ou numa ferramenta de ataque. No Hikari, ela está nos eventos, e só aparece para quem formula a pergunta certa.</p>
+          <p class="rotulo">A plataforma</p>
+          <h2>Uma arena, <span>um SIEM</span>, um placar.</h2>
+          <p class="lead">Telas reais da plataforma, capturadas na Aurora Telecom, a prova fictícia usada nas demonstrações e no minicurso.</p>
         </div>
-        <div class="pilares">
-          <div class="pilar">
-            <span class="numero">01</span>
-            <h3>A resposta está nos eventos</h3>
-            <p>Logs de segurança fluem por Kafka, Logstash e Elasticsearch. Cada flag é o resultado de uma consulta sobre eles, e não uma frase escondida.</p>
+        <div class="abas" role="tablist" aria-label="Telas da plataforma">
+          <button class="aba" role="tab" id="aba-desafios" aria-controls="tela-desafios" aria-selected="true">Desafios</button>
+          <button class="aba" role="tab" id="aba-siem" aria-controls="tela-siem" aria-selected="false" tabindex="-1">SIEM</button>
+          <button class="aba" role="tab" id="aba-placar" aria-controls="tela-placar" aria-selected="false" tabindex="-1">Placar</button>
+          <button class="aba" role="tab" id="aba-operacao" aria-controls="tela-operacao" aria-selected="false" tabindex="-1">Operação</button>
+        </div>
+        <div class="tela">
+          <div class="tela-barra" aria-hidden="true"><i></i><i></i><i></i><span id="tela-endereco">demonstracao.hikari.test/challenges</span></div>
+          <div role="tabpanel" id="tela-desafios" aria-labelledby="aba-desafios" data-endereco="demonstracao.hikari.test/challenges">
+            <img src="img/produto/desafios.jpg" alt="Um desafio aberto: a pergunta, a hipótese do caso, o envio da flag e a dica" width="2560" height="1600">
           </div>
-          <div class="pilar">
-            <span class="numero">02</span>
-            <h3>A investigação cresce por fases</h3>
-            <p>Resolver um desafio-portão libera uma nova fase de evidências para todas as equipes, uma única vez. A prova avança como um incidente avança.</p>
+          <div role="tabpanel" id="tela-siem" aria-labelledby="aba-siem" data-endereco="demonstracao.hikari.test/hikari/kibana/app/dashboards" hidden>
+            <img src="img/produto/siem.jpg" alt="Painel do SIEM no Kibana com eventos por fonte, severidade e autenticações ao longo do tempo" width="2560" height="1600" loading="lazy">
           </div>
-          <div class="pilar">
-            <span class="numero">03</span>
-            <h3>Ferramentas de mercado</h3>
-            <p>As equipes investigam no Kibana, com KQL, painéis e pivôs, sobre o mesmo índice e sob a mesma janela. O que diferencia uma equipe é a pergunta que ela faz.</p>
+          <div role="tabpanel" id="tela-placar" aria-labelledby="aba-placar" data-endereco="demonstracao.hikari.test/hikari/live" hidden>
+            <img src="img/produto/placar.jpg" alt="Placar da prova com pódio e classificação das equipes" width="2560" height="1600" loading="lazy">
+          </div>
+          <div role="tabpanel" id="tela-operacao" aria-labelledby="aba-operacao" data-endereco="demonstracao.hikari.test/admin/hikari/competitions" hidden>
+            <img src="img/produto/operacao.jpg" alt="Controle da prova para a organização, com prazo, pausa e encerramento" width="2560" height="1600" loading="lazy">
           </div>
         </div>
       </div>
     </section>
 
-    <section id="como-funciona" style="padding-top:0">
+    <section id="como-funciona" class="faixa">
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Como funciona</p>
-          <h2>Da inscrição à <em>detecção</em>.</h2>
+          <h2>O analista aprende a caçar <span>caçando</span>.</h2>
+          <p class="lead">A resposta de cada desafio está nos eventos de segurança e aparece para quem formula a pergunta certa.</p>
         </div>
-        <div class="percurso">
-          <div class="etapa">
-            <span class="rotulo rotulo--ouro">Etapa 1</span>
-            <h3>Equipes</h3>
-            <p>Competidores entram sozinhos ou em equipe antes da largada.</p>
-          </div>
-          <div class="etapa">
-            <span class="rotulo rotulo--ouro">Etapa 2</span>
-            <h3>Hipótese</h3>
-            <p>Cada desafio é uma pergunta sobre um incidente real do cenário.</p>
-          </div>
-          <div class="etapa">
-            <span class="rotulo rotulo--ouro">Etapa 3</span>
-            <h3>Investigação</h3>
-            <p>A resposta sai de filtros e agregações no SIEM.</p>
+        <div class="pilares">
+          <article class="cartao pilar">
+            <span class="numero">01</span>
+            <h3>A resposta está nos eventos</h3>
+            <p>Logs de segurança fluem por Kafka, Logstash e Elasticsearch. Cada flag é o resultado de uma consulta sobre eles.</p>
             <div class="consulta">event.dataset:"vpn" and event.outcome:"failure"</div>
-          </div>
-          <div class="etapa">
-            <span class="rotulo rotulo--ouro">Etapa 4</span>
-            <h3>Fase seguinte</h3>
-            <p>O acerto pontua e libera novas evidências para todos.</p>
-          </div>
+          </article>
+          <article class="cartao pilar">
+            <span class="numero">02</span>
+            <h3>A investigação cresce por fases</h3>
+            <p>Resolver um desafio-portão libera uma nova fase de evidências para todas as equipes, uma única vez. A prova avança como um incidente avança.</p>
+          </article>
+          <article class="cartao pilar">
+            <span class="numero">03</span>
+            <h3>Ferramentas de mercado</h3>
+            <p>As equipes investigam no Kibana, com KQL, painéis e pivôs, sobre o mesmo índice e na mesma janela. O que diferencia uma equipe é a pergunta que ela faz.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="demonstracoes" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+    <section id="demonstracoes">
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Demonstrações</p>
-          <h2>A plataforma, <em>em uso</em>.</h2>
-          <p class="lead">A plataforma real, gravada numa prova fictícia: a Aurora Telecom, o mesmo cenário do minicurso. Narração e legendas em português.</p>
+          <h2>A plataforma <span>em uso</span>.</h2>
+          <p class="lead">Cinco vídeos curtos na Aurora Telecom, com narração e legendas em português.</p>
         </div>
         <div class="demos">
           <article class="demo demo--destaque">
@@ -455,7 +471,7 @@
               <source src="assets/demos/hikari-demo-competidor.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/competidor.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Da hipótese à flag</h3><p>Um competidor erra pela pergunta óbvia, refaz a pergunta no SIEM, acerta e usa a dica do desafio seguinte.</p></div>
+            <div><h3>Da hipótese à flag</h3><p>Uma competidora erra pela pergunta óbvia, refaz a pergunta no SIEM, acerta e usa a dica do desafio seguinte.</p></div>
           </article>
           <article class="demo">
             <video controls preload="none" poster="assets/demos/posters/siem.jpg">
@@ -469,7 +485,7 @@
               <source src="assets/demos/hikari-demo-placar.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/placar.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Acompanhar o placar</h3><p>O pódio, a classificação com um só critério de desempate, a evolução e os destaques.</p></div>
+            <div><h3>O placar ao vivo</h3><p>O pódio, a classificação com um só critério de desempate, a evolução e os destaques.</p></div>
           </article>
           <article class="demo">
             <video controls preload="none" poster="assets/demos/posters/operacao.jpg">
@@ -489,155 +505,146 @@
       </div>
     </section>
 
-    <section id="engenharia">
+    <section id="engenharia" class="faixa">
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Engenharia de prova nacional</p>
-          <h2>Conferida antes de <em>qualquer pessoa entrar</em>.</h2>
-          <p class="lead">O que sustenta uma competição nacional não é o roteiro do dia. É o que a plataforma confere sozinha, a cada versão e antes de cada largada.</p>
+          <h2>Conferida antes de <span>cada largada</span>.</h2>
+          <p class="lead">A plataforma confere sozinha, a cada versão e antes de cada prova, tudo o que sustenta uma competição nacional.</p>
         </div>
         <div class="garantias">
-          <div class="garantia">
+          <article class="cartao garantia">
             <h3>Todo desafio tem resposta</h3>
-            <p>A resposta de cada desafio é recalculada sobre a evidência, e cada dica é conferida contra o campo que contém a resposta. Se algo não fecha, a prova não abre.</p>
-          </div>
-          <div class="garantia">
-            <h3>Nenhuma resposta muda no meio</h3>
-            <p>Novas fases de evidência não alteram o que já foi respondido, e nenhum desafio abre antes da própria evidência.</p>
-          </div>
-          <div class="garantia">
+            <p>A resposta de cada desafio é recalculada sobre a evidência, e cada dica é conferida contra o campo que contém a resposta. A prova abre com tudo conferido.</p>
+          </article>
+          <article class="cartao garantia">
+            <h3>Respostas estáveis do início ao fim</h3>
+            <p>Cada fase acrescenta evidências e preserva as respostas já dadas. Cada desafio abre junto com a própria evidência.</p>
+          </article>
+          <article class="cartao garantia">
             <h3>Verificada a cada versão</h3>
             <p>Uma suíte automática percorre cadastro, equipes, desafios, SIEM, placar, certificado e análise de dados antes de cada publicação.</p>
-          </div>
-          <div class="garantia">
+          </article>
+          <article class="cartao garantia">
             <h3>Um só critério de desempate</h3>
             <p>Pontos e, no empate, quem chegou antes àquela pontuação. Tela cheia, pódio e placar oficial seguem a mesma ordem.</p>
-          </div>
-          <div class="garantia">
-            <h3>Operável por quem não a construiu</h3>
+          </article>
+          <article class="cartao garantia">
+            <h3>Operação a um clique</h3>
             <p>Prazo, pausa, extensão e encerramento a um clique, com registro de cada ação e ponto de restauração ensaiado.</p>
-          </div>
-          <div class="garantia">
+          </article>
+          <article class="cartao garantia">
             <h3>Aprender depois da prova</h3>
             <p>Solução comentada em cada desafio, questionário curto e certificado nominal com código de verificação.</p>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section id="resultados" style="padding-top:0">
-      <div class="moldura">
-        <div class="abertura-secao">
-          <p class="rotulo">Resultados medidos</p>
-          <h2>Avaliado por quem <em>competiu</em>.</h2>
-        </div>
-        <div class="numeros">
-          <div class="numero-bloco"><strong>3</strong><p>edições avaliadas em contextos acadêmico e comunitário</p></div>
-          <div class="numero-bloco"><strong>46</strong><p>respostas ao questionário de avaliação</p></div>
-          <div class="numero-bloco"><strong>~87%</strong><p>consideraram os desafios realistas ou muito realistas</p></div>
-          <div class="numero-bloco"><strong>&gt;4,2</strong><p>nota média, de 1 a 5, para a eficácia no aprendizado</p></div>
-        </div>
-        <p class="fonte">Fonte: artigo publicado no SBSeg 2025, com edições entre novembro de 2024 e abril de 2025.</p>
-      </div>
-    </section>
-
-    <section id="provas" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+    <section id="provas">
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Provas conduzidas</p>
-          <h2>Onde o setor <em>treina</em>.</h2>
+          <h2>Onde o setor <span>treina</span>.</h2>
           <p class="lead">O Hikari conduziu o CTF do RESEG, o exercício setorial de cibersegurança das operadoras de telecomunicações promovido pela Anatel, e conduz a arena técnica da 1ª Ciber Week Brisanet.</p>
         </div>
         <div class="provas">
-          <article class="prova prova--destaque">
-            <span class="rotulo rotulo--ouro">15 de outubro de 2026</span>
+          <article class="cartao prova prova--destaque">
+            <p class="rotulo rotulo--ouro">15 de outubro de 2026</p>
             <h3>1ª Ciber Week Brisanet</h3>
             <p>Arena de Desafios Técnicos conduzida no Hikari: seis horas de prova, com equipes de até cinco pessoas.</p>
           </article>
-          <article class="prova">
-            <span class="rotulo">26 de agosto de 2026</span>
+          <article class="cartao prova">
+            <p class="rotulo">26 de agosto de 2026</p>
             <h3>RESEG 2026</h3>
             <p>Treze equipes e 76 inscritos numa janela única de quatro horas, com 125 desafios, todos resolvidos ao menos uma vez, e 54.698 consultas ao SIEM.</p>
           </article>
-          <article class="prova">
-            <span class="rotulo">14 de agosto de 2025</span>
+          <article class="cartao prova">
+            <p class="rotulo">14 de agosto de 2025</p>
             <h3>RESEG 2025</h3>
             <p>O CTF do exercício setorial rodou na versão antecessora da plataforma, com profissionais de sete organizações do setor.</p>
           </article>
         </div>
+        <div class="numeros" id="resultados">
+          <div class="cartao numero-bloco"><strong>3</strong><p>edições avaliadas em contextos acadêmico e comunitário</p></div>
+          <div class="cartao numero-bloco"><strong>46</strong><p>respostas ao questionário de avaliação</p></div>
+          <div class="cartao numero-bloco"><strong>~87%</strong><p>consideraram os desafios realistas ou muito realistas</p></div>
+          <div class="cartao numero-bloco"><strong>&gt;4,2</strong><p>nota média, de 1 a 5, para a eficácia no aprendizado</p></div>
+        </div>
+        <p class="fonte">Avaliação publicada no SBSeg 2025, com edições entre novembro de 2024 e abril de 2025.</p>
       </div>
     </section>
 
-    <section id="implantacao">
+    <section id="implantacao" class="faixa">
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Implantação</p>
-          <h2>Do jeito que a sua <em>organização</em> precisa.</h2>
+          <h2>Do jeito que a sua <span>organização</span> precisa.</h2>
         </div>
         <div class="modos">
-          <div class="modo">
+          <article class="cartao">
             <h3>Na nuvem, conduzida por nós</h3>
             <p>O Time Hikari sobe o ambiente, carrega o cenário, ensaia com a organização e acompanha o dia da prova.</p>
-          </div>
-          <div class="modo">
+          </article>
+          <article class="cartao">
             <h3>Na sua infraestrutura</h3>
-            <p>Uma máquina, sem dependência de serviço externo: plataforma, pipeline de eventos e SIEM sobem juntos, e o Kibana fica atrás do controle de acesso da plataforma.</p>
-          </div>
-          <div class="modo">
+            <p>Uma única máquina reúne plataforma, pipeline de eventos e SIEM. O Kibana fica atrás do controle de acesso da plataforma.</p>
+          </article>
+          <article class="cartao">
             <h3>Com cenário sob medida</h3>
             <p>Cenários do seu setor, com respostas conferidas por código, ou o acervo já usado nas competições nacionais.</p>
-          </div>
+          </article>
         </div>
         <div class="acoes">
-          <a class="botao botao--luz" href="#contato">Conversar sobre implantação</a>
+          <a class="botao botao--primario" href="#contato">Conversar sobre implantação</a>
         </div>
       </div>
     </section>
 
-    <section id="minicurso" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+    <section id="minicurso">
       <div class="moldura minicurso">
         <div>
           <p class="rotulo">Minicurso</p>
-          <h2 style="margin:1.1rem 0 1.4rem">Threat hunting <em>na prática</em>.</h2>
-          <p class="lead">Da hipótese à detecção em três estudos de caso numa operadora fictícia. Em cada um, a consulta mais óbvia cai numa isca, e a caçada só avança quando a pergunta muda.</p>
+          <h2 style="margin:1rem 0 1.3rem">Threat hunting <span>na prática</span>.</h2>
+          <p class="lead">Da hipótese à detecção em três estudos de caso numa operadora fictícia. Em cada um, a consulta óbvia leva a uma isca, e a caçada avança quando a pergunta muda.</p>
           <ul class="casos">
             <li><span>1</span><div><h3>Da força bruta ao privilégio</h3><p>A origem que adivinhou a senha da VPN e o administrador que ela criou.</p></div></li>
-            <li><span>2</span><div><h3>O canal que respira</h3><p>Um implante disfarçado de atualizador e a exfiltração que só aparece somando.</p></div></li>
+            <li><span>2</span><div><h3>O canal que respira</h3><p>Um implante disfarçado de atualizador e a exfiltração que aparece na soma.</p></div></li>
             <li><span>3</span><div><h3>Do mapa do diretório ao impacto</h3><p>A enumeração do Active Directory que antecede a cifra dos servidores.</p></div></li>
           </ul>
         </div>
         <div class="material">
           <a href="minicurso/capitulo-threat-hunting-na-pratica.pdf"><span>Capítulo<br><small>formato dos minicursos da SBC · PDF</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
           <a href="minicurso/slides-threat-hunting-na-pratica.pdf"><span>Apresentação<br><small>slides 16:9 · PDF</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso1.ipynb"><span>Caderno do caso 1<br><small>executa no navegador, sem instalar</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso2.ipynb"><span>Caderno do caso 2<br><small>executa no navegador, sem instalar</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
-          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso3.ipynb"><span>Caderno do caso 3<br><small>executa no navegador, sem instalar</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso1.ipynb"><span>Caderno do caso 1<br><small>executa no navegador, no Google Colab</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso2.ipynb"><span>Caderno do caso 2<br><small>executa no navegador, no Google Colab</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <a href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso3.ipynb"><span>Caderno do caso 3<br><small>executa no navegador, no Google Colab</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
           <a href="minicurso/"><span>Todo o material<br><small>cenário, gerador com conferidor e pacote para o Hikari</small></span><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         </div>
       </div>
     </section>
 
-    <section id="ciencia">
+    <section id="ciencia" class="faixa">
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Ciência e mídia</p>
-          <h2>Revisado por pares, <em>documentado</em> pelo setor.</h2>
+          <h2>Revisado por pares, <span>documentado</span> pelo setor.</h2>
         </div>
         <div class="registros">
-          <a class="registro" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">
-            <span class="rotulo rotulo--ouro">SBSeg 2025</span>
+          <a class="cartao registro" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">
+            <p class="rotulo rotulo--ouro">SBSeg 2025</p>
             <h3>Hikari: desafios reais, ameaças ocultas</h3>
             <p>Artigo completo no Simpósio Brasileiro de Cibersegurança, com a avaliação de três edições.</p>
             <span class="ir">Ler o artigo →</span>
           </a>
-          <a class="registro" href="https://www.rnp.br/casos-de-uso/hackers-do-bem-como-a-gamificacao-contribui-para-a-formacao-da-nova-geracao-de-defensores-ciberneticos-do-brasil/" target="_blank" rel="noopener">
-            <span class="rotulo rotulo--ouro">RNP · Hackers do Bem</span>
+          <a class="cartao registro" href="https://www.rnp.br/casos-de-uso/hackers-do-bem-como-a-gamificacao-contribui-para-a-formacao-da-nova-geracao-de-defensores-ciberneticos-do-brasil/" target="_blank" rel="noopener">
+            <p class="rotulo rotulo--ouro">RNP · Hackers do Bem</p>
             <h3>Gamificação na formação de defensores</h3>
             <p>Caso de uso publicado pela Rede Nacional de Ensino e Pesquisa.</p>
             <span class="ir">Ler na RNP →</span>
           </a>
-          <a class="registro" href="https://teletime.com.br/27/05/2025/anatel-prepara-simulacao-setorial-de-ciberseguranca-com-operadoras/" target="_blank" rel="noopener">
-            <span class="rotulo rotulo--ouro">Teletime</span>
+          <a class="cartao registro" href="https://teletime.com.br/27/05/2025/anatel-prepara-simulacao-setorial-de-ciberseguranca-com-operadoras/" target="_blank" rel="noopener">
+            <p class="rotulo rotulo--ouro">Teletime</p>
             <h3>O exercício setorial da Anatel</h3>
             <p>O contexto do RESEG, a simulação de cibersegurança com as operadoras de telecomunicações.</p>
             <span class="ir">Ler a reportagem →</span>
@@ -646,13 +653,13 @@
       </div>
     </section>
 
-    <section id="time" style="background:linear-gradient(180deg,transparent,rgba(11,17,26,.6) 30%,transparent)">
+    <section id="time">
       <div class="moldura time">
         <div>
           <p class="rotulo">Time Hikari</p>
-          <h2 style="margin:1.1rem 0 1.6rem">Pesquisa do <em>ITA</em>.</h2>
-          <div class="coordenacao">
-            <span class="rotulo rotulo--ouro">Coordenação</span>
+          <h2 style="margin:1rem 0 1.5rem">Pesquisa do <span>ITA</span>.</h2>
+          <div class="cartao coordenacao">
+            <p class="rotulo rotulo--ouro">Coordenação</p>
             <p class="nome">Lourenço Alves Pereira Júnior</p>
             <p>Professor do Instituto Tecnológico de Aeronáutica. Coordena o projeto e orienta a pesquisa que deu origem à plataforma.</p>
           </div>
@@ -669,14 +676,14 @@
       </div>
     </section>
 
-    <section id="contato">
+    <section id="contato" class="faixa">
       <div class="moldura contato">
         <div>
           <p class="rotulo">Contato</p>
-          <h2 style="margin:1.1rem 0 1.4rem">Vamos levar o Hikari <em>até você</em>.</h2>
+          <h2 style="margin:1rem 0 1.3rem">Vamos levar o Hikari <span>até você</span>.</h2>
           <p class="lead">Licenciamento, implantação, cenários sob medida, minicurso ou imprensa. Conte o que sua organização precisa e o Time Hikari responde.</p>
         </div>
-        <form class="formulario" id="formulario-contato" novalidate>
+        <form class="cartao formulario" id="formulario-contato" novalidate>
           <div class="campos">
             <div class="campo">
               <label for="contato-nome">Nome</label>
@@ -709,8 +716,8 @@
             <textarea id="contato-mensagem" name="mensagem" required></textarea>
           </div>
           <input class="armadilha" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="aviso">Seus dados são usados apenas para responder a este contato.</p>
-          <button class="botao botao--luz" type="submit">Enviar mensagem</button>
+          <p class="aviso">Seus dados servem somente para responder a este contato.</p>
+          <button class="botao botao--primario" type="submit">Enviar mensagem</button>
           <p class="estado" id="estado-contato" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -720,7 +727,7 @@
 
   <footer class="rodape">
     <div class="moldura">
-      <span>© 2026 Time Hikari · Instituto Tecnológico de Aeronáutica</span>
+      <span class="marca"><img src="img/emblema.png" alt="" width="22" height="22">Time Hikari · Instituto Tecnológico de Aeronáutica · 2026</span>
       <nav aria-label="Rodapé">
         <a href="#demonstracoes">Demonstrações</a>
         <a href="#minicurso">Minicurso</a>
@@ -729,6 +736,34 @@
       </nav>
     </div>
   </footer>
+
+  <script>
+    const abas = [...document.querySelectorAll('[role="tab"]')];
+    const endereco = document.getElementById("tela-endereco");
+
+    function mostrar(abaEscolhida) {
+      for (const aba of abas) {
+        const escolhida = aba === abaEscolhida;
+        aba.setAttribute("aria-selected", String(escolhida));
+        aba.tabIndex = escolhida ? 0 : -1;
+        document.getElementById(aba.getAttribute("aria-controls")).hidden = !escolhida;
+      }
+      endereco.textContent = document.getElementById(abaEscolhida.getAttribute("aria-controls")).dataset.endereco;
+    }
+
+    function navegarComSetas(evento) {
+      const passo = { ArrowRight: 1, ArrowLeft: -1 }[evento.key];
+      if (!passo) return;
+      const proxima = abas[(abas.indexOf(evento.currentTarget) + passo + abas.length) % abas.length];
+      proxima.focus();
+      mostrar(proxima);
+    }
+
+    for (const aba of abas) {
+      aba.addEventListener("click", () => mostrar(aba));
+      aba.addEventListener("keydown", navegarComSetas);
+    }
+  </script>
 
   <script>
     // O endereço de destino é montado só no envio, para não aparecer na página.
@@ -766,7 +801,7 @@
         formulario.reset();
         informar("Mensagem enviada. O Time Hikari responde em breve.", "ok");
       } else {
-        informar("Não foi possível enviar agora. Tente novamente em alguns minutos.", "erro");
+        informar("O envio falhou. Tente novamente em alguns minutos.", "erro");
       }
     }
 

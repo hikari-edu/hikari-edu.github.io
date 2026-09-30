@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Cartão de demonstração</title>
+<!-- Mesmas fontes, cores e emblema da plataforma: o vídeo abre e fecha na identidade dela. -->
+<link rel="stylesheet" href="../../hikari/hikari-platform/ctfd/CTFd/plugins/hikari_plugin/assets/fonts.css">
+<style>
+  :root {
+    --fundo: #05080d;
+    --superficie: #0c121b;
+    --borda: #253244;
+    --texto: #edf3f8;
+    --texto-2: #9aa7b7;
+    --esmeralda: #34d399;
+    --ouro: #d4a35a;
+  }
+  html, body { margin: 0; width: 1920px; height: 1080px; background: var(--fundo); overflow: hidden; }
+  body {
+    display: grid; place-items: center;
+    font-family: 'Inter', sans-serif; color: var(--texto);
+    background:
+      radial-gradient(900px 600px at 78% 22%, rgba(16, 185, 129, 0.16), transparent 70%),
+      radial-gradient(700px 500px at 12% 88%, rgba(212, 163, 90, 0.08), transparent 70%),
+      var(--fundo);
+  }
+  .quadro { width: 1480px; display: grid; grid-template-columns: 220px 1fr; gap: 72px; align-items: center; }
+  .emblema { width: 220px; height: 220px; object-fit: contain; filter: drop-shadow(0 0 48px rgba(52, 211, 153, 0.25)); }
+  .rotulo { font-size: 26px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--esmeralda); font-weight: 600; margin: 0 0 22px; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 112px; line-height: 1.02; margin: 0; letter-spacing: -0.015em; text-wrap: balance; }
+  .linha { margin: 34px 0 0; font-size: 34px; color: var(--texto-2); }
+  .linha strong { color: var(--ouro); font-weight: 600; }
+  .fio { height: 2px; width: 180px; background: linear-gradient(90deg, var(--esmeralda), transparent); margin: 40px 0 0; }
+</style>
+</head>
+<body>
+  <main class="quadro">
+    <img class="emblema" src="../../hikari/hikari-platform/ctfd/CTFd/themes/hikari-theme/static/img/hikari-emblem.png" alt="">
+    <section>
+      <p class="rotulo" id="rotulo"></p>
+      <h1 id="titulo"></h1>
+      <div class="fio"></div>
+      <p class="linha" id="linha"></p>
+    </section>
+  </main>
+  <script>
+    const parametros = new URLSearchParams(location.search);
+    document.getElementById('rotulo').textContent = parametros.get('rotulo');
+    document.getElementById('titulo').textContent = parametros.get('titulo');
+    document.getElementById('linha').innerHTML = parametros.get('linha');
+  </script>
+</body>
+</html>

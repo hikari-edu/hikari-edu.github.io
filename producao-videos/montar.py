@@ -1,8 +1,10 @@
-"""Monta os vídeos das demonstrações a partir das cenas gravadas e da narração.
+"""Monta os vídeos das demonstrações a partir das cenas gravadas, da narração e dos cartões.
 
-Cada cena é cortada a partir do instante em que a tela ficou pronta, recebe a
-fala dela e dura a fala mais uma pausa. As cenas se juntam num vídeo VP9 em
-1080p com legenda em português e uma capa, nos caminhos que a página usa.
+Cada cena é cortada a partir do instante em que a tela ficou pronta e recebe a
+sua fala. O vídeo abre com o cartão do título, fecha com o cartão da marca, e
+toda passagem entre partes é uma transição cruzada de imagem e som. O áudio sai
+normalizado em -16 LUFS, a legenda acompanha os tempos já com as transições, e
+a capa vem da cena que melhor representa o vídeo.
 
 Uso:  python3 montar.py [video...]
 """
@@ -19,11 +21,17 @@ from pydantic import BaseModel
 PASTA = Path(__file__).parent
 SAIDA = PASTA / "saida"
 SITE = PASTA.parent / "assets" / "demos"
-ATRASO_DA_FALA_S = 0.35
-FOLGA_S = 0.9
-# A página já publica estes nomes; o vídeo do pós-prova sai com o nome antigo.
+ATRASO_DA_FALA_S = 0.45
+FOLGA_S = 0.8
+ABERTURA_S = 2.4
+FECHAMENTO_S = 2.8
+TRANSICAO_S = 0.4
+QUADROS = 30
+CODIFICACAO = ["-c:v", "libvpx-vp9", "-crf", "30", "-b:v", "0", "-row-mt", "1",
+               "-deadline", "good", "-cpu-used", "2", "-pix_fmt", "yuv420p"]
 # A capa sai do meio da segunda cena, exceto onde outra cena representa melhor o vídeo.
 CENA_DA_CAPA = {"siem": "dashboard"}
+# A página já publica estes nomes; o vídeo do pós-prova sai com o nome antigo.
 ARQUIVO_NO_SITE = {"competidor": "competidor", "siem": "siem", "placar": "placar",
                    "operacao": "operacao", "depois": "pesquisa"}
 
@@ -34,9 +42,9 @@ class CenaGravada(BaseModel):
     pronto_ms: int
     fala_s: float
 
-
-class Roteiro(BaseModel):
-    videos: List[dict]
+    @property
+    def duracao(self) -> float:
+        return self.fala_s + ATRASO_DA_FALA_S + FOLGA_S
 
 
 def falas() -> Dict[str, Dict[str, str]]:
@@ -48,17 +56,35 @@ def rodar(*argumentos: str) -> None:
     subprocess.run(["ffmpeg", "-v", "error", "-y", *argumentos], check=True)
 
 
-def segmento(cena: CenaGravada, audio: Path, destino: Path) -> float:
-    duracao = cena.fala_s + ATRASO_DA_FALA_S + FOLGA_S
+def parte_da_cena(cena: CenaGravada, audio: Path, destino: Path) -> None:
     atraso_ms = int(ATRASO_DA_FALA_S * 1000)
     rodar("-ss", f"{cena.pronto_ms / 1000:.3f}", "-i", str(SAIDA / cena.arquivo), "-i", str(audio),
-          "-t", f"{duracao:.3f}",
-          "-filter_complex", f"[0:v]fps=30,scale=1920:1080:flags=lanczos,format=yuv420p[v];"
-                             f"[1:a]adelay={atraso_ms}|{atraso_ms},aresample=48000,apad[a]",
-          "-map", "[v]", "-map", "[a]",
-          "-c:v", "libvpx-vp9", "-crf", "30", "-b:v", "0", "-row-mt", "1", "-deadline", "good", "-cpu-used", "2",
-          "-c:a", "libopus", "-b:a", "96k", "-ac", "2", str(destino))
-    return duracao
+          "-t", f"{cena.duracao:.3f}",
+          "-filter_complex", f"[0:v]fps={QUADROS},scale=1920:1080:flags=lanczos,setsar=1[v];"
+                             f"[1:a]adelay={atraso_ms}|{atraso_ms},aresample=48000,aformat=channel_layouts=stereo,apad[a]",
+          "-map", "[v]", "-map", "[a]", *CODIFICACAO, "-c:a", "libopus", "-b:a", "128k", str(destino))
+
+
+def parte_do_cartao(imagem: Path, duracao: float, destino: Path) -> None:
+    rodar("-loop", "1", "-t", f"{duracao:.3f}", "-i", str(imagem),
+          "-f", "lavfi", "-t", f"{duracao:.3f}", "-i", "anullsrc=r=48000:cl=stereo",
+          "-filter_complex", f"[0:v]fps={QUADROS},scale=1920:1080,setsar=1[v]",
+          "-map", "[v]", "-map", "1:a", *CODIFICACAO, "-c:a", "libopus", "-b:a", "128k", str(destino))
+
+
+def juntar(partes: List[Path], duracoes: List[float], destino: Path) -> None:
+    """Encadeia as partes com transição cruzada e normaliza o áudio do resultado."""
+    entradas = [argumento for parte in partes for argumento in ("-i", str(parte))]
+    filtros, video, audio, acumulado = [], "[0:v]", "[0:a]", duracoes[0]
+    for indice in range(1, len(partes)):
+        deslocamento = acumulado - TRANSICAO_S
+        filtros.append(f"{video}[{indice}:v]xfade=transition=fade:duration={TRANSICAO_S}:offset={deslocamento:.3f}[v{indice}]")
+        filtros.append(f"{audio}[{indice}:a]acrossfade=d={TRANSICAO_S}[a{indice}]")
+        video, audio = f"[v{indice}]", f"[a{indice}]"
+        acumulado = deslocamento + duracoes[indice]
+    filtros.append(f"{audio}loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000[saida_a]")
+    rodar(*entradas, "-filter_complex", ";".join(filtros), "-map", video, "-map", "[saida_a]",
+          *CODIFICACAO, "-c:a", "libopus", "-b:a", "128k", str(destino))
 
 
 def tempo_vtt(segundos: float) -> str:
@@ -67,31 +93,50 @@ def tempo_vtt(segundos: float) -> str:
     return f"{int(horas):02d}:{int(minutos):02d}:{segundos:06.3f}"
 
 
-def legenda(cenas: List[CenaGravada], duracoes: List[float], textos: Dict[str, str]) -> str:
+def inicios_das_cenas(cenas: List[CenaGravada]) -> List[float]:
+    """Instante em que cada cena começa no vídeo final, já descontadas as transições."""
+    inicios, relogio = [], ABERTURA_S - TRANSICAO_S
+    for cena in cenas:
+        inicios.append(relogio)
+        relogio += cena.duracao - TRANSICAO_S
+    return inicios
+
+
+def legenda(cenas: List[CenaGravada], textos: Dict[str, str]) -> str:
     linhas = ["WEBVTT", ""]
-    inicio = 0.0
-    for cena, duracao in zip(cenas, duracoes):
+    for cena, inicio in zip(cenas, inicios_das_cenas(cenas)):
         comeca = inicio + ATRASO_DA_FALA_S
         linhas += [f"{tempo_vtt(comeca)} --> {tempo_vtt(comeca + cena.fala_s)}", textos[cena.cena], ""]
-        inicio += duracao
     return "\n".join(linhas)
+
+
+def instante_da_capa(video: str, cenas: List[CenaGravada]) -> float:
+    nomes = [cena.cena for cena in cenas]
+    posicao = nomes.index(CENA_DA_CAPA[video]) if video in CENA_DA_CAPA else min(1, len(cenas) - 1)
+    return inicios_das_cenas(cenas)[posicao] + cenas[posicao].duracao * 0.6
 
 
 def montar(video: str, cenas: List[CenaGravada], textos: Dict[str, str]) -> None:
     nome = ARQUIVO_NO_SITE[video]
+    destino = SITE / f"hikari-demo-{nome}.webm"
     with tempfile.TemporaryDirectory() as temporaria:
         pasta = Path(temporaria)
-        duracoes = [segmento(cena, SAIDA / "narracao" / video / f"{cena.cena}.mp3", pasta / f"{indice:02d}.webm")
-                    for indice, cena in enumerate(cenas)]
-        lista = pasta / "lista.txt"
-        lista.write_text("".join(f"file '{pasta / f'{indice:02d}.webm'}'\n" for indice in range(len(cenas))))
-        destino = SITE / f"hikari-demo-{nome}.webm"
-        rodar("-f", "concat", "-safe", "0", "-i", str(lista), "-c", "copy", str(destino))
-    (SITE / "captions" / f"{nome}.vtt").write_text(legenda(cenas, duracoes, textos), encoding="utf-8")
-    posicao = [cena.cena for cena in cenas].index(CENA_DA_CAPA[video]) if video in CENA_DA_CAPA else min(1, len(cenas) - 1)
-    capa = sum(duracoes[:posicao]) + duracoes[posicao] * 0.6
-    rodar("-ss", f"{capa:.2f}", "-i", str(destino), "-frames:v", "1", "-q:v", "3", str(SITE / "posters" / f"{nome}.jpg"))
-    print(f"  {destino.name}: {sum(duracoes):.1f} s, {len(cenas)} cenas")
+        partes, duracoes = [pasta / "abertura.webm"], [ABERTURA_S]
+        parte_do_cartao(SAIDA / "cartoes" / f"{video}-abertura.png", ABERTURA_S, partes[0])
+        for indice, cena in enumerate(cenas):
+            parte = pasta / f"{indice:02d}.webm"
+            parte_da_cena(cena, SAIDA / "narracao" / video / f"{cena.cena}.mp3", parte)
+            partes.append(parte)
+            duracoes.append(cena.duracao)
+        partes.append(pasta / "fechamento.webm")
+        duracoes.append(FECHAMENTO_S)
+        parte_do_cartao(SAIDA / "cartoes" / "fechamento.png", FECHAMENTO_S, partes[-1])
+        juntar(partes, duracoes, destino)
+    (SITE / "captions" / f"{nome}.vtt").write_text(legenda(cenas, textos), encoding="utf-8")
+    rodar("-ss", f"{instante_da_capa(video, cenas):.2f}", "-i", str(destino), "-frames:v", "1", "-q:v", "3",
+          str(SITE / "posters" / f"{nome}.jpg"))
+    total = sum(duracoes) - TRANSICAO_S * (len(duracoes) - 1)
+    print(f"  {destino.name}: {total:.1f} s, {len(cenas)} cenas")
 
 
 def main(pedidos: List[str]) -> None:

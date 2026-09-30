@@ -1,19 +1,19 @@
 WEBVTT
 
-00:00:00.350 --> 00:00:10.886
+00:00:02.450 --> 00:00:12.986
 A entrada do SIEM mostra de onde vem cada registro e quais campos ele traz. A investigação acontece num Kibana de verdade, com os eventos no Elastic Common Schema.
 
-00:00:12.136 --> 00:00:20.344
+00:00:13.836 --> 00:00:22.044
 Os atalhos de caça abrem consultas prontas no Discover, já filtradas, para começar a investigação sem decorar sintaxe.
 
-00:00:21.594 --> 00:00:29.346
+00:00:22.894 --> 00:00:30.646
 Com KQL, o competidor filtra os eventos. Aqui, as consultas de DNS da estação suspeita.
 
-00:00:30.596 --> 00:00:38.828
+00:00:31.496 --> 00:00:39.608
 A agregação responde à pergunta: um domínio consultado por uma estação só, a cada cinco minutos, inclusive de madrugada.
 
-00:00:40.078 --> 00:00:48.214
+00:00:40.458 --> 00:00:48.594
 O valor encontrado numa fonte vira filtro em outra. Do domínio para a estação, da estação para o processo que fez a consulta.
 
-00:00:49.464 --> 00:01:00.024
+00:00:49.444 --> 00:01:00.004
 O painel mostra o ritmo da atividade: volume por fonte, horário, autenticações aceitas e recusadas. Ele indica onde olhar, e nunca a resposta.

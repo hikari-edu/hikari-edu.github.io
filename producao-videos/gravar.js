@@ -9,18 +9,28 @@
 // Uso:  node gravar.js <playwright-core> <sessoes.txt> [video...]
 
 const fs = require('fs');
+const { execFileSync } = require('child_process');
 const path = require('path');
 
 const [modulo, arquivoDeSessoes, ...pedidos] = process.argv.slice(2);
 const { chromium } = require(modulo);
+const { abrirNavegador } = require('./navegador');
 
-const BASE = process.env.HIKARI_DEMO_URL || 'http://localhost:8012';
+// O navegador resolve este nome para a instalação local. Assim o endereço que
+// aparece na tela e no certificado é o de uma demonstração, sem porta.
+const HOST = 'demonstracao.hikari.test';
+const ALVO = process.env.HIKARI_DEMO_ALVO || '127.0.0.1:8012';
+const BASE = `http://${HOST}`;
 const PASTA = path.join(__dirname, 'saida');
 const DURACOES = JSON.parse(fs.readFileSync(path.join(PASTA, 'narracao', 'duracoes.json'), 'utf8'));
 const SESSOES = Object.fromEntries(fs.readFileSync(arquivoDeSessoes, 'utf8').trim().split('\n')
   .map((linha) => linha.split(/=(.*)/s).slice(0, 2)));
-const LARGURA = 1920;
-const ALTURA = 1080;
+// A página é desenhada em 1280×720 com densidade 1,5: a interface aparece a
+// 150% e a captura sai nítida em 1920×1080, legível no tamanho da página.
+const LARGURA = 1280;
+const ALTURA = 720;
+const DENSIDADE = 1.5;
+const VIDEO = { width: 1920, height: 1080 };
 const FOLGA_MS = 900;
 // O caso 1 do Aurora acontece entre 9 e 11 de março de 2026; o período justo
 // deixa o histograma legível em vez de uma barra perdida em seis anos.
@@ -66,9 +76,32 @@ async function rolar(pagina, pixels, passos = 30) {
   }
 }
 
+// Rolagem distribuída pela fala: a tela se move enquanto a narração dura, em vez
+// de rolar num instante e ficar parada.
+async function rolarDurante(pagina, pixels, segundos) {
+  const passos = Math.max(20, Math.round(segundos * 20));
+  const pausa = (segundos * 1000) / passos;
+  for (let passo = 0; passo < passos; passo += 1) {
+    await pagina.mouse.wheel(0, pixels / passos);
+    await pagina.waitForTimeout(pausa);
+  }
+}
+
 async function esperarDiscover(pagina) {
   await pagina.locator('[data-test-subj="discoverQueryHits"]').waitFor({ timeout: 120000 });
   await pagina.waitForTimeout(1500);
+}
+
+// Passa o cursor pelos atalhos durante a fala e termina no de DNS, que a cena
+// seguinte abre no Discover já com os resultados.
+const ATALHOS_DA_CENA = [/Severidade alta ou crítica/, /Autenticação recusada/, /Atividade nos endpoints/, /Consultas de DNS/];
+
+async function percorrerAtalhos(pagina, segundos) {
+  const pausa = (segundos * 1000 * 0.8) / ATALHOS_DA_CENA.length;
+  for (const nome of ATALHOS_DA_CENA) {
+    await apontar(pagina, pagina.getByRole('link', { name: nome }).first());
+    await pagina.waitForTimeout(pausa);
+  }
 }
 
 async function abrirValoresDoCampo(pagina, campo) {
@@ -98,9 +131,14 @@ async function responder(pagina, resposta, aviso) {
 const CENAS = {
   competidor: {
     abertura: { papel: 'competidor', preparar: (p) => p.goto(`${BASE}/challenges`, { waitUntil: 'networkidle' }),
-      agir: (p) => rolar(p, 700, 60) },
+      agir: (p, d) => rolarDurante(p, 700, d * 0.85) },
     desafio: { papel: 'competidor', preparar: (p) => abrirDesafio(p, DESAFIO_DO_CASO_1),
-      agir: async (p) => { await p.waitForTimeout(2500); await apontar(p, p.getByRole('link', { name: /Abrir SIEM/i }).first()); } },
+      agir: async (p) => {
+        for (const paragrafo of await p.locator('#challenge-window .challenge-desc p, #challenge-window p').all()) {
+          if (await paragrafo.isVisible()) { await apontar(p, paragrafo); await p.waitForTimeout(700); }
+        }
+        await apontar(p, p.getByRole('link', { name: /Abrir SIEM/i }).first());
+      } },
     ingenua: { papel: 'competidor',
       preparar: async (p) => { await p.goto(discover('event.dataset:"vpn" and event.outcome:"failure"', ['source.ip', 'user.name', 'event.action']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
       agir: (p) => abrirValoresDoCampo(p, 'source.ip') },
@@ -127,9 +165,9 @@ const CENAS = {
   },
   siem: {
     painel: { papel: 'competidor', preparar: (p) => p.goto(`${BASE}/hikari/siem`, { waitUntil: 'networkidle' }),
-      agir: (p) => rolar(p, 1100, 80) },
+      agir: (p, d) => rolarDurante(p, 1100, d * 0.85) },
     atalhos: { papel: 'competidor', preparar: async (p) => { await p.goto(`${BASE}/hikari/siem`, { waitUntil: 'networkidle' }); await p.locator('#siem-atalhos').scrollIntoViewIfNeeded(); },
-      agir: async (p) => { await clicar(p, p.getByRole('link', { name: /Consultas de DNS/ })); await esperarDiscover(p); } },
+      agir: (p, d) => percorrerAtalhos(p, d) },
     kql: { papel: 'competidor',
       preparar: async (p) => { await p.goto(discover('event.dataset:"dns" and host.name:"WKS-ENG-117"', ['host.name', 'dns.question.name', 'event.action']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
       agir: (p) => abrirValoresDoCampo(p, 'dns.question.name') },
@@ -140,22 +178,22 @@ const CENAS = {
       preparar: async (p) => { await p.goto(discover('event.dataset:"edr" and host.name:"WKS-ENG-117" and process.name:"OneDriveUpdater.exe"', ['host.name', 'process.executable', 'process.parent.name']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
       agir: (p) => abrirValoresDoCampo(p, 'process.executable') },
     dashboard: { papel: 'competidor',
-      preparar: async (p) => { await p.goto(`${BASE}/hikari/kibana/app/dashboards#/view/hikari-siem`, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(18000); },
-      agir: (p) => rolar(p, 900, 90) },
+      preparar: async (p) => { await p.goto(`${BASE}/hikari/kibana/app/dashboards#/view/hikari-siem?_g=(${PERIODO_DO_CASO})`, { waitUntil: 'domcontentloaded' }); await p.waitForTimeout(18000); },
+      agir: (p, d) => rolarDurante(p, 900, d * 0.85) },
   },
   placar: {
     podio: { papel: 'competidor', preparar: (p) => p.goto(`${BASE}/hikari/live`, { waitUntil: 'networkidle' }),
       agir: (p) => p.waitForTimeout(500) },
     evolucao: { papel: 'competidor', preparar: (p) => p.goto(`${BASE}/hikari/live`, { waitUntil: 'networkidle' }),
-      agir: (p) => rolar(p, 900, 70) },
+      agir: (p, d) => rolarDurante(p, 900, d * 0.85) },
     destaques: { papel: 'competidor', preparar: async (p) => { await p.goto(`${BASE}/hikari/live`, { waitUntil: 'networkidle' }); await rolar(p, 1500, 5); },
-      agir: (p) => rolar(p, 1400, 80) },
+      agir: (p, d) => rolarDurante(p, 1400, d * 0.85) },
   },
   operacao: {
     biblioteca: { papel: 'admin', preparar: (p) => p.goto(`${BASE}/admin/hikari/challenge-library`, { waitUntil: 'networkidle' }),
-      agir: (p) => rolar(p, 600, 60) },
+      agir: (p, d) => rolarDurante(p, 600, d * 0.85) },
     execucao: { papel: 'admin', preparar: (p) => p.goto(`${BASE}/admin/hikari/competitions`, { waitUntil: 'networkidle' }),
-      agir: (p) => rolar(p, 500, 50) },
+      agir: (p, d) => rolarDurante(p, 500, d * 0.85) },
     controle: { papel: 'admin', preparar: async (p) => { await p.goto(`${BASE}/admin/hikari/competitions`, { waitUntil: 'networkidle' }); await p.getByRole('button', { name: /^Pausar$/ }).first().scrollIntoViewIfNeeded(); },
       agir: async (p) => {
         await apontar(p, p.getByRole('button', { name: /^Aplicar$/ }).first());
@@ -165,7 +203,7 @@ const CENAS = {
         await apontar(p, p.getByRole('button', { name: /^Encerrar$/ }).first());
       } },
     estatisticas: { papel: 'admin', preparar: (p) => p.goto(`${BASE}/admin/statistics`, { waitUntil: 'networkidle' }),
-      agir: (p) => rolar(p, 600, 60) },
+      agir: (p, d) => rolarDurante(p, 600, d * 0.85) },
   },
   depois: {
     solucao: { papel: 'competidor', preparar: (p) => abrirDesafio(p, DESAFIO_DO_CASO_1),
@@ -206,41 +244,93 @@ const CENAS = {
   },
 };
 
+// Captura os quadros pelo screencast do Chromium, na densidade real da página.
+// A gravação de vídeo do Playwright usa pixels CSS e só registra quadros quando a
+// tela muda: a cena saía em 1280×720 num quadro cinza e terminava antes da fala
+// quando a tela ficava parada. Aqui cada quadro guarda o seu instante, e o último
+// é mantido até o fim exato da cena.
+class Captura {
+  constructor(sessao, pasta) {
+    this.sessao = sessao;
+    this.pasta = pasta;
+    this.quadros = [];
+    this.inicio = 0;
+    this.gravando = false;
+    this.receber = this.receber.bind(this);
+  }
+
+  // Quadros que chegam depois do fim da gravação são descartados: a pasta já foi apagada.
+  async receber({ data, sessionId }) {
+    if (!this.gravando) return;
+    const arquivo = path.join(this.pasta, `${String(this.quadros.length).padStart(5, '0')}.jpg`);
+    fs.writeFileSync(arquivo, Buffer.from(data, 'base64'));
+    this.quadros.push({ arquivo, instante: Date.now() });
+    await this.sessao.send('Page.screencastFrameAck', { sessionId });
+  }
+
+  async comecar() {
+    fs.rmSync(this.pasta, { recursive: true, force: true });
+    fs.mkdirSync(this.pasta, { recursive: true });
+    this.sessao.on('Page.screencastFrame', this.receber);
+    this.gravando = true;
+    this.inicio = Date.now();
+    await this.sessao.send('Page.startScreencast', {
+      format: 'jpeg', quality: 92, maxWidth: VIDEO.width, maxHeight: VIDEO.height, everyNthFrame: 1,
+    });
+  }
+
+  async terminar(destino) {
+    const fim = Date.now();
+    this.gravando = false;
+    this.sessao.off('Page.screencastFrame', this.receber);
+    await this.sessao.send('Page.stopScreencast');
+    const linhas = [];
+    this.quadros.forEach((quadro, indice) => {
+      const seguinte = indice + 1 < this.quadros.length ? this.quadros[indice + 1].instante : fim;
+      linhas.push(`file '${quadro.arquivo}'`, `duration ${Math.max(0.001, (seguinte - quadro.instante) / 1000).toFixed(3)}`);
+    });
+    linhas.push(`file '${this.quadros[this.quadros.length - 1].arquivo}'`);
+    const lista = path.join(this.pasta, 'lista.txt');
+    fs.writeFileSync(lista, linhas.join('\n') + '\n');
+    const inicioDoPrimeiro = (this.quadros[0].instante - this.inicio) / 1000;
+    execFileSync('ffmpeg', ['-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lista,
+      '-vf', `tpad=start_duration=${inicioDoPrimeiro.toFixed(3)}:start_mode=clone,fps=30,scale=${VIDEO.width}:${VIDEO.height}:flags=lanczos,format=yuv420p`,
+      '-c:v', 'libvpx-vp9', '-crf', '18', '-b:v', '0', '-row-mt', '1', '-deadline', 'good', '-cpu-used', '3', destino]);
+    fs.rmSync(this.pasta, { recursive: true, force: true });
+  }
+}
+
 async function gravarCena(navegador, video, cena, definicao) {
   const destino = path.join(PASTA, 'cenas', video);
   fs.mkdirSync(destino, { recursive: true });
   const contexto = await navegador.newContext({
     viewport: { width: LARGURA, height: ALTURA },
-    recordVideo: { dir: destino, size: { width: LARGURA, height: ALTURA } },
+    deviceScaleFactor: DENSIDADE,
     colorScheme: 'dark',
   });
-  await contexto.addCookies([{ name: 'session', value: SESSOES[definicao.papel], domain: 'localhost', path: '/' }]);
+  await contexto.addCookies([{ name: 'session', value: SESSOES[definicao.papel], domain: HOST, path: '/' }]);
   await contexto.addInitScript(CURSOR);
   const pagina = await contexto.newPage();
   // Desbloquear dica pede confirmação nativa; a demonstração confirma, como faria quem joga.
   pagina.on('dialog', (dialogo) => dialogo.accept());
-  const inicio = Date.now();
+  const captura = new Captura(await contexto.newCDPSession(pagina), path.join(destino, `${cena}-quadros`));
+  await captura.comecar();
   await definicao.preparar(pagina);
   await pagina.evaluate(CURSOR);
   await pagina.mouse.move(LARGURA * 0.62, ALTURA * 0.45);
-  const pronto = Date.now() - inicio;
+  const pronto = Date.now() - captura.inicio;
   const duracao = DURACOES[video][cena];
   await definicao.agir(pagina, duracao);
-  const restante = duracao * 1000 + FOLGA_MS - (Date.now() - inicio - pronto);
+  const restante = duracao * 1000 + FOLGA_MS - (Date.now() - captura.inicio - pronto);
   if (restante > 0) await pagina.waitForTimeout(restante);
-  const arquivo = await pagina.video().path();
-  await contexto.close();
   const final = path.join(destino, `${cena}.webm`);
-  fs.renameSync(arquivo, final);
+  await captura.terminar(final);
+  await contexto.close();
   return { cena, arquivo: path.relative(PASTA, final), pronto_ms: pronto, fala_s: duracao };
 }
 
 async function main() {
-  const executavel = fs.readdirSync(`${process.env.HOME}/Library/Caches/ms-playwright`)
-    .filter((pasta) => pasta.startsWith('chromium_headless_shell'))[0];
-  const navegador = await chromium.launch({
-    executablePath: `${process.env.HOME}/Library/Caches/ms-playwright/${executavel}/chrome-headless-shell-mac-arm64/chrome-headless-shell`,
-  });
+  const navegador = await abrirNavegador(chromium, [`--host-resolver-rules=MAP ${HOST} ${ALVO}`]);
   const videos = pedidos.length ? pedidos : Object.keys(CENAS);
   const registro = fs.existsSync(path.join(PASTA, 'cenas.json')) ? JSON.parse(fs.readFileSync(path.join(PASTA, 'cenas.json'), 'utf8')) : {};
   for (const video of videos) {
