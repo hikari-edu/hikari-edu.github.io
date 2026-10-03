@@ -295,6 +295,7 @@
     .estado[data-tipo="erro"] { color: #fecaca; }
     .formulario button { justify-self: start; cursor: pointer; font: inherit; font-weight: 700; }
     .formulario button:disabled { opacity: 0.6; cursor: progress; }
+    .acoes-contato { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 
     /* ─── Rodapé ─── */
     .rodape { padding-block: 2.4rem; border-top: 1px solid var(--borda-suave); font-size: 0.86rem; color: var(--texto-3); }
@@ -746,8 +747,11 @@
             <textarea id="contato-mensagem" name="mensagem" required></textarea>
           </div>
           <input class="armadilha" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="aviso">O botão prepara a mensagem no seu aplicativo de e-mail. Revise e confirme o envio nele.</p>
-          <button class="botao botao--primario" type="submit">Preparar e-mail</button>
+          <p class="aviso">Escolha onde preparar a mensagem. Revise e confirme o envio no aplicativo escolhido.</p>
+          <div class="acoes-contato">
+            <button class="botao botao--primario" type="submit">Abrir aplicativo de e-mail</button>
+            <button class="botao" id="contato-gmail" type="button">Abrir Gmail</button>
+          </div>
           <p class="estado" id="estado-contato" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -811,22 +815,41 @@
       return [...obrigatorios].every((campo) => campo.checkValidity());
     }
 
-    function enviar(evento) {
-      evento.preventDefault();
+    function mensagemPreparada() {
       if (!camposValidos()) {
         informar("Preencha nome, e-mail válido e mensagem.", "erro");
-        return;
+        return null;
       }
       const dados = Object.fromEntries(new FormData(formulario));
       const assunto = encodeURIComponent(`Hikari · ${dados.assunto} · ${dados.nome}`);
       const corpo = encodeURIComponent(
         `Nome: ${dados.nome}\nE-mail: ${dados.email}\nOrganização: ${dados.organizacao}\n\n${dados.mensagem}`
       );
+      return { assunto, corpo };
+    }
+
+    function enviar(evento) {
+      evento.preventDefault();
+      const mensagem = mensagemPreparada();
+      if (!mensagem) return;
       informar("Confirme o envio no seu aplicativo de e-mail. A mensagem ainda não foi enviada por esta página.", "");
-      window.location.href = `mailto:${DESTINO}?subject=${assunto}&body=${corpo}`;
+      window.location.href = `mailto:${DESTINO}?subject=${mensagem.assunto}&body=${mensagem.corpo}`;
+    }
+
+    function abrirGmail() {
+      const mensagem = mensagemPreparada();
+      if (!mensagem) return;
+      const parametros = new URLSearchParams({
+        view: "cm", fs: "1", to: DESTINO,
+        su: decodeURIComponent(mensagem.assunto),
+        body: decodeURIComponent(mensagem.corpo),
+      });
+      window.open(`https://mail.google.com/mail/?${parametros}`, "_blank", "noopener,noreferrer");
+      informar("Se a aba do Gmail abriu, confirme o envio nela. A mensagem ainda não foi enviada por esta página.", "");
     }
 
     formulario.addEventListener("submit", enviar);
+    document.getElementById("contato-gmail").addEventListener("click", abrirGmail);
   </script>
 </body>
 </html>
