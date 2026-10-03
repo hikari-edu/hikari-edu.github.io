@@ -746,8 +746,8 @@
             <textarea id="contato-mensagem" name="mensagem" required></textarea>
           </div>
           <input class="armadilha" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="aviso">Seus dados servem somente para responder a este contato.</p>
-          <button class="botao botao--primario" type="submit">Enviar mensagem</button>
+          <p class="aviso">O botão prepara a mensagem no seu aplicativo de e-mail. Revise e confirme o envio nele.</p>
+          <button class="botao botao--primario" type="submit">Preparar e-mail</button>
           <p class="estado" id="estado-contato" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -796,7 +796,7 @@
   </script>
 
   <script>
-    // O endereço de destino é montado só no envio, para não aparecer na página.
+    // O contato aparece somente quando a pessoa prepara a mensagem.
     const DESTINO = ["sidneibarbieri", "gmail.com"].join("@");
     const formulario = document.getElementById("formulario-contato");
     const estado = document.getElementById("estado-contato");
@@ -811,28 +811,19 @@
       return [...obrigatorios].every((campo) => campo.checkValidity());
     }
 
-    async function enviar(evento) {
+    function enviar(evento) {
       evento.preventDefault();
       if (!camposValidos()) {
         informar("Preencha nome, e-mail válido e mensagem.", "erro");
         return;
       }
       const dados = Object.fromEntries(new FormData(formulario));
-      const botao = formulario.querySelector("button");
-      botao.disabled = true;
-      informar("Enviando…", "");
-      const resposta = await fetch(`https://formsubmit.co/ajax/${DESTINO}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ ...dados, _subject: `Hikari · ${dados.assunto} · ${dados.nome}`, _template: "table" }),
-      });
-      botao.disabled = false;
-      if (resposta.ok) {
-        formulario.reset();
-        informar("Mensagem enviada. O Time Hikari responde em breve.", "ok");
-      } else {
-        informar("O envio falhou. Tente novamente em alguns minutos.", "erro");
-      }
+      const assunto = encodeURIComponent(`Hikari · ${dados.assunto} · ${dados.nome}`);
+      const corpo = encodeURIComponent(
+        `Nome: ${dados.nome}\nE-mail: ${dados.email}\nOrganização: ${dados.organizacao}\n\n${dados.mensagem}`
+      );
+      informar("Confirme o envio no seu aplicativo de e-mail. A mensagem ainda não foi enviada por esta página.", "");
+      window.location.href = `mailto:${DESTINO}?subject=${assunto}&body=${corpo}`;
     }
 
     formulario.addEventListener("submit", enviar);

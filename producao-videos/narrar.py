@@ -8,6 +8,7 @@ Uso:  python3 narrar.py --edge-tts caminho/para/edge-tts
 
 import argparse
 import json
+import re
 import subprocess
 from pathlib import Path
 from typing import Dict
@@ -43,9 +44,13 @@ def sintetizar(edge_tts: Path, roteiro: Roteiro, texto: str, destino: Path) -> N
     destino.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         [str(edge_tts), "--voice", roteiro.voz, f"--rate={roteiro.velocidade}",
-         "--text", texto, "--write-media", str(destino)],
+         "--text", texto_para_voz(texto), "--write-media", str(destino)],
         check=True, capture_output=True,
     )
+
+
+def texto_para_voz(texto: str) -> str:
+    return re.sub(r"\bHikari\b", "Ricari", texto, flags=re.IGNORECASE)
 
 
 def duracao(arquivo: Path) -> float:
