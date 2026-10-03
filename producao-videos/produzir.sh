@@ -2,7 +2,7 @@
 # Produz as demonstrações do zero: ambiente fictício, narração, cartões, gravação e montagem.
 #
 # Uso:  EDGE_TTS=/caminho/edge-tts PLAYWRIGHT=/caminho/playwright-core PYTHON=/caminho/python \
-#         bash produzir.sh [competidor siem placar operacao depois]
+#         bash produzir.sh [competidor caso1 caso2 caso3 siem placar operacao depois]
 #
 # PYTHON precisa ter pydantic. O ambiente é recriado a cada execução, porque as
 # cenas mudam o estado da prova: a competidora erra, acerta e compra uma dica, e o
@@ -14,7 +14,7 @@ PASTA=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 : "${EDGE_TTS:?defina EDGE_TTS}" "${PLAYWRIGHT:?defina PLAYWRIGHT}"
 PYTHON=${PYTHON:-python3}
 VIDEOS=("$@")
-[[ ${#VIDEOS[@]} -gt 0 ]] || VIDEOS=(competidor siem placar operacao depois)
+[[ ${#VIDEOS[@]} -gt 0 ]] || VIDEOS=(competidor caso1 caso2 caso3 siem placar operacao depois)
 SESSOES="$PASTA/saida/sessoes.txt"
 
 cd "$PASTA"

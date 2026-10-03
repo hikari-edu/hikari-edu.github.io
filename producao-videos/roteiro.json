@@ -37,6 +37,76 @@
       ]
     },
     {
+      "chave": "caso1",
+      "titulo": "Caso 1: da força bruta ao privilégio",
+      "cenas": [
+        {
+          "id": "desafio",
+          "fala": "O primeiro caso pergunta qual origem externa conseguiu acesso à VPN. A resposta exige distinguir volume de falhas de amplitude do ataque."
+        },
+        {
+          "id": "isca",
+          "fala": "Contar apenas as falhas coloca uma sonda interna no topo. Ela falha muitas vezes, mas sempre contra a mesma conta."
+        },
+        {
+          "id": "refinamento",
+          "fala": "Ao contar contas distintas por origem, surge um endereço externo que tentou sessenta e duas contas e obteve uma sessão bem-sucedida."
+        },
+        {
+          "id": "pivo",
+          "fala": "O endereço interno atribuído à sessão leva ao logon remoto no servidor financeiro. O pivô preserva a cadeia de evidências."
+        },
+        {
+          "id": "persistencia",
+          "fala": "No servidor alcançado, a criação de uma conta e sua inclusão no grupo Administradores encerram o caso com uma consequência verificável."
+        }
+      ]
+    },
+    {
+      "chave": "caso2",
+      "titulo": "Caso 2: do canal de comando à exfiltração",
+      "cenas": [
+        {
+          "id": "desafio",
+          "fala": "O segundo caso começa com um domínio consultado regularmente por poucas máquinas. Frequência sem raridade apontaria para a atualização legítima."
+        },
+        {
+          "id": "raridade",
+          "fala": "O domínio suspeito aparece a cada cinco minutos, inclusive de madrugada, e é consultado por uma única estação."
+        },
+        {
+          "id": "processo",
+          "fala": "Na estação, o nome imita o atualizador do OneDrive. O caminho no perfil do usuário e o processo pai Word contradizem essa aparência."
+        },
+        {
+          "id": "volume",
+          "fala": "Somar os bytes enviados por destino externo revela a exfiltração. O maior fluxo isolado era um backup interno e, portanto, uma isca."
+        }
+      ]
+    },
+    {
+      "chave": "caso3",
+      "titulo": "Caso 3: do mapa do diretório ao impacto",
+      "cenas": [
+        {
+          "id": "desafio",
+          "fala": "O terceiro caso parte do impacto e volta no tempo. A pergunta é qual atividade anterior oferecia uma janela real de contenção."
+        },
+        {
+          "id": "enumeracao",
+          "fala": "Contar grupos distintos, em vez de eventos, separa a conta que enumerou quarenta e sete grupos da rotina repetitiva de inventário."
+        },
+        {
+          "id": "movimento",
+          "fala": "O endereço da estação e os logons de rede conectam a enumeração ao movimento lateral para os servidores de arquivos."
+        },
+        {
+          "id": "impacto",
+          "fala": "A instalação remota, a remoção das cópias de sombra e a nova extensão confirmam o impacto. A enumeração ocorreu vinte e seis minutos antes."
+        }
+      ]
+    },
+    {
       "chave": "siem",
       "titulo": "Investigar no SIEM",
       "cenas": [

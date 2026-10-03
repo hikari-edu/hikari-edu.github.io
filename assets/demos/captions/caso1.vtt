@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:02.450 --> 00:00:11.642
+O primeiro caso pergunta qual origem externa conseguiu acesso à VPN. A resposta exige distinguir volume de falhas de amplitude do ataque.
+
+00:00:12.492 --> 00:00:20.532
+Contar apenas as falhas coloca uma sonda interna no topo. Ela falha muitas vezes, mas sempre contra a mesma conta.
+
+00:00:21.382 --> 00:00:29.590
+Ao contar contas distintas por origem, surge um endereço externo que tentou sessenta e duas contas e obteve uma sessão bem-sucedida.
+
+00:00:30.440 --> 00:00:38.744
+O endereço interno atribuído à sessão leva ao logon remoto no servidor financeiro. O pivô preserva a cadeia de evidências.
+
+00:00:39.594 --> 00:00:47.874
+No servidor alcançado, a criação de uma conta e sua inclusão no grupo Administradores encerram o caso com uma consequência verificável.

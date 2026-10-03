@@ -32,7 +32,8 @@ CODIFICACAO = ["-c:v", "libvpx-vp9", "-crf", "30", "-b:v", "0", "-row-mt", "1",
 # A capa sai do meio da segunda cena, exceto onde outra cena representa melhor o vídeo.
 CENA_DA_CAPA = {"siem": "dashboard"}
 # A página já publica estes nomes; o vídeo do pós-prova sai com o nome antigo.
-ARQUIVO_NO_SITE = {"competidor": "competidor", "siem": "siem", "placar": "placar",
+ARQUIVO_NO_SITE = {"competidor": "competidor", "caso1": "caso1", "caso2": "caso2",
+                   "caso3": "caso3", "siem": "siem", "placar": "placar",
                    "operacao": "operacao", "depois": "pesquisa"}
 
 

@@ -1,8 +1,12 @@
 # Produção das demonstrações
 
-Os cinco vídeos e as telas da seção "A plataforma" são gravados na plataforma
+Os oito vídeos e as telas da seção "A plataforma" são gravados na plataforma
 real, numa instalação descartável com o cenário fictício Aurora Telecom (o mesmo
 do minicurso), equipes e pessoas inventadas e uma prova simulada.
+
+Os vídeos `caso1`, `caso2` e `caso3` registram as soluções guiadas do
+minicurso. Eles existem para que a aula não dependa de uma instância Hikari
+usada por uma competição em preparação ou andamento.
 
 | Passo | Arquivo | O que faz |
 | --- | --- | --- |

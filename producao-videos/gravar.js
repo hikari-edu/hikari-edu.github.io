@@ -37,6 +37,8 @@ const FOLGA_MS = 900;
 const PERIODO_DO_CASO = "time:(from:'2026-03-08T00:00:00.000Z',to:'2026-03-12T00:00:00.000Z')";
 const DESAFIO_DO_CASO_1 = 1;
 const DESAFIO_SEGUINTE = 2;
+const DESAFIO_DO_CASO_2 = 7;
+const DESAFIO_DO_CASO_3 = 14;
 
 function discover(kql, colunas) {
   const consulta = encodeURIComponent(kql).replace(/'/g, "!'");
@@ -162,6 +164,48 @@ const CENAS = {
         const confirmar = p.getByRole('button', { name: /Desbloquear|Confirmar|Sim/i }).last();
         if (await confirmar.isVisible().catch(() => false)) await clicar(p, confirmar);
       } },
+  },
+  caso1: {
+    desafio: { papel: 'competidor', preparar: (p) => abrirDesafio(p, DESAFIO_DO_CASO_1),
+      agir: (p) => apontar(p, p.getByRole('link', { name: /Abrir SIEM/i }).first()) },
+    isca: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"vpn" and event.outcome:"failure"', ['source.ip', 'user.name', 'event.outcome']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'source.ip') },
+    refinamento: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"vpn" and source.ip:"203.0.113.77"', ['source.ip', 'user.name', 'event.outcome']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'user.name') },
+    pivo: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"auth" and source.ip:"10.8.200.23"', ['source.ip', 'host.name', 'user.name', 'winlog.logon.type']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'host.name') },
+    persistencia: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"auth" and host.name:"SRV-FIN-02" and event.code:("4720" or "4732")', ['host.name', 'event.code', 'target.user.name']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'target.user.name') },
+  },
+  caso2: {
+    desafio: { papel: 'competidor', preparar: (p) => abrirDesafio(p, DESAFIO_DO_CASO_2),
+      agir: (p) => apontar(p, p.getByRole('link', { name: /Abrir SIEM/i }).first()) },
+    raridade: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"dns" and dns.question.name:"telemetria-aurora-cdn.net"', ['host.name', 'dns.question.name']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'host.name') },
+    processo: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"edr" and host.name:"WKS-ENG-117" and process.name:"OneDriveUpdater.exe"', ['host.name', 'process.executable', 'process.parent.name']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'process.executable') },
+    volume: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"firewall" and destination.ip:"198.51.100.61"', ['source.ip', 'destination.ip', 'source.bytes']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'source.bytes') },
+  },
+  caso3: {
+    desafio: { papel: 'competidor', preparar: (p) => abrirDesafio(p, DESAFIO_DO_CASO_3),
+      agir: (p) => apontar(p, p.getByRole('link', { name: /Abrir SIEM/i }).first()) },
+    enumeracao: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"auth" and event.code:"4799" and user.name:"adm.backup"', ['user.name', 'group.name', 'source.ip']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'group.name') },
+    movimento: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"auth" and user.name:"adm.backup" and winlog.logon.type:"3"', ['user.name', 'source.ip', 'host.name']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'host.name') },
+    impacto: { papel: 'competidor',
+      preparar: async (p) => { await p.goto(discover('event.dataset:"fileserver" and event.action:"Arquivo renomeado" and file.extension:"aurora-lock"', ['host.name', 'process.name', 'file.extension']), { waitUntil: 'domcontentloaded' }); await esperarDiscover(p); },
+      agir: (p) => abrirValoresDoCampo(p, 'host.name') },
   },
   siem: {
     painel: { papel: 'competidor', preparar: (p) => p.goto(`${BASE}/hikari/siem`, { waitUntil: 'networkidle' }),

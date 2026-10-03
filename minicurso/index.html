@@ -24,6 +24,14 @@
   .btn { display:inline-block; border:1px solid var(--ouro); color:var(--ouro); text-decoration:none;
          padding:5px 12px; border-radius:3px; font-size:.9rem; margin-right:6px; }
   .btn-cheio { background:var(--ouro); color:var(--papel); }
+  .videos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+  .video { border:1px solid var(--linha); background:#fff; }
+  .video:last-child { grid-column:1 / -1; }
+  .video video { display:block; width:100%; aspect-ratio:16 / 9; background:#000; }
+  .video div { padding:14px 16px 16px; }
+  .video h3 { font-size:1rem; margin:0 0 5px; }
+  .video p { color:var(--suave); font-size:.92rem; margin:0; }
+  @media (max-width:680px) { .videos { grid-template-columns:1fr; } .video:last-child { grid-column:auto; } }
   footer { margin-top:48px; padding-top:20px; border-top:1px solid var(--linha);
            color:var(--suave); font-size:.88rem; }
 </style>
@@ -37,7 +45,7 @@
   <h2>Executar agora, no navegador</h2>
   <ul>
     <li><span class="nome">Caso 1 — da força bruta ao privilégio</span><br>
-      <span class="nota">A origem que entrou na VPN, e a sonda legítima que engana a contagem.</span><br>
+      <span class="nota">A origem do acesso à VPN, e a sonda legítima que engana a contagem.</span><br>
       <a class="btn btn-cheio" href="https://colab.research.google.com/github/hikari-edu/hikari-edu.github.io/blob/main/minicurso/notebooks/caso1.ipynb">Executar</a>
       <a class="btn" href="notebooks/caso1.ipynb">Baixar</a></li>
     <li><span class="nome">Caso 2 — o canal que respira</span><br>
@@ -52,6 +60,32 @@
   <p class="nota">A primeira célula de cada caderno baixa a evidência sozinha. Não é preciso
      instalar nada. Para rodar na sua máquina, veja o
      <a href="notebooks/LEIAME.md">LEIAME</a>.</p>
+
+  <h2>Soluções guiadas</h2>
+  <p class="nota">As gravações usam uma instalação isolada do Hikari e o cenário fictício Aurora. Elas substituem a demonstração ao vivo quando a instalação operacional está reservada para uma competição.</p>
+  <div class="videos">
+    <article class="video">
+      <video controls preload="none" poster="../assets/demos/posters/caso1.jpg">
+        <source src="../assets/demos/hikari-demo-caso1.webm" type="video/webm">
+        <track kind="captions" src="../assets/demos/captions/caso1.vtt" srclang="pt-BR" label="Português">
+      </video>
+      <div><h3>Caso 1: da força bruta ao privilégio</h3><p>Da isca na contagem de falhas à persistência no servidor financeiro.</p></div>
+    </article>
+    <article class="video">
+      <video controls preload="none" poster="../assets/demos/posters/caso2.jpg">
+        <source src="../assets/demos/hikari-demo-caso2.webm" type="video/webm">
+        <track kind="captions" src="../assets/demos/captions/caso2.vtt" srclang="pt-BR" label="Português">
+      </video>
+      <div><h3>Caso 2: do canal de comando à exfiltração</h3><p>Do domínio raro ao processo e ao destino do volume enviado.</p></div>
+    </article>
+    <article class="video">
+      <video controls preload="none" poster="../assets/demos/posters/caso3.jpg">
+        <source src="../assets/demos/hikari-demo-caso3.webm" type="video/webm">
+        <track kind="captions" src="../assets/demos/captions/caso3.vtt" srclang="pt-BR" label="Português">
+      </video>
+      <div><h3>Caso 3: do mapa do diretório ao impacto</h3><p>Da enumeração ao movimento lateral e à cifra dos servidores.</p></div>
+    </article>
+  </div>
 
   <h2>Texto e apresentação</h2>
   <ul>
