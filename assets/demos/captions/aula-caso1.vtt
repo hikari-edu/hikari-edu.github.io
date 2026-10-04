@@ -1,79 +1,85 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.482
-Caso um. A hipótese é uma origem tentar muitas contas na VPN e depois
+00:00:00.000 --> 00:00:05.502
+Caso um. Procuramos uma origem que tentou muitas contas diferentes na VPN e
 
-00:00:05.482 --> 00:00:09.398
-conseguir entrar. Não basta contar erros: precisamos verificar quantas contas
+00:00:05.502 --> 00:00:10.580
+depois estabeleceu uma sessão. O objetivo é ligar essa sessão à atividade
 
-00:00:09.398 --> 00:00:14.880
-diferentes foram tentadas, se houve sucesso e o que a sessão fez em seguida.
+00:00:10.580 --> 00:00:14.813
+posterior no servidor. Primeiro precisamos medir contas distintas por origem,
 
-00:00:16.080 --> 00:00:21.531
-Filtre eventos da VPN com falha e agrupe por endereço de origem. Dez ponto
+00:00:14.813 --> 00:00:17.352
+não apenas o total de falhas.
 
-00:00:21.531 --> 00:00:26.203
-vinte ponto cinco ponto quatorze lidera em volume: mil quatrocentas e quarenta
+00:00:18.552 --> 00:00:23.430
+A origem dez ponto vinte ponto cinco ponto quatorze tem mil quatrocentas e
 
-00:00:26.203 --> 00:00:31.264
-falhas, mas numa única conta, monitor ponto vpn, sem sucesso. Os eventos não
+00:00:23.430 --> 00:00:27.932
+quarenta falhas, todas na mesma conta, monitor ponto vpn. A causa dessas
 
-00:00:31.264 --> 00:00:36.715
-informam por que ela falha. Duzentos e três ponto zero ponto cento e treze
+00:00:27.932 --> 00:00:33.185
+falhas não consta dos eventos. A origem duzentos e três ponto zero ponto cento
 
-00:00:36.715 --> 00:00:41.776
-ponto setenta e sete tentou sessenta e duas contas e também obteve sucesso.
+00:00:33.185 --> 00:00:38.438
+e treze ponto setenta e sete tentou sessenta e duas contas e também teve
 
-00:00:41.776 --> 00:00:44.112
-Essa é a origem a investigar.
+00:00:38.438 --> 00:00:41.064
+sucesso. É esta que responde à hipótese.
 
-00:00:45.312 --> 00:00:50.791
-Agora filtre o sucesso dessa origem. Às cinco e dezessete, a conta c ponto
+00:00:42.264 --> 00:00:48.600
+A linha do tempo começa com as falhas. Às cinco e dezessete, a conta c ponto
 
-00:00:50.791 --> 00:00:55.879
-moura estabeleceu a VPN e recebeu o endereço interno dez ponto oito ponto
+00:00:48.600 --> 00:00:53.748
+moura estabelece a VPN e recebe o endereço interno dez ponto oito ponto
 
-00:00:55.879 --> 00:01:01.750
-duzentos ponto vinte e três. Use esse endereço, e não apenas o nome da conta,
+00:00:53.748 --> 00:00:58.500
+duzentos ponto vinte e três. Esse endereço reaparece num logon remoto ao
 
-00:01:01.750 --> 00:01:06.055
-nos eventos de autenticação. Ele aparece num logon remoto ao servidor
+00:00:58.500 --> 00:01:01.272
+servidor financeiro. Quatorze minutos depois do acesso,
 
-00:01:06.055 --> 00:01:11.143
-financeiro. No mesmo servidor, os eventos quatro sete dois zero e quatro sete
+00:01:01.272 --> 00:01:04.440
+uma conta nova é adicionada ao grupo Administradores.
 
-00:01:11.143 --> 00:01:15.840
-três dois mostram uma nova conta criada e adicionada ao grupo Administradores.
+00:01:05.640 --> 00:01:11.041
+Para repetir a decisão, filtre falhas da VPN, agrupe por endereço de origem e
 
-00:01:17.040 --> 00:01:22.214
-Reveja o caminho completo. Primeiro, falhas e contas distintas por origem.
+00:01:11.041 --> 00:01:16.829
+coloque lado a lado o número de falhas e o de contas distintas. O primeiro
 
-00:01:22.214 --> 00:01:26.918
-Segundo, sucesso da origem externa. Terceiro, endereço interno atribuído pela
+00:01:16.829 --> 00:01:22.230
+endereço lidera só em volume. O segundo tentou sessenta e duas contas e tem
 
-00:01:26.918 --> 00:01:33.034
-VPN. Quarto, logon remoto e criação da conta de persistência. A resposta à
+00:01:22.230 --> 00:01:26.088
+uma sessão bem-sucedida. A contagem adequada muda a origem investigada.
 
-00:01:33.034 --> 00:01:39.149
-pergunta inicial é duzentos e três ponto zero ponto cento e treze ponto
+00:01:27.288 --> 00:01:33.150
+Filtre o sucesso da origem externa e anote o campo cliente ponto nat ponto ip.
 
-00:01:39.149 --> 00:01:44.794
-setenta e sete. A causa da falha da conta de monitoramento continua
+00:01:33.150 --> 00:01:39.012
+Busque o valor dez ponto oito ponto duzentos ponto vinte e três nos eventos de
 
-00:01:44.794 --> 00:01:45.264
-desconhecida.
+00:01:39.012 --> 00:01:43.311
+autenticação. O logon remoto chega ao servidor financeiro. Nesse host, os
 
-00:01:46.464 --> 00:01:51.872
-A detecção que fica não deve depender do endereço específico, pois ele pode
+00:01:43.311 --> 00:01:48.391
+eventos quatro sete dois zero e quatro sete três dois registram criação de
 
-00:01:51.872 --> 00:01:56.864
-mudar. Ela deve procurar muitas contas diferentes falhando a partir da mesma
+00:01:48.391 --> 00:01:50.736
+conta e adição ao grupo Administradores.
 
-00:01:56.864 --> 00:02:01.856
-origem, seguidas de sucesso. Depois, pode correlacionar a criação de uma conta
+00:01:51.936 --> 00:01:56.281
+O resultado da caçada pode virar uma detecção candidata: muitas contas
 
-00:02:01.856 --> 00:02:07.264
-e sua adição ao grupo administrativo. O limiar exige ajuste no ambiente real
+00:01:56.281 --> 00:02:01.416
+distintas falham numa origem e depois há sucesso na mesma origem. Um segundo
 
-00:02:07.264 --> 00:02:08.928
-para controlar falsos positivos.
+00:02:01.416 --> 00:02:06.155
+sinal é a criação de conta seguida de privilégio administrativo. O slide
+
+00:02:06.155 --> 00:02:10.895
+mostra pseudocódigo, não uma regra pronta. O limiar e os falsos positivos
+
+00:02:10.895 --> 00:02:15.240
+precisam ser medidos na rede em que a regra será usada.

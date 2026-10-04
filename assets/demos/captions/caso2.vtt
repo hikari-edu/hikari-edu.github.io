@@ -9,5 +9,5 @@ O domínio suspeito aparece a cada cinco minutos, inclusive de madrugada, e é c
 00:00:20.926 --> 00:00:30.286
 Na estação, o nome imita o atualizador do OneDrive. O caminho no perfil do usuário e o processo pai Word contradizem essa aparência.
 
-00:00:31.136 --> 00:00:40.616
-Somar os bytes enviados por destino externo revela a exfiltração. O maior fluxo isolado era um backup interno e, portanto, uma isca.
+00:00:31.136 --> 00:00:40.640
+A soma de bytes enviados aponta tráfego para um destino externo. O conteúdo não aparece. O maior fluxo isolado era um backup interno.

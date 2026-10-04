@@ -57,6 +57,15 @@ def rodar(*argumentos: str) -> None:
     subprocess.run(["ffmpeg", "-v", "error", "-y", *argumentos], check=True)
 
 
+def duracao_audio(arquivo: Path) -> float:
+    medida = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "csv=p=0", str(arquivo)],
+        check=True, capture_output=True, text=True,
+    )
+    return float(medida.stdout.strip())
+
+
 def parte_da_cena(cena: CenaGravada, audio: Path, destino: Path) -> None:
     atraso_ms = int(ATRASO_DA_FALA_S * 1000)
     rodar("-ss", f"{cena.pronto_ms / 1000:.3f}", "-i", str(SAIDA / cena.arquivo), "-i", str(audio),
@@ -83,7 +92,7 @@ def juntar(partes: List[Path], duracoes: List[float], destino: Path) -> None:
         filtros.append(f"{audio}[{indice}:a]acrossfade=d={TRANSICAO_S}[a{indice}]")
         video, audio = f"[v{indice}]", f"[a{indice}]"
         acumulado = deslocamento + duracoes[indice]
-    filtros.append(f"{audio}loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000[saida_a]")
+    filtros.append(f"{audio}loudnorm=I=-16:TP=-2.5:LRA=11,aresample=48000[saida_a]")
     rodar(*entradas, "-filter_complex", ";".join(filtros), "-map", video, "-map", "[saida_a]",
           *CODIFICACAO, "-c:a", "libopus", "-b:a", "128k", str(destino))
 
@@ -103,11 +112,15 @@ def inicios_das_cenas(cenas: List[CenaGravada]) -> List[float]:
     return inicios
 
 
-def legenda(cenas: List[CenaGravada], textos: Dict[str, str]) -> str:
+def legenda(video: str, cenas: List[CenaGravada], textos: Dict[str, str]) -> str:
     linhas = ["WEBVTT", ""]
     for cena, inicio in zip(cenas, inicios_das_cenas(cenas)):
+        audio = SAIDA / "narracao" / video / f"{cena.cena}.mp3"
+        fala_s = duracao_audio(audio)
+        if fala_s > cena.fala_s + 0.4:
+            raise ValueError(f"A narração de {cena.cena} excede a cena gravada")
         comeca = inicio + ATRASO_DA_FALA_S
-        linhas += [f"{tempo_vtt(comeca)} --> {tempo_vtt(comeca + cena.fala_s)}", textos[cena.cena], ""]
+        linhas += [f"{tempo_vtt(comeca)} --> {tempo_vtt(comeca + fala_s)}", textos[cena.cena], ""]
     return "\n".join(linhas)
 
 
@@ -120,6 +133,7 @@ def instante_da_capa(video: str, cenas: List[CenaGravada]) -> float:
 def montar(video: str, cenas: List[CenaGravada], textos: Dict[str, str]) -> None:
     nome = ARQUIVO_NO_SITE[video]
     destino = SITE / f"hikari-demo-{nome}.webm"
+    legendas = legenda(video, cenas, textos)
     with tempfile.TemporaryDirectory() as temporaria:
         pasta = Path(temporaria)
         partes, duracoes = [pasta / "abertura.webm"], [ABERTURA_S]
@@ -133,7 +147,7 @@ def montar(video: str, cenas: List[CenaGravada], textos: Dict[str, str]) -> None
         duracoes.append(FECHAMENTO_S)
         parte_do_cartao(SAIDA / "cartoes" / "fechamento.png", FECHAMENTO_S, partes[-1])
         juntar(partes, duracoes, destino)
-    (SITE / "captions" / f"{nome}.vtt").write_text(legenda(cenas, textos), encoding="utf-8")
+    (SITE / "captions" / f"{nome}.vtt").write_text(legendas, encoding="utf-8")
     rodar("-ss", f"{instante_da_capa(video, cenas):.2f}", "-i", str(destino), "-frames:v", "1", "-q:v", "3",
           str(SITE / "posters" / f"{nome}.jpg"))
     total = sum(duracoes) - TRANSICAO_S * (len(duracoes) - 1)

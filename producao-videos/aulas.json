@@ -1,23 +1,103 @@
 {
   "caso1": [
-    {"pagina": 21, "fala": "Caso um. A hipótese é uma origem tentar muitas contas na VPN e depois conseguir entrar. Não basta contar erros: precisamos verificar quantas contas diferentes foram tentadas, se houve sucesso e o que a sessão fez em seguida."},
-    {"pagina": 22, "fala": "Filtre eventos da VPN com falha e agrupe por endereço de origem. Dez ponto vinte ponto cinco ponto quatorze lidera em volume: mil quatrocentas e quarenta falhas, mas numa única conta, monitor ponto vpn, sem sucesso. Os eventos não informam por que ela falha. Duzentos e três ponto zero ponto cento e treze ponto setenta e sete tentou sessenta e duas contas e também obteve sucesso. Essa é a origem a investigar."},
-    {"pagina": 23, "fala": "Agora filtre o sucesso dessa origem. Às cinco e dezessete, a conta c ponto moura estabeleceu a VPN e recebeu o endereço interno dez ponto oito ponto duzentos ponto vinte e três. Use esse endereço, e não apenas o nome da conta, nos eventos de autenticação. Ele aparece num logon remoto ao servidor financeiro. No mesmo servidor, os eventos quatro sete dois zero e quatro sete três dois mostram uma nova conta criada e adicionada ao grupo Administradores."},
-    {"pagina": 24, "fala": "Reveja o caminho completo. Primeiro, falhas e contas distintas por origem. Segundo, sucesso da origem externa. Terceiro, endereço interno atribuído pela VPN. Quarto, logon remoto e criação da conta de persistência. A resposta à pergunta inicial é duzentos e três ponto zero ponto cento e treze ponto setenta e sete. A causa da falha da conta de monitoramento continua desconhecida."},
-    {"pagina": 25, "fala": "A detecção que fica não deve depender do endereço específico, pois ele pode mudar. Ela deve procurar muitas contas diferentes falhando a partir da mesma origem, seguidas de sucesso. Depois, pode correlacionar a criação de uma conta e sua adição ao grupo administrativo. O limiar exige ajuste no ambiente real para controlar falsos positivos."}
+    {
+      "pagina": 21,
+      "titulo": "Hipótese: muitas contas tentadas antes de uma sessão",
+      "fala": "Caso um. Procuramos uma origem que tentou muitas contas diferentes na VPN e depois estabeleceu uma sessão. O objetivo é ligar essa sessão à atividade posterior no servidor. Primeiro precisamos medir contas distintas por origem, não apenas o total de falhas."
+    },
+    {
+      "pagina": 22,
+      "titulo": "Contar contas distintas muda a origem investigada",
+      "fala": "A origem dez ponto vinte ponto cinco ponto quatorze tem mil quatrocentas e quarenta falhas, todas na mesma conta, monitor ponto vpn. A causa dessas falhas não consta dos eventos. A origem duzentos e três ponto zero ponto cento e treze ponto setenta e sete tentou sessenta e duas contas e também teve sucesso. É esta que responde à hipótese."
+    },
+    {
+      "pagina": 23,
+      "titulo": "Do endereço da VPN ao novo administrador",
+      "fala": "A linha do tempo começa com as falhas. Às cinco e dezessete, a conta c ponto moura estabelece a VPN e recebe o endereço interno dez ponto oito ponto duzentos ponto vinte e três. Esse endereço reaparece num logon remoto ao servidor financeiro. Quatorze minutos depois do acesso, uma conta nova é adicionada ao grupo Administradores."
+    },
+    {
+      "pagina": 24,
+      "titulo": "Caso 1 · escolha a origem pela hipótese",
+      "fala": "Para repetir a decisão, filtre falhas da VPN, agrupe por endereço de origem e coloque lado a lado o número de falhas e o de contas distintas. O primeiro endereço lidera só em volume. O segundo tentou sessenta e duas contas e tem uma sessão bem-sucedida. A contagem adequada muda a origem investigada."
+    },
+    {
+      "pagina": 25,
+      "titulo": "Caso 1 · siga o endereço atribuído",
+      "fala": "Filtre o sucesso da origem externa e anote o campo cliente ponto nat ponto ip. Busque o valor dez ponto oito ponto duzentos ponto vinte e três nos eventos de autenticação. O logon remoto chega ao servidor financeiro. Nesse host, os eventos quatro sete dois zero e quatro sete três dois registram criação de conta e adição ao grupo Administradores."
+    },
+    {
+      "pagina": 26,
+      "titulo": "Esboço de detecção: muitas contas",
+      "fala": "O resultado da caçada pode virar uma detecção candidata: muitas contas distintas falham numa origem e depois há sucesso na mesma origem. Um segundo sinal é a criação de conta seguida de privilégio administrativo. O slide mostra pseudocódigo, não uma regra pronta. O limiar e os falsos positivos precisam ser medidos na rede em que a regra será usada."
+    }
   ],
   "caso2": [
-    {"pagina": 28, "fala": "Caso dois. Um implante que pede ordens pode consultar um domínio em intervalos regulares. A hipótese combina duas propriedades: repetição no tempo e poucas estações consultando o mesmo nome. Frequência isolada não basta."},
-    {"pagina": 29, "fala": "Nos eventos DNS, conte consultas e estações distintas por domínio. O nome da atualização legítima aparece oito mil seiscentas e quarenta vezes, mas em todas as cento e vinte estações. Telemetria aurora cê dê ene ponto net aparece setecentas e dezenove vezes em apenas uma estação. Nessa estação, os intervalos vão de duzentos e oitenta e cinco a trezentos e quinze segundos, inclusive de madrugada. O candidato é a estação WKS engenharia cento e dezessete."},
-    {"pagina": 30, "fala": "Faça o pivô para o monitoramento de processos dessa estação. Um executável chamado OneDriveUpdater parece legítimo pelo nome, mas a execução suspeita está no perfil do usuário, em AppData, e tem como processo pai o Word. As execuções legítimas usam Program Files e outro hash. O documento aberto no Word precedeu o início do canal em quarenta e um segundos."},
-    {"pagina": 31, "fala": "Para investigar a saída de dados, o maior fluxo individual é uma isca: backup para um endereço interno. Somar bytes recebidos também erra a direção e destaca o espelho de atualização. Exclua destinos internos e some os bytes enviados, source ponto bytes, por destino. O endereço externo cento e noventa e oito ponto cinquenta e um ponto cem ponto sessenta e um recebeu dois bilhões duzentos e noventa e dois milhões novecentos e trinta e três mil setecentos e setenta bytes em cento e oitenta fluxos."},
-    {"pagina": 32, "fala": "O caminho foi DNS, estação, processo e firewall. A estação WKS engenharia cento e dezessete manteve o canal periódico e enviou cerca de dois vírgula vinte e nove gigabytes para fora. A conclusão combina regularidade, raridade, processo anômalo e volume na direção correta. O fluxo não revela o conteúdo enviado."}
+    {
+      "pagina": 29,
+      "titulo": "Hipótese: um implante pede ordens",
+      "fala": "Caso dois. A hipótese procura consultas regulares a um domínio usado por poucas estações. Uma contagem alta, por si só, não distingue um canal suspeito de uma atualização legítima. Vamos combinar frequência, raridade e tempo."
+    },
+    {
+      "pagina": 30,
+      "titulo": "O domínio mais consultado é a atualização",
+      "fala": "Nos eventos de resolução de nomes, conte consultas e estações distintas por domínio. A atualização aparece oito mil seiscentas e quarenta vezes, em cento e vinte estações. Telemetria aurora cê dê ene ponto net aparece setecentas e dezenove vezes, mas em uma só estação. Nela, os intervalos entre consultas ficam de duzentos e oitenta e cinco a trezentos e quinze segundos."
+    },
+    {
+      "pagina": 31,
+      "titulo": "O nome engana; caminho, hash",
+      "fala": "Na estação WKS engenharia cento e dezessete, compare as execuções do atualizador. Uma está no perfil do usuário e tem o Word como processo pai. As demais estão na pasta de programas e usam outro hash. O registro do Word traz um documento com macros, mas não mostra se a macro foi executada. Estação e horário não atribuem cada consulta ao processo."
+    },
+    {
+      "pagina": 32,
+      "titulo": "Some bytes enviados a destinos externos",
+      "fala": "Para examinar o volume de saída, exclua destinos internos e some source ponto bytes por destino. O maior fluxo isolado era backup interno. Somar bytes recebidos apontaria o espelho de atualização. Já o endereço externo cento e noventa e oito ponto cinquenta e um ponto cem ponto sessenta e um recebeu dois bilhões duzentos e noventa e dois milhões novecentos e trinta e três mil setecentos e setenta bytes em cento e oitenta fluxos."
+    },
+    {
+      "pagina": 33,
+      "titulo": "Caso 2 · distinga frequência de rotina",
+      "fala": "Retome o primeiro pivô. Um domínio corporativo muito consultado por todas as estações pode ser rotina. O domínio raro aparece repetidamente numa estação, inclusive de madrugada. Ordenar seus eventos por horário mostra os intervalos regulares. A próxima pergunta é quais processos aparecem nessa mesma estação."
+    },
+    {
+      "pagina": 34,
+      "titulo": "Caso 2 · compare processo e direção",
+      "fala": "O monitoramento de processos encontra um executável com nome conhecido fora da pasta esperada e com processo pai incomum. O firewall mostra o volume enviado a um destino externo. Juntos, os registros justificam a investigação dessa estação. Eles não revelam o conteúdo enviado nem provam que o executável gerou todas as consultas ao domínio."
+    },
+    {
+      "pagina": 35,
+      "titulo": "Caso 2 · duas detecções candidatas",
+      "fala": "Duas detecções candidatas saem deste caso. Uma combina muitas consultas a um domínio por poucas estações com intervalos pouco variáveis. Outra procura nomes de executáveis conhecidos fora do caminho de instalação esperado. Os limiares vêm de um cenário sintético. Antes de ativar qualquer uma, meça quantas rotinas legítimas também satisfazem essas condições."
+    }
   ],
   "caso3": [
-    {"pagina": 35, "fala": "Caso três. O impacto é visível, mas a pergunta de caça é anterior: qual comportamento teria dado tempo para conter o invasor? A hipótese procura uma conta que enumera muitos grupos em poucos minutos, fora da rotina de inventário, antes do movimento lateral."},
-    {"pagina": 36, "fala": "Filtre o evento quatro sete nove nove, que registra consulta à associação de grupos. Contar eventos coloca o inventário no topo, com mil duzentos e noventa e seis. Porém ele repete só três grupos. A conta adm ponto backup tem sessenta e um eventos, mas percorre quarenta e sete grupos distintos em seis minutos. O endereço de origem dez ponto quarenta ponto zero ponto cento e quarenta leva à estação WKS administração cento e quatro."},
-    {"pagina": 37, "fala": "Siga a conta nos logons de rede. Às dezessete e cinco, ela alcança o primeiro servidor de arquivos. Nove segundos depois surge o serviço remoto PSEXESVC. O processo executado apaga as cópias de sombra e, às dezessete e cinco e quarenta e cinco, aparece o primeiro arquivo com a extensão aurora lock. O segundo servidor é atingido nove minutos depois. Ao todo, três mil quatrocentos e vinte arquivos são renomeados."},
-    {"pagina": 38, "fala": "Refaça a investigação de trás para frente. A extensão bak pertence à rotina de backup; aurora lock marca o impacto simulado. Volte ao evento quatro sete nove nove e compare grupos distintos por conta. Siga o endereço da estação até os logons de rede e os eventos do monitoramento de processos. A enumeração começou às dezesseis e quarenta, cerca de vinte e seis minutos antes da primeira renomeação. O log não demonstra que o conteúdo foi cifrado."},
-    {"pagina": 39, "fala": "A regra útil procura enumeração ampla de grupos antes do impacto. O exemplo do slide usa mais de vinte grupos distintos em quinze minutos, excluindo a conta de inventário conhecida. Outra regra observa a exclusão das cópias de sombra, que já exige resposta urgente. Esses limiares são exemplos derivados do cenário sintético; antes de operar num SOC real, é preciso medir falsos positivos e validar a resposta."}
+    {
+      "pagina": 38,
+      "titulo": "Hipótese: a enumeração pode anteceder",
+      "fala": "Caso três. A hipótese procura uma conta que consulta muitos grupos diferentes em poucos minutos, fora da rotina de inventário. No cenário, essa atividade antecede o movimento lateral e as renomeações. Queremos descobrir quanto tempo separa o primeiro sinal do impacto observado, sem presumir que uma equipe conseguiria conter o incidente."
+    },
+    {
+      "pagina": 39,
+      "titulo": "O inventário repete três grupos",
+      "fala": "Filtre o evento quatro sete nove nove e conte grupos distintos por conta. O inventário produz mil duzentos e noventa e seis eventos, mas repete apenas três grupos. A conta adm ponto backup produz sessenta e um eventos e consulta quarenta e sete grupos em seis minutos. A amplitude, não o volume, destaca a conta para investigação."
+    },
+    {
+      "pagina": 40,
+      "titulo": "Do mapa às renomeações",
+      "fala": "A linha do tempo começa às dezesseis e quarenta com a enumeração. Às dezessete e cinco, a conta chega ao primeiro servidor de arquivos por logon de rede. O monitoramento registra o serviço PSEXESVC e a execução de um comando para excluir cópias de sombra. O registro não confirma o resultado desse comando. Depois aparecem renomeações nos dois servidores."
+    },
+    {
+      "pagina": 41,
+      "titulo": "Caso 3 · separe o inventário",
+      "fala": "Para refazer o primeiro passo, agrupe o evento quatro sete nove nove por conta e conte grupos distintos. A conta de inventário repete três grupos. Adm ponto backup consulta quarenta e sete. O endereço de origem do evento é dez ponto quarenta ponto zero ponto cento e quarenta. Nos logons interativos, esse endereço leva à estação administrativa cento e quatro."
+    },
+    {
+      "pagina": 42,
+      "titulo": "Caso 3 · ligue a conta ao impacto",
+      "fala": "Siga adm ponto backup nos logons de rede até o servidor de arquivos. Confira serviço remoto e comando no monitoramento de processos. Depois agrupe as renomeações por extensão. A extensão bak pertence à rotina de backup; aurora lock aparece em três mil quatrocentos e vinte arquivos. Os eventos mostram renomeações, não demonstram que o conteúdo foi cifrado."
+    },
+    {
+      "pagina": 43,
+      "titulo": "Esboço de detecção: enumeração",
+      "fala": "O esboço de detecção procura enumeração ampla fora do inventário. O segundo sinal é a execução de um comando para excluir cópias de sombra. Neste cenário, a enumeração começou cerca de vinte e seis minutos antes da primeira renomeação. Isso abre uma oportunidade de investigação, mas não prova que uma equipe teria reconhecido e contido o incidente a tempo."
+    }
   ]
 }

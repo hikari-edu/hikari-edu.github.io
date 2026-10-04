@@ -64,7 +64,7 @@
     },
     {
       "chave": "caso2",
-      "titulo": "Caso 2: do canal de comando à exfiltração",
+      "titulo": "Caso 2: do DNS ao volume enviado",
       "cenas": [
         {
           "id": "desafio",
@@ -80,7 +80,7 @@
         },
         {
           "id": "volume",
-          "fala": "Somar os bytes enviados por destino externo revela a exfiltração. O maior fluxo isolado era um backup interno e, portanto, uma isca."
+          "fala": "A soma de bytes enviados aponta tráfego para um destino externo. O conteúdo não aparece. O maior fluxo isolado era um backup interno."
         }
       ]
     },
@@ -90,7 +90,7 @@
       "cenas": [
         {
           "id": "desafio",
-          "fala": "O terceiro caso parte do impacto e volta no tempo. A pergunta é qual atividade anterior oferecia uma janela real de contenção."
+          "fala": "O terceiro caso parte das renomeações e volta no tempo. Procuramos uma atividade anterior que pudesse orientar uma detecção mais cedo."
         },
         {
           "id": "enumeracao",
@@ -102,7 +102,7 @@
         },
         {
           "id": "impacto",
-          "fala": "A instalação remota, a remoção das cópias de sombra e a nova extensão confirmam o impacto. A enumeração ocorreu vinte e seis minutos antes."
+          "fala": "Serviço remoto, comando para excluir cópias de sombra e renomeações mostram a sequência. Nem a exclusão nem a cifra foram confirmadas."
         }
       ]
     },

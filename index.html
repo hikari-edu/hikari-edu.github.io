@@ -87,7 +87,7 @@
     h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.3; margin-bottom: 0.5rem; }
     p { margin: 0; color: var(--texto-2); }
     .lead { font-size: clamp(1.04rem, 1.4vw, 1.15rem); color: #c9d3de; max-width: 44rem; }
-    section { position: relative; padding-block: var(--respiro); }
+    section { position: relative; padding-block: var(--respiro); scroll-margin-top: 64px; }
     .faixa { background: linear-gradient(180deg, transparent, rgba(12, 18, 27, 0.7) 25%, rgba(12, 18, 27, 0.7) 75%, transparent); }
     .abertura-secao { display: grid; gap: 1rem; margin-bottom: clamp(2.4rem, 4.5vw, 3.6rem); max-width: 48rem; }
     .cartao {
@@ -191,6 +191,15 @@
     .uso .rotulo { color: var(--texto-3); }
     .uso ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem 2.4rem; }
     .uso li { font-family: var(--fonte-titulo); font-size: 1.1rem; font-weight: 600; color: var(--texto-2); }
+
+    /* ─── Proposta de valor ─── */
+    .proposta .moldura { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+    .proposta h2 { margin: 0.9rem 0 1.4rem; }
+    .proposta .lead { margin-bottom: 1.7rem; }
+    .proposta-lados { border-top: 1px solid var(--borda); }
+    .proposta-lados div { padding: 1.1rem 0; border-bottom: 1px solid var(--borda-suave); }
+    .proposta-lados strong { display: block; color: var(--texto); font: 600 1rem var(--fonte-titulo); margin-bottom: 0.25rem; }
+    .proposta-lados p { font-size: 0.92rem; }
 
     /* ─── Produto ─── */
     .abas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
@@ -307,7 +316,7 @@
 
     /* ─── Larguras menores ─── */
     @media (max-width: 960px) {
-      .capa .moldura, .minicurso, .time, .contato, .tela-legenda { grid-template-columns: 1fr; }
+      .capa .moldura, .proposta .moldura, .minicurso, .time, .contato, .tela-legenda { grid-template-columns: 1fr; }
       .lamina { display: none; }
       .pilares, .garantias, .provas, .registros, .modos { grid-template-columns: 1fr; }
       .numeros { grid-template-columns: repeat(2, 1fr); }
@@ -389,7 +398,7 @@
 
     <div class="uso">
       <div class="moldura">
-        <span class="rotulo">Em uso e avaliado em</span>
+        <span class="rotulo">Aplicações e publicações</span>
         <ul>
           <li>Anatel · RESEG</li>
           <li>Brisanet</li>
@@ -399,6 +408,25 @@
         </ul>
       </div>
     </div>
+
+    <section class="proposta" aria-labelledby="titulo-proposta">
+      <div class="moldura">
+        <div>
+          <p class="rotulo">Pesquisa aplicada à formação</p>
+          <h2 id="titulo-proposta">Da telemetria à <span>decisão verificável.</span></h2>
+          <p class="lead">O Hikari liga cada desafio a eventos que o participante pode investigar no SIEM. A organização confere as respostas antes da prova; a pesquisa examina o percurso e os limites do que os registros permitem concluir.</p>
+          <div class="acoes">
+            <a class="botao botao--primario" href="#demonstracoes">Ver a investigação</a>
+            <a class="botao" href="https://sol.sbc.org.br/index.php/sbseg/article/view/36637" target="_blank" rel="noopener">Ler o artigo publicado</a>
+          </div>
+        </div>
+        <div class="proposta-lados">
+          <div><strong>Para quem investiga</strong><p>Hipóteses, consultas e pivôs sobre evidências liberadas por fases.</p></div>
+          <div><strong>Para quem organiza</strong><p>Respostas verificadas, controle da prova e visão do progresso das equipes.</p></div>
+          <div><strong>Para quem avalia pesquisa</strong><p>Método, resultados publicados e cenários didáticos reproduzíveis para examinar as conclusões.</p></div>
+        </div>
+      </div>
+    </section>
 
     <section id="plataforma">
       <div class="moldura">
@@ -510,13 +538,13 @@
       <div class="moldura">
         <div class="abertura-secao">
           <p class="rotulo">Engenharia de prova nacional</p>
-          <h2>Conferida antes de <span>cada largada</span>.</h2>
-          <p class="lead">A plataforma confere sozinha, a cada versão e antes de cada prova, tudo o que sustenta uma competição nacional.</p>
+          <h2>Evidência testada antes da <span>largada</span>.</h2>
+          <p class="lead">Verificações automáticas examinam respostas, fases e fluxos da aplicação numa instalação de ensaio antes da competição.</p>
         </div>
         <div class="garantias">
           <article class="cartao garantia">
             <h3>Todo desafio tem resposta</h3>
-            <p>A resposta de cada desafio é recalculada sobre a evidência, e cada dica é conferida contra o campo que contém a resposta. A prova abre com tudo conferido.</p>
+            <p>O verificador recalcula as respostas sobre a evidência do cenário e confere se as dicas apontam para os campos necessários.</p>
           </article>
           <article class="cartao garantia">
             <h3>Respostas estáveis do início ao fim</h3>
@@ -547,7 +575,7 @@
         <div class="abertura-secao">
           <p class="rotulo">Provas conduzidas</p>
           <h2>Onde o setor <span>treina</span>.</h2>
-          <p class="lead">O Hikari conduziu o CTF do RESEG, o exercício setorial de cibersegurança das operadoras de telecomunicações promovido pela Anatel, e conduz a arena técnica da 1ª Ciber Week Brisanet.</p>
+          <p class="lead">O Hikari conduziu o CTF do RESEG, exercício setorial de cibersegurança promovido pela Anatel. A arena técnica da 1ª Ciber Week Brisanet está agendada para outubro de 2026.</p>
         </div>
         <div class="provas">
           <article class="cartao prova prova--destaque">
@@ -610,8 +638,8 @@
           <p class="lead">Da hipótese à detecção em três estudos de caso numa operadora fictícia. Em cada um, a consulta óbvia leva a uma isca, e a caçada avança quando a pergunta muda.</p>
           <ul class="casos">
             <li><span>1</span><div><h3>Da força bruta ao privilégio</h3><p>A origem que adivinhou a senha da VPN e o administrador que ela criou.</p></div></li>
-            <li><span>2</span><div><h3>O canal que respira</h3><p>Um implante disfarçado de atualizador e a exfiltração que aparece na soma.</p></div></li>
-            <li><span>3</span><div><h3>Do mapa do diretório ao impacto</h3><p>A enumeração do Active Directory que antecede a cifra dos servidores.</p></div></li>
+            <li><span>2</span><div><h3>O canal que respira</h3><p>Um processo anômalo, consultas regulares e volume enviado a um destino externo.</p></div></li>
+            <li><span>3</span><div><h3>Do mapa do diretório ao impacto</h3><p>A enumeração do Active Directory que antecede as renomeações observadas.</p></div></li>
           </ul>
         </div>
         <div class="material">
@@ -642,14 +670,14 @@
               <source src="assets/demos/hikari-demo-caso2.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/caso2.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Caso 2: do canal de comando à exfiltração</h3><p>Do domínio raro ao processo disfarçado e ao volume enviado ao destino externo.</p></div>
+            <div><h3>Caso 2: do DNS ao volume enviado</h3><p>Do domínio raro ao processo anômalo e ao volume enviado ao destino externo; os registros não mostram o conteúdo.</p></div>
           </article>
           <article class="demo demo--destaque">
             <video controls preload="none" poster="assets/demos/posters/caso3.jpg">
               <source src="assets/demos/hikari-demo-caso3.webm" type="video/webm">
               <track kind="captions" src="assets/demos/captions/caso3.vtt" srclang="pt-BR" label="Português">
             </video>
-            <div><h3>Caso 3: do mapa do diretório ao impacto</h3><p>Da enumeração de grupos ao movimento lateral e à cifra, com a janela de contenção visível.</p></div>
+            <div><h3>Caso 3: do mapa do diretório ao impacto</h3><p>Da enumeração de grupos às renomeações observadas. O intervalo de cerca de 26 minutos orienta a discussão de detecção; os registros não comprovam contenção.</p></div>
           </article>
         </div>
       </div>

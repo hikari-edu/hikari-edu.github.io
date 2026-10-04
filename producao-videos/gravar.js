@@ -46,20 +46,6 @@ function discover(kql, colunas) {
     `&_a=(columns:!(${colunas.join(',')}),query:(language:kuery,query:'${consulta}'))`;
 }
 
-const CURSOR = `
-  (() => {
-    if (document.getElementById('cursor-da-demonstracao')) return;
-    const ponto = document.createElement('div');
-    ponto.id = 'cursor-da-demonstracao';
-    ponto.style.cssText = 'position:fixed;z-index:2147483647;width:22px;height:22px;margin:-11px 0 0 -11px;' +
-      'border-radius:50%;border:2px solid #fff;background:rgba(52,211,160,.55);pointer-events:none;' +
-      'box-shadow:0 0 0 4px rgba(52,211,160,.18);transition:transform .12s ease;left:-40px;top:-40px';
-    document.documentElement.appendChild(ponto);
-    addEventListener('mousemove', (e) => { ponto.style.left = e.clientX + 'px'; ponto.style.top = e.clientY + 'px'; }, true);
-    addEventListener('mousedown', () => { ponto.style.transform = 'scale(.7)'; }, true);
-    addEventListener('mouseup', () => { ponto.style.transform = 'scale(1)'; }, true);
-  })();`;
-
 async function apontar(pagina, alvo) {
   const caixa = await alvo.boundingBox();
   await pagina.mouse.move(caixa.x + caixa.width / 2, caixa.y + caixa.height / 2, { steps: 28 });
@@ -94,9 +80,8 @@ async function esperarDiscover(pagina) {
   await pagina.waitForTimeout(1500);
 }
 
-// Passa o cursor pelos atalhos durante a fala e termina no de DNS, que a cena
-// seguinte abre no Discover já com os resultados.
-const ATALHOS_DA_CENA = [/Severidade alta ou crítica/, /Autenticação recusada/, /Atividade nos endpoints/, /Consultas de DNS/];
+// Percorre os atalhos e termina no de DNS, que a cena seguinte abre no Discover.
+const ATALHOS_DA_CENA = [/Severidade alta ou crítica/, /Eventos negados/, /Eventos do WAF/, /Consultas de DNS/];
 
 async function percorrerAtalhos(pagina, segundos) {
   const pausa = (segundos * 1000 * 0.8) / ATALHOS_DA_CENA.length;
@@ -353,14 +338,12 @@ async function gravarCena(navegador, video, cena, definicao) {
     colorScheme: 'dark',
   });
   await contexto.addCookies([{ name: 'session', value: SESSOES[definicao.papel], domain: HOST, path: '/' }]);
-  await contexto.addInitScript(CURSOR);
   const pagina = await contexto.newPage();
   // Desbloquear dica pede confirmação nativa; a demonstração confirma, como faria quem joga.
   pagina.on('dialog', (dialogo) => dialogo.accept());
   const captura = new Captura(await contexto.newCDPSession(pagina), path.join(destino, `${cena}-quadros`));
   await captura.comecar();
   await definicao.preparar(pagina);
-  await pagina.evaluate(CURSOR);
   await pagina.mouse.move(LARGURA * 0.62, ALTURA * 0.45);
   const pronto = Date.now() - captura.inicio;
   const duracao = DURACOES[video][cena];
@@ -382,10 +365,10 @@ async function main() {
     for (const [cena, definicao] of Object.entries(CENAS[video])) {
       const resultado = await gravarCena(navegador, video, cena, definicao);
       registro[video].push(resultado);
+      fs.writeFileSync(path.join(PASTA, 'cenas.json'), JSON.stringify(registro, null, 2));
       console.log(`  ${video}/${cena}: pronto em ${(resultado.pronto_ms / 1000).toFixed(1)} s`);
     }
   }
-  fs.writeFileSync(path.join(PASTA, 'cenas.json'), JSON.stringify(registro, null, 2));
   await navegador.close();
 }
 
