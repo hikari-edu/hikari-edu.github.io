@@ -1,0 +1,79 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.482
+Caso um. A hipótese é uma origem tentar muitas contas na VPN e depois
+
+00:00:05.482 --> 00:00:09.398
+conseguir entrar. Não basta contar erros: precisamos verificar quantas contas
+
+00:00:09.398 --> 00:00:14.880
+diferentes foram tentadas, se houve sucesso e o que a sessão fez em seguida.
+
+00:00:16.080 --> 00:00:21.531
+Filtre eventos da VPN com falha e agrupe por endereço de origem. Dez ponto
+
+00:00:21.531 --> 00:00:26.203
+vinte ponto cinco ponto quatorze lidera em volume: mil quatrocentas e quarenta
+
+00:00:26.203 --> 00:00:31.264
+falhas, mas numa única conta, monitor ponto vpn, sem sucesso. Os eventos não
+
+00:00:31.264 --> 00:00:36.715
+informam por que ela falha. Duzentos e três ponto zero ponto cento e treze
+
+00:00:36.715 --> 00:00:41.776
+ponto setenta e sete tentou sessenta e duas contas e também obteve sucesso.
+
+00:00:41.776 --> 00:00:44.112
+Essa é a origem a investigar.
+
+00:00:45.312 --> 00:00:50.791
+Agora filtre o sucesso dessa origem. Às cinco e dezessete, a conta c ponto
+
+00:00:50.791 --> 00:00:55.879
+moura estabeleceu a VPN e recebeu o endereço interno dez ponto oito ponto
+
+00:00:55.879 --> 00:01:01.750
+duzentos ponto vinte e três. Use esse endereço, e não apenas o nome da conta,
+
+00:01:01.750 --> 00:01:06.055
+nos eventos de autenticação. Ele aparece num logon remoto ao servidor
+
+00:01:06.055 --> 00:01:11.143
+financeiro. No mesmo servidor, os eventos quatro sete dois zero e quatro sete
+
+00:01:11.143 --> 00:01:15.840
+três dois mostram uma nova conta criada e adicionada ao grupo Administradores.
+
+00:01:17.040 --> 00:01:22.214
+Reveja o caminho completo. Primeiro, falhas e contas distintas por origem.
+
+00:01:22.214 --> 00:01:26.918
+Segundo, sucesso da origem externa. Terceiro, endereço interno atribuído pela
+
+00:01:26.918 --> 00:01:33.034
+VPN. Quarto, logon remoto e criação da conta de persistência. A resposta à
+
+00:01:33.034 --> 00:01:39.149
+pergunta inicial é duzentos e três ponto zero ponto cento e treze ponto
+
+00:01:39.149 --> 00:01:44.794
+setenta e sete. A causa da falha da conta de monitoramento continua
+
+00:01:44.794 --> 00:01:45.264
+desconhecida.
+
+00:01:46.464 --> 00:01:51.872
+A detecção que fica não deve depender do endereço específico, pois ele pode
+
+00:01:51.872 --> 00:01:56.864
+mudar. Ela deve procurar muitas contas diferentes falhando a partir da mesma
+
+00:01:56.864 --> 00:02:01.856
+origem, seguidas de sucesso. Depois, pode correlacionar a criação de uma conta
+
+00:02:01.856 --> 00:02:07.264
+e sua adição ao grupo administrativo. O limiar exige ajuste no ambiente real
+
+00:02:07.264 --> 00:02:08.928
+para controlar falsos positivos.

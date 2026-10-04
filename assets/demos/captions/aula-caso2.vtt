@@ -1,0 +1,82 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.249
+Caso dois. Um implante que pede ordens pode consultar um domínio em intervalos
+
+00:00:06.249 --> 00:00:11.537
+regulares. A hipótese combina duas propriedades: repetição no tempo e poucas
+
+00:00:11.537 --> 00:00:15.864
+estações consultando o mesmo nome. Frequência isolada não basta.
+
+00:00:17.064 --> 00:00:22.564
+Nos eventos DNS, conte consultas e estações distintas por domínio. O nome da
+
+00:00:22.564 --> 00:00:27.217
+atualização legítima aparece oito mil seiscentas e quarenta vezes, mas em
+
+00:00:27.217 --> 00:00:33.140
+todas as cento e vinte estações. Telemetria aurora cê dê ene ponto net aparece
+
+00:00:33.140 --> 00:00:37.793
+setecentas e dezenove vezes em apenas uma estação. Nessa estação, os
+
+00:00:37.793 --> 00:00:43.292
+intervalos vão de duzentos e oitenta e cinco a trezentos e quinze segundos,
+
+00:00:43.292 --> 00:00:48.369
+inclusive de madrugada. O candidato é a estação WKS engenharia cento e
+
+00:00:48.369 --> 00:00:48.792
+dezessete.
+
+00:00:49.992 --> 00:00:54.763
+Faça o pivô para o monitoramento de processos dessa estação. Um executável
+
+00:00:54.763 --> 00:00:58.739
+chamado OneDriveUpdater parece legítimo pelo nome, mas a execução suspeita
+
+00:00:58.739 --> 00:01:04.703
+está no perfil do usuário, em AppData, e tem como processo pai o Word. As
+
+00:01:04.703 --> 00:01:09.474
+execuções legítimas usam Program Files e outro hash. O documento aberto no
+
+00:01:09.474 --> 00:01:13.848
+Word precedeu o início do canal em quarenta e um segundos.
+
+00:01:15.048 --> 00:01:20.244
+Para investigar a saída de dados, o maior fluxo individual é uma isca: backup
+
+00:01:20.244 --> 00:01:24.698
+para um endereço interno. Somar bytes recebidos também erra a direção e
+
+00:01:24.698 --> 00:01:29.152
+destaca o espelho de atualização. Exclua destinos internos e some os bytes
+
+00:01:29.152 --> 00:01:33.606
+enviados, source ponto bytes, por destino. O endereço externo cento e noventa
+
+00:01:33.606 --> 00:01:39.174
+e oito ponto cinquenta e um ponto cem ponto sessenta e um recebeu dois bilhões
+
+00:01:39.174 --> 00:01:44.370
+duzentos e noventa e dois milhões novecentos e trinta e três mil setecentos e
+
+00:01:44.370 --> 00:01:46.968
+setenta bytes em cento e oitenta fluxos.
+
+00:01:48.168 --> 00:01:53.715
+O caminho foi DNS, estação, processo e firewall. A estação WKS engenharia
+
+00:01:53.715 --> 00:01:59.724
+cento e dezessete manteve o canal periódico e enviou cerca de dois vírgula
+
+00:01:59.724 --> 00:02:04.809
+vinte e nove gigabytes para fora. A conclusão combina regularidade, raridade,
+
+00:02:04.809 --> 00:02:10.818
+processo anômalo e volume na direção correta. O fluxo não revela o conteúdo
+
+00:02:10.818 --> 00:02:11.280
+enviado.

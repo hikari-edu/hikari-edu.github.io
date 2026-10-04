@@ -1,0 +1,85 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.345
+Caso três. O impacto é visível, mas a pergunta de caça é anterior: qual
+
+00:00:05.345 --> 00:00:09.926
+comportamento teria dado tempo para conter o invasor? A hipótese procura uma
+
+00:00:09.926 --> 00:00:14.507
+conta que enumera muitos grupos em poucos minutos, fora da rotina de
+
+00:00:14.507 --> 00:00:16.416
+inventário, antes do movimento lateral.
+
+00:00:17.616 --> 00:00:22.641
+Filtre o evento quatro sete nove nove, que registra consulta à associação de
+
+00:00:22.641 --> 00:00:27.667
+grupos. Contar eventos coloca o inventário no topo, com mil duzentos e noventa
+
+00:00:27.667 --> 00:00:33.465
+e seis. Porém ele repete só três grupos. A conta adm ponto backup tem sessenta
+
+00:00:33.465 --> 00:00:38.877
+e um eventos, mas percorre quarenta e sete grupos distintos em seis minutos. O
+
+00:00:38.877 --> 00:00:44.289
+endereço de origem dez ponto quarenta ponto zero ponto cento e quarenta leva à
+
+00:00:44.289 --> 00:00:46.608
+estação WKS administração cento e quatro.
+
+00:00:47.808 --> 00:00:53.799
+Siga a conta nos logons de rede. Às dezessete e cinco, ela alcança o primeiro
+
+00:00:53.799 --> 00:00:58.593
+servidor de arquivos. Nove segundos depois surge o serviço remoto PSEXESVC. O
+
+00:00:58.593 --> 00:01:03.785
+processo executado apaga as cópias de sombra e, às dezessete e cinco e
+
+00:01:03.785 --> 00:01:08.978
+quarenta e cinco, aparece o primeiro arquivo com a extensão aurora lock. O
+
+00:01:08.978 --> 00:01:13.371
+segundo servidor é atingido nove minutos depois. Ao todo, três mil
+
+00:01:13.371 --> 00:01:15.768
+quatrocentos e vinte arquivos são renomeados.
+
+00:01:16.968 --> 00:01:22.401
+Refaça a investigação de trás para frente. A extensão bak pertence à rotina de
+
+00:01:22.401 --> 00:01:27.445
+backup; aurora lock marca o impacto simulado. Volte ao evento quatro sete nove
+
+00:01:27.445 --> 00:01:32.878
+nove e compare grupos distintos por conta. Siga o endereço da estação até os
+
+00:01:32.878 --> 00:01:37.535
+logons de rede e os eventos do monitoramento de processos. A enumeração
+
+00:01:37.535 --> 00:01:42.579
+começou às dezesseis e quarenta, cerca de vinte e seis minutos antes da
+
+00:01:42.579 --> 00:01:46.848
+primeira renomeação. O log não demonstra que o conteúdo foi cifrado.
+
+00:01:48.048 --> 00:01:53.665
+A regra útil procura enumeração ampla de grupos antes do impacto. O exemplo do
+
+00:01:53.665 --> 00:01:58.880
+slide usa mais de vinte grupos distintos em quinze minutos, excluindo a conta
+
+00:01:58.880 --> 00:02:03.695
+de inventário conhecida. Outra regra observa a exclusão das cópias de sombra,
+
+00:02:03.695 --> 00:02:08.108
+que já exige resposta urgente. Esses limiares são exemplos derivados do
+
+00:02:08.108 --> 00:02:12.922
+cenário sintético; antes de operar num SOC real, é preciso medir falsos
+
+00:02:12.922 --> 00:02:14.928
+positivos e validar a resposta.
