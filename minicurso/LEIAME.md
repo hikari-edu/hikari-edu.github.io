@@ -9,6 +9,7 @@
 | `cenario/aurora-gerador.zip` | gerador do cenário, conferidor do gabarito e testes |
 | `cenario/aurora-evidencia.zip` | a evidência pronta (49.277 eventos) e o gabarito |
 | `cenario/pacote-hikari-minicurso-aurora.zip` | pacote de desafios para a plataforma Hikari |
+| `cenario/pacote-hikari-minicurso-ponte.zip` | Ponte para a Arena: quatro desafios no formato do QRadar |
 
 O cenário é fictício e determinístico. Nenhum dado de competição é usado, para que o
 curso possa anteceder uma prova sem entregar respostas.
