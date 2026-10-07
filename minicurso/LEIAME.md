@@ -5,6 +5,7 @@
 | `capitulo-threat-hunting-na-pratica.pdf` | capítulo no formato dos minicursos da SBC |
 | `slides-threat-hunting-na-pratica.pdf` | apresentação 16:9 exportada do Keynote, sem notas de fala |
 | `notebooks/` | um caderno por estudo de caso, em `pandas`, com conferência do gabarito |
+| `../assets/demos/aula-caso*.mp4` | três aulas narradas, com legendas, do caso completo |
 | `../assets/demos/hikari-demo-caso*.webm` | três soluções guiadas gravadas numa instalação isolada |
 | `cenario/aurora-gerador.zip` | gerador do cenário, conferidor do gabarito e testes |
 | `cenario/aurora-evidencia.zip` | a evidência pronta (49.277 eventos) e o gabarito |
